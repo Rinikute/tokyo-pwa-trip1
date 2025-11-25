@@ -7,7 +7,7 @@
     <link rel="manifest" href="/manifest.json">
     
     <style>
-        /* 1. Vibe Coding: 基礎設置與純米色調配色 */
+        /* 1. Vibe Coding: 基礎設置與米色調配色 */
         body {
             font-family: 'Hiragino Sans', 'Noto Sans TC', sans-serif;
             background-color: #FAF7F0; /* 主米色背景 (暖米白) */
@@ -35,7 +35,7 @@
             cursor: pointer;
             font-weight: 600;
             flex-shrink: 0;
-            color: #AAAAAA; /* 保持淡色，但不是純灰色 */
+            color: #AAAAAA;
             transition: color 0.3s;
         }
         .tab-button.active {
@@ -77,15 +77,20 @@
             line-height: 1.6;
         }
         
-        /* 4. 天氣 Placeholder */
+        /* 4. 天氣 Placeholder - 調整內邊距以容納小工具 */
         .weather-info {
-            background-color: #F8F8F0; /* 淺米色天氣背景 */
-            color: #6A5B4C; /* 柔和棕色文字 */
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-weight: bold;
+            padding: 0; 
             margin-bottom: 15px;
-            font-size: 0.9em;
+            border: none;
+            box-shadow: none;
+            background-color: transparent;
+        }
+        /* 針對 WeatherWidget.io 的客製化樣式，確保其符合米色調 */
+        .weatherwidget-io {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #E8E8E8;
         }
         
         /* 行程列表 */
@@ -185,7 +190,11 @@
             <h2>🗓️ 12 月 6 日（週五）</h2>
             <p>抵達東京，東雲 A-PIT Super Autobacs</p>
         </div>
-        <div class="card weather-info">☀️ 氣溫: [API] | 天氣: [API] (即時資訊 Placeholder)</div>
+        
+        <div class="weather-info">
+            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
+        </div>
+        
         <div class="card">
             <h3>✈️ 航班與交通</h3>
             <ul class="item-list">
@@ -207,7 +216,9 @@
             <h2>🗓️ 12 月 7 日（週六）</h2>
             <p>川越、上野、晴空塔聖誕</p>
         </div>
-        <div class="card weather-info">☀️ 氣溫: [API] | 天氣: [API] (即時資訊 Placeholder)</div>
+        <div class="weather-info">
+            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
+        </div>
         <div class="card">
             <h3>🎄 戶外活動</h3>
             <ul class="item-list">
@@ -223,7 +234,9 @@
             <h2>🗓️ 12 月 8 日（週日）</h2>
             <p>新宿剪髮，迪士尼樂園</p>
         </div>
-        <div class="card weather-info">☀️ 氣溫: [API] | 天氣: [API] (即時資訊 Placeholder)</div>
+        <div class="weather-info">
+            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
+        </div>
         <div class="card">
             <h3>🏰 迪士尼樂園</h3>
             <ul class="item-list">
@@ -249,7 +262,9 @@
             <h2>🗓️ 12 月 9 日（週一）</h2>
             <p>迪士尼海洋夢幻泉鄉與市區飯店</p>
         </div>
-        <div class="card weather-info">☀️ 氣溫: [API] | 天氣: [API] (即時資訊 Placeholder)</div>
+        <div class="weather-info">
+            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
+        </div>
         <div class="card">
             <h3>🔱 迪士尼海洋 - 夢幻泉鄉</h3>
             <ul class="item-list">
@@ -273,7 +288,9 @@
             <h2>🗓️ 12 月 10 日（週二）</h2>
             <p>吉伊卡哇、原宿、聖誕市集</p>
         </div>
-        <div class="card weather-info">☀️ 氣溫: [API] | 天氣: [API] (即時資訊 Placeholder)</div>
+        <div class="weather-info">
+            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
+        </div>
         <div class="card">
             <h3>🛍️ 購物與美食</h3>
             <ul class="item-list">
@@ -297,7 +314,9 @@
             <h2>🗓️ 12 月 11 日（週三）</h2>
             <p>汽車、六本木、丸之內</p>
         </div>
-        <div class="card weather-info">☀️ 氣溫: [API] | 天氣: [API] (即時資訊 Placeholder)</div>
+        <div class="weather-info">
+            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
+        </div>
         <div class="card">
             <h3>🗼 市區活動</h3>
             <ul class="item-list">
@@ -314,7 +333,9 @@
             <h2>🗓️ 12 月 12 日（週四）</h2>
             <p>返程</p>
         </div>
-        <div class="card weather-info">☀️ 氣溫: [API] | 天氣: [API] (即時資訊 Placeholder)</div>
+        <div class="weather-info">
+            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
+        </div>
         <div class="card">
             <h3>✈️ 返程與購物</h3>
             <ul class="item-list">
@@ -414,6 +435,14 @@
             });
         }
         
+        // 確保天氣小工具腳本在 DOM 載入後執行
+        window.addEventListener('load', function() {
+            var script = document.createElement('script');
+            script.src = 'https://weatherwidget.io/js/widget.min.js';
+            var firstScript = document.getElementsByTagName('script')[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+
         // === 頂部 Tab 分頁切換功能 (修復版) ===
         function showTab(tabId, clickedButton) {
             // 隱藏所有內容區塊 (所有日期 + info + budget)
