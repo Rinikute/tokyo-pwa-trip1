@@ -7,13 +7,13 @@
     <link rel="manifest" href="/manifest.json">
     
     <style>
-        /* 1. Vibe Coding: 基礎設置與米色調配色 */
+        /* 1. Vibe Coding: 基礎設置與純米色調配色 */
         body {
             font-family: 'Hiragino Sans', 'Noto Sans TC', sans-serif;
-            background-color: #FBFBF7; /* 柔和米白色背景 */
+            background-color: #FAF7F0; /* 主米色背景 (暖米白) */
             margin: 0;
             padding: 0;
-            color: #333333; 
+            color: #333333; /* 主要文字色 */
         }
         /* 頂部導航欄 (日期與工具分頁) */
         .tab-nav {
@@ -21,7 +21,7 @@
             overflow-x: auto; 
             white-space: nowrap; 
             background-color: #FFFFFF;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03); 
             padding: 10px 0;
             position: sticky;
             top: 0;
@@ -35,25 +35,22 @@
             cursor: pointer;
             font-weight: 600;
             flex-shrink: 0;
-            color: #AAAAAA;
+            color: #AAAAAA; /* 保持淡色，但不是純灰色 */
             transition: color 0.3s;
         }
         .tab-button.active {
-            color: #FFB3C0; /* 吉伊卡哇粉色 */
-            border-bottom: 3px solid #FFB3C0;
+            color: #D4A373; /* 暖棕色/陶土色作為強調色 */
+            border-bottom: 3px solid #D4A373;
         }
 
         /* 2. 佈局與卡片設計 */
         .content {
             padding: 20px;
         }
-        .day-container {
-            /* 包裹所有卡片 */
-        }
-        /* *** 新增：米黃色日期方塊 *** */
+        /* *** 米黃色日期方塊 *** */
         .day-box {
-            background-color: #FFF8E5; /* 柔和米黃色 */
-            border: 1px solid #F0E0D8;
+            background-color: #FFF8E0; /* 純米黃色方塊 */
+            border: 1px solid #E0D8C8; /* 極淺邊框 */
             border-radius: 8px;
             padding: 10px 15px;
             margin-bottom: 25px;
@@ -71,21 +68,21 @@
         }
 
         .card {
-            background-color: #FFFFFF;
-            border-radius: 16px; 
+            background-color: #FFFFFF; /* 純白色卡片 */
+            border-radius: 12px; /* 略圓潤邊角 */
             padding: 20px 24px; 
             margin-bottom: 25px; 
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05); 
-            border: 1px solid #FFEBEF; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); 
+            border: 1px solid #E8E8E8; /* 淺灰邊框 */
             line-height: 1.6;
         }
         
         /* 4. 天氣 Placeholder */
         .weather-info {
-            background-color: #FFF2F7; 
-            color: #FF6699; 
+            background-color: #F8F8F0; /* 淺米色天氣背景 */
+            color: #6A5B4C; /* 柔和棕色文字 */
             padding: 10px 15px;
-            border-radius: 12px;
+            border-radius: 10px;
             font-weight: bold;
             margin-bottom: 15px;
             font-size: 0.9em;
@@ -99,7 +96,7 @@
         }
         .item-list li {
             padding: 10px 0;
-            border-bottom: 1px dashed #F0E0E5; 
+            border-bottom: 1px dashed #E5E5E5; /* 淺灰色虛線 */
             font-size: 0.95em;
         }
         .item-list li:last-child {
@@ -113,21 +110,21 @@
             min-width: 60px; 
         }
 
-        /* 5. 標籤設計 (使用可愛粉彩輔助色) */
+        /* 5. 標籤設計 (使用米色調和少量點綴色) */
         .tag {
             display: inline-block;
             padding: 4px 10px;
             margin: 3px 5px 3px 0;
-            border-radius: 8px; 
+            border-radius: 6px; 
             font-size: 0.75em;
             font-weight: bold;
         }
-        .tag-pass { background-color: #FFE4E9; color: #D83A56; } 
-        .tag-must-do { background-color: #E8F8E8; color: #4CAF50; } 
-        .tag-food { background-color: #FFFDE0; color: #FF9800; } 
-        .tag-reservation { background-color: #E8F0F8; color: #4C70A8; } 
-        .tag-buy { background-color: #FFE8F2; color: #C2185B; } 
-        .tag-xmas { background-color: #F8EFE5; color: #8D6E63; } 
+        .tag-pass { background-color: #F4E8D4; color: #7B6858; } /* 快速通關/必玩 (淡米棕) */
+        .tag-must-do { background-color: #E6F3E6; color: #4CAF50; } /* 必玩/推薦 (淡綠，保持功能色) */
+        .tag-food { background-color: #FFF0D6; color: #C48E44; } /* 食物 (淡米黃/金) */
+        .tag-reservation { background-color: #E0EBF7; color: #4C70A8; } /* 預約/門票 (淡藍，保持功能色) */
+        .tag-buy { background-color: #F7E6E8; color: #8D545B; } /* 購物 (淺紅棕) */
+        .tag-xmas { background-color: #EFE6DA; color: #6A5B4C; } /* 聖誕市集 (深米棕) */
 
         /* 6. 記帳頁面樣式 */
         .budget-input-group {
@@ -135,14 +132,14 @@
         }
         .budget-input-group input, .budget-input-group select {
             padding: 10px;
-            border-radius: 10px; 
-            border: 1px solid #FFEBEF;
+            border-radius: 6px; 
+            border: 1px solid #E8E8E8;
             width: 100%;
             box-sizing: border-box;
             margin-top: 5px;
         }
         .delete-btn {
-            color: #FF6699; 
+            color: #D83A56; /* 緊急刪除色 (紅色) */
             cursor: pointer; 
             float: right;
             font-weight: bold;
@@ -152,10 +149,10 @@
         .action-button {
             display: block; 
             text-align: center;
-            background-color: #FFB3C0; 
-            color: #333;
+            background-color: #D4A373; /* 主按鈕色：暖棕色 */
+            color: #FFFFFF;
             padding: 10px 15px;
-            border-radius: 20px; 
+            border-radius: 6px; 
             text-decoration: none;
             font-size: 0.95em;
             margin-top: 15px;
@@ -164,7 +161,8 @@
             font-weight: bold;
         }
         .action-button.green {
-            background-color: #B5EAD7; 
+            background-color: #79A37B; /* 記錄支出按鈕 (柔和綠) */
+            color: #FFFFFF;
         }
     </style>
 </head>
@@ -380,7 +378,7 @@
             <div class="budget-input-group">
                 <label for="exchangeRate">JPY 對台幣匯率 (例：0.215):</label>
                 <input type="number" id="exchangeRate" value="0.215" step="0.001">
-                <button onclick="saveSettings()" class="action-button" style="background-color:#FFB3C0; margin-top: 10px;">儲存設定</button>
+                <button onclick="saveSettings()" class="action-button" style="background-color:#D4A373; color:white; margin-top: 10px;">儲存設定</button>
             </div>
         </div>
         
