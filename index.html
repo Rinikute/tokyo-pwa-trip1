@@ -7,22 +7,21 @@
     <link rel="manifest" href="/manifest.json">
     
     <style>
-        /* CSS 樣式代碼與上次提供的最終版本完全相同... */
-        /* ... (為了簡潔，這裡省略了所有 CSS 代碼) ... */
-        /* 請確保您使用上次提供的完整 CSS 代碼 */
+        /* 1. Vibe Coding: 基礎設置與可愛粉色系配色 */
         body {
             font-family: 'Hiragino Sans', 'Noto Sans TC', sans-serif;
-            background-color: #FBFBF7; /* 柔和米白色背景 */
+            background-color: #F8F8F8; /* 淺灰色背景 */
             margin: 0;
             padding: 0;
-            color: #333333; /* 深灰文字 */
+            color: #333333; 
         }
+        /* 頂部導航欄 (日期與工具分頁) */
         .tab-nav {
             display: flex;
-            overflow-x: auto;
+            overflow-x: auto; 
             white-space: nowrap; 
             background-color: #FFFFFF;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* 略圓潤的陰影 */
             padding: 10px 0;
             position: sticky;
             top: 0;
@@ -40,29 +39,46 @@
             transition: color 0.3s;
         }
         .tab-button.active {
-            color: #385E72;
-            border-bottom: 3px solid #385E72;
+            color: #FFB3C0; /* 吉伊卡哇粉色 */
+            border-bottom: 3px solid #FFB3C0;
         }
+
+        /* 2. 佈局與卡片設計 */
         .content {
             padding: 20px;
         }
+        .day-header {
+            margin-bottom: 25px;
+            padding-left: 5px;
+        }
+        .day-header h2 {
+            font-size: 1.5em;
+            color: #333;
+            margin: 0;
+        }
+
         .card {
             background-color: #FFFFFF;
-            border-radius: 12px;
+            border-radius: 16px; /* 更圓潤的卡片邊角 */
             padding: 20px 24px; 
-            margin-bottom: 32px; 
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            margin-bottom: 25px; 
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05); /* 柔和陰影 */
+            border: 1px solid #FFEBEF; /* 淺粉色邊框 */
             line-height: 1.6;
         }
+        
+        /* 4. 天氣 Placeholder */
         .weather-info {
-            background-color: #EFEFE8;
-            color: #444;
+            background-color: #FFF2F7; /* 淺粉色天氣背景 */
+            color: #FF6699; /* 粉色文字 */
             padding: 10px 15px;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: bold;
             margin-bottom: 15px;
             font-size: 0.9em;
         }
+        
+        /* 行程列表 */
         .item-list {
             list-style: none;
             padding: 0;
@@ -70,7 +86,7 @@
         }
         .item-list li {
             padding: 10px 0;
-            border-bottom: 1px dashed #E0E0D8;
+            border-bottom: 1px dashed #F0E0E5; /* 柔和的虛線 */
             font-size: 0.95em;
         }
         .item-list li:last-child {
@@ -81,49 +97,61 @@
             color: #555;
             margin-right: 8px;
             display: inline-block;
-            min-width: 60px;
+            min-width: 60px; 
         }
+
+        /* 5. 標籤設計 (使用可愛粉彩輔助色) */
         .tag {
             display: inline-block;
-            padding: 4px 8px;
+            padding: 4px 10px;
             margin: 3px 5px 3px 0;
-            border-radius: 5px;
+            border-radius: 8px; /* 圓角標籤 */
             font-size: 0.75em;
             font-weight: bold;
         }
-        .tag-pass { background-color: #F7E4E9; color: #D83A56; }
-        .tag-must-do { background-color: #E8F5E8; color: #4CAF50; }
-        .tag-food { background-color: #FFF3E5; color: #FF9800; }
-        .tag-reservation { background-color: #E8E5F6; color: #673AB7; }
-        .tag-buy { background-color: #E2F5F8; color: #00BCD4; }
-        .tag-xmas { background-color: #F7F0E5; color: #8D6E63; }
-        .nav-button {
-            display: block; 
-            text-align: center;
-            background-color: #385E72;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.95em;
-            margin-top: 15px;
-            transition: background-color 0.3s;
-        }
+        .tag-pass { background-color: #FFE4E9; color: #D83A56; } /* 快速通關/必玩 (深粉) */
+        .tag-must-do { background-color: #E8F8E8; color: #4CAF50; } /* 必玩/推薦 (淡綠) */
+        .tag-food { background-color: #FFFDE0; color: #FF9800; } /* 食物 (淡黃) */
+        .tag-reservation { background-color: #E8F0F8; color: #4C70A8; } /* 預約/門票 (淡藍) */
+        .tag-buy { background-color: #FFE8F2; color: #C2185B; } /* 購物 (莓紅) */
+        .tag-xmas { background-color: #F8EFE5; color: #8D6E63; } /* 聖誕市集 (棕色系) */
+
+        /* 6. 記帳頁面樣式 */
         .budget-input-group {
             margin-bottom: 15px;
         }
         .budget-input-group input, .budget-input-group select {
-            padding: 8px;
+            padding: 10px;
+            border-radius: 10px; /* 圓潤輸入框 */
+            border: 1px solid #FFEBEF;
             width: 100%;
             box-sizing: border-box;
             margin-top: 5px;
         }
         .delete-btn {
-            color: red; 
+            color: #FF6699; /* 粉色刪除鍵 */
             cursor: pointer; 
             float: right;
             font-weight: bold;
             margin-left: 10px;
+        }
+        /* 圓角按鈕 */
+        .action-button {
+            display: block; 
+            text-align: center;
+            background-color: #FFB3C0; /* 主粉色 */
+            color: #333;
+            padding: 10px 15px;
+            border-radius: 20px; /* 更圓潤的膠囊按鈕 */
+            text-decoration: none;
+            font-size: 0.95em;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+            border: none;
+            font-weight: bold;
+        }
+        .action-button.green {
+            background-color: #B5EAD7; /* 淺綠色輔助 */
         }
     </style>
 </head>
@@ -157,7 +185,6 @@
             <ul class="item-list">
                 <li><span class="time">下午</span> 東雲 A-PIT Super Autobacs</li>
             </ul>
-            <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東雲A-PIT+Super+Autobacs" target="_blank" class="nav-button">🗺️ 導航至東雲 A-PIT</a>
         </div>
     </div>
     
@@ -171,345 +198,9 @@
                 <li><span class="time">下午</span> 東京聖誕 Advent in 上野公園 <span class="tag tag-xmas">聖誕市集</span></li>
                 <li><span class="time">晚上</span> SKYTREE Dream Christmas 2025</li>
             </ul>
-            <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=上野公園+Advent+in+上野公園" target="_blank" class="nav-button">🗺️ 導航至上野公園 (聖誕市集)</a>
-            <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=Skytree+Dream+Christmas" target="_blank" class="nav-button">🗺️ 導航至晴空塔</a>
         </div>
     </div>
     
     <div id="day-12-8" class="content" style="display:none;">
         <header class="day-header"><h2>🗓️ 12 月 8 日（週日）</h2><p>新宿剪髮，迪士尼樂園</p></header>
-        <div class="card weather-info">☀️ 氣溫: [API] | 天氣: [API] (即時資訊 Placeholder)</div>
-        <div class="card">
-            <h3>🏰 迪士尼樂園</h3>
-            <ul class="item-list">
-                <li><span class="time">08:00</span> Check out Comfort Hotel</li>
-                <li><span class="time">09:00</span> **アリエス 新宿東南口店** <span class="tag tag-reservation">預約</span></li>
-                <li><span class="time">上午</span> 前往東京迪士尼海洋 Check-in **夢幻泉鄉** (12/8-12/9)</li>
-                <li><span class="time">17:00</span> **美女與野獸** <span class="tag tag-reservation">已預約</span></li>
-            </ul>
-            <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=アリエス+新宿東南口店" target="_blank" class="nav-button">🗺️ 導航至アリエス</a>
-            <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=Tokyo+Disneyland" target="_blank" class="nav-button">🗺️ 導航至迪士尼樂園</a>
-        </div>
-        <div class="card">
-            <h3>🎢 必玩與美食 (樂園)</h3>
-            <ul class="item-list">
-                <li>**快速通關**：<span class="tag tag-pass">巨雷山</span>、<span class="tag tag-pass">幽靈公關</span></li>
-                <li>**必玩項目**：<span class="tag tag-must-do">小小世界</span>、<span class="tag tag-must-do">艾芝迷你雲霄飛車</span>、<span class="tag tag-must-do">杯麵</span>、<span class="tag tag-must-do">白雪公主</span></li>
-                <li>**遊行/煙火**：<span class="time">12:45</span> 玩具奇妙聖誕遊行 / <span class="time">19:00</span> 墊子大遊行~夢之光 / <span class="time">20:30</span> 煙火</li>
-                <li>**想吃美食**：<span class="tag tag-food">水晶宮 (吃到飽)</span>、<span class="tag tag-food">中央大道咖啡廳</span></li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="day-12-9" class="content" style="display:none;">
-        <header class="day-header"><h2>🗓️ 12 月 9 日（週一）</h2><p>迪士尼海洋夢幻泉鄉與市區飯店</p></header>
-        <div class="card weather-info">☀️ 氣溫: [API] | 天氣: [API] (即時資訊 Placeholder)</div>
-        <div class="card">
-            <h3>🔱 迪士尼海洋 - 夢幻泉鄉</h3>
-            <ul class="item-list">
-                <li><span class="time">08:20</span> 早餐預約</li>
-                <li><span class="time">12:00</span> Check out 夢幻泉鄉</li>
-                <li>**預約設施**：<span class="time">10:00</span> Elsa、<span class="time">11:30</span> 樂佩、<span class="time">13:30</span> 彼得潘</li>
-                <li>**表演**：<span class="time">14:15</span> 迪士尼聖誕迎賓會 / <span class="time">15:25</span> 達菲旅程 (遊行) / <span class="time">20:30</span> 煙火</li>
-            </ul>
-            <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=Tokyo+DisneySea+Fantasy+Springs+Hotel" target="_blank" class="nav-button">🗺️ 導航至迪士尼海洋</a>
-        </div>
-        <div class="card">
-            <h3>🎢 必玩與住宿 Check-in</h3>
-            <ul class="item-list">
-                <li>**必玩項目**：<span class="tag tag-pass">玩具總動員</span>、<span class="tag tag-pass">驚魂古塔</span>、<span class="tag tag-pass">印第安那冒險</span>、<span class="tag tag-pass">地心探險</span>、<span class="tag tag-pass">憤怒雙神</span></li>
-                <li><span class="time">晚上</span> Check-in **REMM PLUS GINZA** (12/9 - 12/12)</li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="day-12-10" class="content" style="display:none;">
-        <header class="day-header"><h2>🗓️ 12 月 10 日（週二）</h2><p>吉伊卡哇、原宿、聖誕市集</p></header>
-        <div class="card weather-info">☀️ 氣溫: [API] | 天氣: [API] (即時資訊 Placeholder)</div>
-        <div class="card">
-            <h3>🛍️ 購物與美食</h3>
-            <ul class="item-list">
-                <li><span class="time">早上</span> 池袋逛街</li>
-                <li><span class="time">中午</span> ねぎし Negishi <span class="tag tag-food">午餐</span></li>
-                <li><span class="time">13:40</span> **吉伊卡哇樂園** <span class="tag tag-reservation">預約</span></li>
-                <li><span class="time">下午</span> 原宿逛街</li>
-            </ul>
-            <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=ねぎし+Negishi" target="_blank" class="nav-button">🗺️ 導航至 ねぎし Negishi</a>
-            <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=吉伊卡哇樂園" target="_blank" class="nav-button">🗺️ 導航至吉伊卡哇樂園</a>
-        </div>
-        <div class="card">
-            <h3>🎄 聖誕夜景</h3>
-            <ul class="item-list">
-                <li><span class="time">晚上</span> 明治神宮外苑聖誕市集 <span class="tag tag-xmas">聖誕市集</span></li>
-                <li><span class="time">可選</span> 芝公園聖誕市集 <span class="tag tag-xmas">聖誕市集</span></li>
-            </ul>
-            <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=明治神宮外苑" target="_blank" class="nav-button">🗺️ 導航至明治神宮外苑</a>
-        </div>
-    </div>
-    
-    <div id="day-12-11" class="content" style="display:none;">
-        <header class="day-header"><h2>🗓️ 12 月 11 日（週三）</h2><p>汽車、六本木、丸之內</p></header>
-        <div class="card weather-info">☀️ 氣溫: [API] | 天氣: [API] (即時資訊 Placeholder)</div>
-        <div class="card">
-            <h3>🗼 市區活動</h3>
-            <ul class="item-list">
-                <li><span class="time">早餐</span> Tricolore coffee <span class="tag tag-food">咖啡廳</span></li>
-                <li><span class="time">上午</span> BINGO SPORTS 東京ショールーム <span class="tag tag-buy">可選/看車</span></li>
-                <li><span class="time">中午</span> 六本木新城 & 麻布台Hills <span class="tag tag-xmas">聖誕市集/逛街</span></li>
-                <li><span class="time">晚上</span> 丸之內 Street Park 2025 Winter</li>
-            </ul>
-            <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=Tricolore+coffee" target="_blank" class="nav-button">🗺️ 導航至 Tricolore coffee</a>
-            <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=六本木新城" target="_blank" class="nav-button">🗺️ 導航至六本木新城</a>
-        </div>
-    </div>
-
-    <div id="day-12-12" class="content" style="display:none;">
-        <header class="day-header"><h2>🗓️ 12 月 12 日（週四）</h2><p>返程</p></header>
-        <div class="card weather-info">☀️ 氣溫: [API] | 天氣: [API] (即時資訊 Placeholder)</div>
-        <div class="card">
-            <h3>✈️ 返程與購物</h3>
-            <ul class="item-list">
-                <li><span class="time">上午</span> Check-out 飯店</li>
-                <li><span class="time">交通</span> 搭乘 SKYLINER 班次: <span class="tag tag-reservation">14:20</span> 或 <span class="tag tag-reservation">14:37</span> 至成田</li>
-                <li><span class="time">班機</span> CI 0127 東京 (NRT) ➡️ 高雄 (KHH)</li>
-            </ul>
-            <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=成田機場" target="_blank" class="nav-button">🗺️ 導航至成田機場</a>
-        </div>
-    </div>
-
-
-    <div id="info" class="content" style="display:none;">
-        <h2>📝 旅程資訊</h2>
-            
-        <div class="card">
-            <h3>✈️ 航班資訊</h3>
-            <ul class="item-list">
-                <li><span class="time">去程</span> 12/6 (週五) CI 0102</li>
-                <li><span class="time">回程</span> 12/12 (週四) CI 0127</li>
-            </ul>
-        </div>
-            
-        <div class="card">
-            <h3>🏨 住宿資訊</h3>
-            <ul class="item-list">
-                <li><span class="time">12/6 - 12/8</span> Comfort Hotel Tokyo Kanda</li>
-                <li><span class="time">12/8 - 12/9</span> 東京迪士尼海洋夢幻泉鄉飯店</li>
-                <li><span class="time">12/9 - 12/12</span> REMM PLUS GINZA</li>
-            </ul>
-        </div>
-            
-        <div class="card">
-            <h3>📞 緊急聯絡電話與必備品</h3>
-            <ul class="item-list">
-                <li>**重要文件/財物**：<span class="tag tag-reservation">護照</span>、錢、<span class="tag tag-reservation">信用卡</span></li>
-                <li>**通信/網路**：**ESIM** (或SIM卡)</li>
-                <li>**電子設備**：相機、充電器 (手機+相機)</li>
-                <li>**日本警察**：110</li>
-                <li>**救護/消防**：119</li>
-                <li>**重要預約**：SKYLINER 票、迪士尼預約項目</li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="budget" class="content" style="display:none;">
-        <h2>💰 記帳/預算中心</h2>
-        
-        <div class="card" style="background-color: #f0fff0;">
-            <h3>💸 總預算與匯率設定</h3>
-            <p>今日剩餘：<strong id="daily-remaining">¥0</strong> / 總剩餘：<strong id="total-remaining">¥0</strong></p>
-            <div class="budget-input-group">
-                <label for="totalBudget">總預算 (JPY):</label>
-                <input type="number" id="totalBudget" value="100000" min="0">
-            </div>
-            <div class="budget-input-group">
-                <label for="exchangeRate">JPY 對台幣匯率 (例：0.215):</label>
-                <input type="number" id="exchangeRate" value="0.215" step="0.001">
-                <button onclick="saveSettings()" style="background-color:#385E72; color:white; border:none; padding: 6px 12px; border-radius: 5px; margin-top: 10px;">儲存設定</button>
-            </div>
-        </div>
-        
-        <div class="card">
-            <h3>➕ 新增支出</h3>
-            <div class="budget-input-group">
-                <input type="text" id="expenseDesc" placeholder="項目 (例如：午餐)">
-            </div>
-            <div class="budget-input-group">
-                <input type="number" id="expenseAmount" placeholder="金額 (JPY)">
-            </div>
-            <button onclick="addExpense()" class="nav-button" style="background-color:#4CAF50; margin-top: 5px;">記錄支出</button>
-        </div>
-
-        <div class="card">
-            <h3>🧾 支出明細</h3>
-            <ul id="expenseList" class="item-list">
-                </ul>
-            <p style="text-align: right; margin-top: 15px;">總支出 (TWD)：<strong id="total-twd">NT$ 0</strong></p>
-        </div>
-    </div>
-
-
-    <script>
-        // === PWA 服務工作線程註冊 ===
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js').then(registration => {
-                    console.log('SW registered: ', registration);
-                }).catch(registrationError => {
-                    console.log('SW registration failed: ', registrationError);
-                });
-            });
-        }
-        
-        // === 頂部 Tab 分頁切換功能 ===
-        function showTab(tabId, clickedButton) {
-            // 隱藏所有內容區塊 (所有日期 + info + budget)
-            document.getElementById('day-12-6').style.display = 'none';
-            document.getElementById('day-12-7').style.display = 'none';
-            document.getElementById('day-12-8').style.display = 'none';
-            document.getElementById('day-12-9').style.display = 'none';
-            document.getElementById('day-12-10').style.display = 'none';
-            document.getElementById('day-12-11').style.display = 'none';
-            document.getElementById('day-12-12').style.display = 'none';
-            document.getElementById('info').style.display = 'none';
-            document.getElementById('budget').style.display = 'none';
-
-
-            // 顯示選擇的區塊
-            document.getElementById(tabId).style.display = 'block';
-
-            // 更新按鈕的 active 狀態
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            clickedButton.classList.add('active');
-        }
-
-        // === 離線記帳功能 JavaScript ===
-        let expenses = [];
-        const today = new Date().toISOString().slice(0, 10);
-
-        function loadData() {
-            const savedBudget = localStorage.getItem('totalBudget') || 100000;
-            const savedRate = localStorage.getItem('exchangeRate') || 0.215;
-            document.getElementById('totalBudget').value = savedBudget;
-            document.getElementById('exchangeRate').value = savedRate;
-
-            const savedExpenses = localStorage.getItem('expenses');
-            if (savedExpenses) {
-                expenses = JSON.parse(savedExpenses);
-            }
-            renderExpenses();
-            updateSummary();
-        }
-
-        function saveSettings() {
-            const budget = document.getElementById('totalBudget').value;
-            const rate = document.getElementById('exchangeRate').value;
-            localStorage.setItem('totalBudget', budget);
-            localStorage.setItem('exchangeRate', rate);
-            updateSummary();
-            alert('設定已儲存！');
-        }
-
-        function addExpense() {
-            const desc = document.getElementById('expenseDesc').value.trim();
-            const amount = parseFloat(document.getElementById('expenseAmount').value);
-
-            if (!desc || isNaN(amount) || amount <= 0) {
-                alert('請輸入有效的項目和金額！');
-                return;
-            }
-
-            const newExpense = {
-                id: Date.now(),
-                date: today,
-                desc: desc,
-                amount: amount,
-            };
-
-            expenses.push(newExpense);
-            localStorage.setItem('expenses', JSON.stringify(expenses));
-
-            document.getElementById('expenseDesc').value = '';
-            document.getElementById('expenseAmount').value = '';
-
-            renderExpenses();
-            updateSummary();
-        }
-
-        function deleteExpense(id) {
-            if (!confirm('確定刪除此筆紀錄嗎？')) return;
-
-            expenses = expenses.filter(exp => exp.id !== id);
-            localStorage.setItem('expenses', JSON.stringify(expenses));
-            renderExpenses();
-            updateSummary();
-        }
-
-        function renderExpenses() {
-            const list = document.getElementById('expenseList');
-            list.innerHTML = '';
-            
-            expenses.sort((a, b) => b.id - a.id).forEach(exp => {
-                const rate = parseFloat(localStorage.getItem('exchangeRate') || 0.215);
-                const twdAmount = (exp.amount * rate).toFixed(0);
-                
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `
-                    <span class="time">${exp.desc}</span> 
-                    ¥${exp.amount.toLocaleString()} 
-                    (NT$ ${twdAmount.toLocaleString()})
-                    <span class="delete-btn" onclick="deleteExpense(${exp.id})">[X]</span>
-                `;
-                list.appendChild(listItem);
-            });
-        }
-
-        function updateSummary() {
-            const totalBudget = parseFloat(localStorage.getItem('totalBudget') || 100000);
-            const exchangeRate = parseFloat(localStorage.getItem('exchangeRate') || 0.215);
-
-            let totalSpentJPY = 0;
-            let todaySpentJPY = 0;
-            
-            expenses.forEach(exp => {
-                totalSpentJPY += exp.amount;
-                if (exp.date === today) {
-                    todaySpentJPY += exp.amount;
-                }
-            });
-
-            const totalSpentTWD = (totalSpentJPY * exchangeRate).toFixed(0);
-            const totalRemaining = totalBudget - totalSpentJPY;
-            const dailyRemaining = totalBudget - todaySpentJPY;
-
-            document.getElementById('total-remaining').textContent = `¥${totalRemaining.toLocaleString()}`;
-            document.getElementById('daily-remaining').textContent = `¥${dailyRemaining.toLocaleString()}`;
-            document.getElementById('total-twd').textContent = `NT$ ${totalSpentTWD.toLocaleString()}`;
-
-            if (totalRemaining < 0) {
-                document.getElementById('total-remaining').style.color = 'red';
-            } else {
-                document.getElementById('total-remaining').style.color = '#4CAF50';
-            }
-        }
-
-        // 頁面載入後，執行載入記帳數據
-        window.addEventListener('load', loadData); 
-        
-        // 確保初始狀態正確，隱藏其他分頁
-        document.addEventListener('DOMContentLoaded', () => {
-             document.getElementById('day-12-7').style.display = 'none';
-             document.getElementById('day-12-8').style.display = 'none';
-             document.getElementById('day-12-9').style.display = 'none';
-             document.getElementById('day-12-10').style.display = 'none';
-             document.getElementById('day-12-11').style.display = 'none';
-             document.getElementById('day-12-12').style.display = 'none';
-             document.getElementById('info').style.display = 'none';
-             document.getElementById('budget').style.display = 'none';
-             document.getElementById('tab-12-6-btn').classList.add('active'); // 預設顯示 12/6
-        });
-
-    </script>
-</body>
-</html>
+        <div class="card weather
