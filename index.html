@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>東京聖誕之旅</title>
     <link rel="manifest" href="/manifest.json">
+    
     <style>
         /* 1. Vibe Coding: 基礎設置與配色 */
         body {
@@ -73,7 +74,7 @@
             font-weight: bold;
             margin-bottom: 15px;
             font-size: 0.9em;
-            display: none; /* 部署時再顯示 */
+            /* 部署後需透過 JS 顯示 */
         }
         
         /* 行程列表 */
@@ -110,16 +111,16 @@
             font-size: 0.75em;
             font-weight: bold;
         }
-        .tag-pass { background-color: #FFE0E6; color: #D83A56; } /* 快速通關/紅色 */
-        .tag-must-do { background-color: #E0F7E6; color: #4CAF50; } /* 必玩/綠色 */
-        .tag-food { background-color: #FFF8E1; color: #FF9800; } /* 必吃美食/黃色 */
-        .tag-reservation { background-color: #EDE7F6; color: #673AB7; } /* 重要預約/紫色 */
-        .tag-buy { background-color: #E0F7FA; color: #00BCD4; } /* 必買伴手禮/青藍色 */
-        .tag-story { background-color: #F3E5F5; color: #9C27B0; } /* 景點故事/紫色 */
+        .tag-pass { background-color: #FFE0E6; color: #D83A56; } 
+        .tag-must-do { background-color: #E0F7E6; color: #4CAF50; } 
+        .tag-food { background-color: #FFF8E1; color: #FF9800; } 
+        .tag-reservation { background-color: #EDE7F6; color: #673AB7; } 
+        .tag-buy { background-color: #E0F7FA; color: #00BCD4; } 
+        .tag-story { background-color: #F3E5F5; color: #9C27B0; } 
 
         /* 6. 導航按鈕 */
         .nav-button {
-            display: block; /* 導航按鈕單獨一行 */
+            display: block; 
             text-align: center;
             background-color: #008CBA;
             color: white;
@@ -129,6 +130,24 @@
             font-size: 0.95em;
             margin-top: 15px;
             transition: background-color 0.3s;
+        }
+        
+        /* 記帳頁面樣式 */
+        .budget-input-group {
+            margin-bottom: 15px;
+        }
+        .budget-input-group input, .budget-input-group select {
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 5px;
+        }
+        .delete-btn {
+            color: red; 
+            cursor: pointer; 
+            float: right;
+            font-weight: bold;
+            margin-left: 10px;
         }
     </style>
 </head>
@@ -148,18 +167,18 @@
         </header>
         
         <div class="card weather-info">
-            ☀️ 氣溫: 15°C | 天氣: 晴朗 (即時資訊 Placeholder)
+            ☀️ 氣溫: [API] | 天氣: [API] (即時資訊 Placeholder)
         </div>
 
         <div class="card">
             <h3>✈️ 航班與交通</h3>
             <ul class="item-list">
-                [cite_start]<li><span class="time">08:00</span> ✈️ 高雄 (KHH) 起飛 ➡️ 東京 (NRT) <span class="tag tag-reservation">KLOOK先定利木津</span> [cite: 4, 392]</li>
-                [cite_start]<li><span class="time">12:20</span> 抵達成田機場（航廈 2） [cite: 10]</li>
+                <li><span class="time">08:00</span> ✈️ 高雄 (KHH) 起飛 ➡️ 東京 (NRT) <span class="tag tag-reservation">KLOOK先定利木津</span></li>
+                <li><span class="time">12:20</span> 抵達成田機場（航廈 2）</li>
                 <li>
-                    [cite_start]<span class="time">利木津巴士</span> (NRT T2 ➡️ Fantasy Springs Hotel) [cite: 15]
+                    <span class="time">利木津巴士</span> (NRT T2 ➡️ Fantasy Springs Hotel)
                     <br>
-                    [cite_start]建議班次：<span class="tag tag-reservation">13:35 出發</span> [cite: 70] [cite_start]➡️ <span class="tag tag-reservation">14:58 抵達</span> [cite: 72]
+                    建議班次：<span class="tag tag-reservation">13:35 出發</span> ➡️ <span class="tag tag-reservation">14:58 抵達</span>
                     <a href="http://googleusercontent.com/maps.google.com/search?q=Tokyo+DisneySea+Fantasy+Springs+Hotel" class="nav-button">
                         🗺️ 導航至迪士尼飯店
                     </a>
@@ -170,19 +189,19 @@
         <div class="card">
             <h3>🏰 東京迪士尼樂園</h3>
             <ul class="item-list">
-                [cite_start]<li><span class="time">17:00</span> **美女與野獸** (預約項目) [cite: 120] <span class="tag tag-reservation">需預約</span></li>
+                <li><span class="time">17:00</span> **美女與野獸** (預約項目) <span class="tag tag-reservation">需預約</span></li>
                 <li>
                     **必玩/快速通關**
                     <br>
-                    [cite_start]<span class="tag tag-pass">巨雷山</span> [cite: 122]
-                    [cite_start]<span class="tag tag-pass">幽靈公館</span> [cite: 123]
-                    [cite_start]<span class="tag tag-must-do">小小世界</span> [cite: 115] [cite_start]<span class="tag tag-must-do">杯麵</span> [cite: 116]
+                    <span class="tag tag-pass">巨雷山</span>
+                    <span class="tag tag-pass">幽靈公館</span>
+                    <span class="tag tag-must-do">小小世界</span> <span class="tag tag-must-do">杯麵</span>
                 </li>
                 <li>
                     **必吃美食**
                     <br>
-                    [cite_start]<span class="tag tag-food">水晶宮 (吃到飽)</span> [cite: 118]
-                    [cite_start]<span class="tag tag-food">中央大道咖啡餐館 (杯麵咖哩飯)</span> [cite: 118]
+                    <span class="tag tag-food">水晶宮 (吃到飽)</span>
+                    <span class="tag tag-food">中央大道咖啡餐館 (杯麵咖哩飯)</span>
                     <a href="http://googleusercontent.com/maps.google.com/search?q=Tokyo+Disneyland" class="nav-button">
                         🗺️ 導航至迪士尼樂園
                     </a>
@@ -196,11 +215,11 @@
         </header>
         <div class="card">
             <h3>🔱 東京迪士尼海洋 - 夢幻泉鄉</h3>
-            [cite_start]<span class="tag tag-story">攻略: 夢幻泉鄉為最新園區，必玩 Peter Pan, Elsa, Rapunzel 設施！</span> [cite: 134, 136]
+            <span class="tag tag-story">攻略: 夢幻泉鄉為最新園區，必玩 Peter Pan, Elsa, Rapunzel 設施！</span>
             <ul class="item-list">
-                [cite_start]<li><span class="time">08:20</span> 早餐預約 [cite: 136]</li>
-                [cite_start]<li><span class="time">12:00</span> 飯店退房 [cite: 131]</li>
-                [cite_start]<li><span class="time">必玩</span> <span class="tag tag-must-do">玩具總動員</span> [cite: 138] [cite_start]<span class="tag tag-must-do">驚魂古塔</span> [cite: 139] [cite_start]<span class="tag tag-must-do">地心探險</span> [cite: 141]</li>
+                <li><span class="time">08:20</span> 早餐預約</li>
+                <li><span class="time">12:00</span> 飯店退房</li>
+                <li><span class="time">必玩</span> <span class="tag tag-must-do">玩具總動員</span> <span class="tag tag-must-do">驚魂古塔</span> <span class="tag tag-must-do">地心探險</span></li>
             </ul>
             <a href="http://googleusercontent.com/maps.google.com/search?q=Tokyo+DisneySea" class="nav-button">
                 🗺️ 導航至迪士尼海洋
@@ -209,130 +228,4 @@
         
         <header class="day-header">
             <h2>🗓️ 12 月 10 日（週三）</h2>
-            <p>吉伊卡哇與聖誕市集</p>
-        </header>
-        <div class="card">
-            <h3>🛍️ 吉伊卡哇/川越與購物</h3>
-            <ul class="item-list">
-                [cite_start]<li><span class="time">交通</span> 山手線至池袋 ➡️ 東武東上線 [cite: 162, 163]</li>
-                [cite_start]<li><span class="time">早午餐</span> <span class="tag tag-food">bills 表參道</span> [cite: 168] [cite_start]或 <span class="tag tag-food">Negishi (牛舌)</span> [cite: 164]</li>
-                [cite_start]<li><span class="time">下午</span> 步行 <span class="tag tag-buy">吉伊卡哇 MOGUMOGU 本舖</span> [cite: 219]</li>
-                [cite_start]<li><span class="time">18:30</span> Christmas Market Tokyo 2025 (神宮外苑) [cite: 212, 217]</li>
-            </ul>
-            <a href="http://googleusercontent.com/maps.google.com/search?q=Chiikawa+park" class="nav-button">
-                🗺️ 導航至吉伊卡哇MOGUMOGU本舖
-            </a>
-        </div>
-        
-        <header class="day-header">
-            <h2>🗓️ 12 月 11 日（週四）</h2>
-            <p>晴空塔與銀座</p>
-        </header>
-        <div class="card">
-            <h3>🗼 晴空塔/銀座</h3>
-            <ul class="item-list">
-                [cite_start]<li><span class="time">08:00</span> Brunch: <span class="tag tag-food">Tricolore coffee</span> [cite: 245, 247]</li>
-                [cite_start]<li><span class="time">11:00</span> 晴空塔 (預計待 3-4 小時) [cite: 263]</li>
-                [cite_start]<li><span class="time">傍晚</span> 丸之內仲通 / 銀座步行逛街 [cite: 255, 260]</li>
-            </ul>
-            <a href="http://googleusercontent.com/maps.google.com/search?q=Tokyo+Skytree" class="nav-button">
-                🗺️ 導航至晴空塔
-            </a>
-        </div>
-
-        <header class="day-header">
-            <h2>🗓️ 12 月 12 日（週五）</h2>
-            <p>返程</p>
-        </header>
-        <div class="card">
-            <h3>✈️ 返程與購物</h3>
-            <ul class="item-list">
-                [cite_start]<li><span class="time">08:00</span> Check out / 有樂町寄行李 [cite: 357, 361]</li>
-                [cite_start]<li><span class="time">上午</span> TSUTAYA BOOKSTORE APIT 東雲店 [cite: 272]</li>
-                [cite_start]<li><span class="time">18:25</span> 東京 (NRT) ➡️ 高雄 (KHH) [cite: 360, 362]</li>
-            </ul>
-        </div>
-    </div>
-
-
-    <div id="info" class="content" style="display:none;">
-        <h2>📝 旅程資訊</h2>
-            
-        <div class="card">
-            <h3>✈️ 航班資訊</h3>
-            <ul class="item-list">
-                [cite_start]<li><span class="time">去程</span> 12/8 (週一) 08:00 高雄 (KHH) ➡️ 東京 (NRT) 12:20 [cite: 4, 10]</li>
-                [cite_start]<li><span class="time">回程</span> 12/12 (週五) 18:25 東京 (NRT) ➡️ 高雄 (KHH) 22:05 [cite: 360, 362]</li>
-            </ul>
-        </div>
-            
-        <div class="card">
-            <h3>🏨 住宿資訊</h3>
-            <ul class="item-list">
-                [cite_start]<li><span class="time">12/8 - 12/9</span> 東京迪士尼海洋夢幻泉鄉飯店 [cite: 15]</li>
-                [cite_start]<li><span class="time">12/9 - 12/XX</span> Agoda 預訂飯店 (請自行填寫) [cite: 52, 57]</li>
-            </ul>
-        </div>
-            
-        <div class="card">
-            <h3>📞 緊急聯絡電話與必備品</h3>
-            <ul class="item-list">
-                [cite_start]<li>**必需品**：護照 [cite: 93][cite_start]、SIM卡 [cite: 95] [cite_start](Klook eSIM [cite: 9])</li>
-                <li>**日本警察**：110</li>
-                <li>**救護/消防**：119</li>
-                [cite_start]<li>**重要預約**：利木津巴士票 [cite: 41][cite_start]、雙日護照 [cite: 51]</li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="budget" class="content" style="display:none;">
-        <h2>💰 記帳/預算</h2>
-        <div class="card">
-            <h3>功能說明</h3>
-            <p>此功能需要額外編寫 **JavaScript** 邏輯來實現**離線儲存 (LocalStorage)** 或串接 **Firebase** 資料庫。</p>
-            <p>這是記帳功能的介面Placeholder。</p>
-            <button class="nav-button" style="background-color:#4CAF50;">+ 新增支出紀錄</button>
-        </div>
-    </div>
-
-    <script>
-        // 註冊 Service Worker 讓 PWA 離線運作
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js').then(registration => {
-                    console.log('SW registered: ', registration);
-                }).catch(registrationError => {
-                    console.log('SW registration failed: ', registrationError);
-                });
-            });
-        }
-        
-        // 分頁切換功能
-        function showTab(tabId, clickedButton) {
-            // 隱藏所有內容區塊
-            document.getElementById('schedule').style.display = 'none';
-            document.getElementById('info').style.display = 'none';
-            document.getElementById('budget').style.display = 'none';
-
-            // 顯示選擇的區塊
-            document.getElementById(tabId).style.display = 'block';
-
-            // 更新按鈕的 active 狀態
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            clickedButton.classList.add('active');
-        }
-
-        // 預設顯示行程概覽
-        document.addEventListener('DOMContentLoaded', () => {
-             // 確保初始狀態正確，隱藏其他分頁
-             document.getElementById('info').style.display = 'none';
-             document.getElementById('budget').style.display = 'none';
-             // 確保初次載入時 "日程概覽" 按鈕是 active 的
-             document.getElementById('tab-schedule-btn').classList.add('active');
-        });
-
-    </script>
-</body>
-</html>
+            <p>吉伊卡哇與聖誕市集
