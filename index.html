@@ -120,7 +120,7 @@
 
         /* 6. 導航按鈕 */
         .nav-button {
-            display: block; 
+            display: block;
             text-align: center;
             background-color: #008CBA;
             color: white;
@@ -228,4 +228,279 @@
         
         <header class="day-header">
             <h2>🗓️ 12 月 10 日（週三）</h2>
-            <p>吉伊卡哇與聖誕市集
+            <p>吉伊卡哇與聖誕市集</p>
+        </header>
+        <div class="card">
+            <h3>🛍️ 吉伊卡哇/川越與購物</h3>
+            <ul class="item-list">
+                <li><span class="time">交通</span> 山手線至池袋 ➡️ 東武東上線</li>
+                <li><span class="time">早午餐</span> <span class="tag tag-food">bills 表參道</span> 或 <span class="tag tag-food">Negishi (牛舌)</span></li>
+                <li><span class="time">下午</span> 步行 <span class="tag tag-buy">吉伊卡哇 MOGUMOGU 本舖</span></li>
+                <li><span class="time">18:30</span> Christmas Market Tokyo 2025 (神宮外苑)</li>
+            </ul>
+            <a href="http://googleusercontent.com/maps.google.com/search?q=Chiikawa+park" class="nav-button">
+                🗺️ 導航至吉伊卡哇MOGUMOGU本舖
+            </a>
+        </div>
+        
+        <header class="day-header">
+            <h2>🗓️ 12 月 11 日（週四）</h2>
+            <p>晴空塔與銀座</p>
+        </header>
+        <div class="card">
+            <h3>🗼 晴空塔/銀座</h3>
+            <ul class="item-list">
+                <li><span class="time">08:00</span> Brunch: <span class="tag tag-food">Tricolore coffee</span></li>
+                <li><span class="time">11:00</span> 晴空塔 (預計待 3-4 小時)</li>
+                <li><span class="time">傍晚</span> 丸之內仲通 / 銀座步行逛街</li>
+            </ul>
+            <a href="http://googleusercontent.com/maps.google.com/search?q=Tokyo+Skytree" class="nav-button">
+                🗺️ 導航至晴空塔
+            </a>
+        </div>
+
+        <header class="day-header">
+            <h2>🗓️ 12 月 12 日（週五）</h2>
+            <p>返程</p>
+        </header>
+        <div class="card">
+            <h3>✈️ 返程與購物</h3>
+            <ul class="item-list">
+                <li><span class="time">08:00</span> Check out / 有樂町寄行李</li>
+                <li><span class="time">上午</span> TSUTAYA BOOKSTORE APIT 東雲店</li>
+                <li><span class="time">18:25</span> 東京 (NRT) ➡️ 高雄 (KHH)</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div id="info" class="content" style="display:none;">
+        <h2>📝 旅程資訊</h2>
+            
+        <div class="card">
+            <h3>✈️ 航班資訊</h3>
+            <ul class="item-list">
+                <li><span class="time">去程</span> 12/8 (週一) 08:00 高雄 (KHH) ➡️ 東京 (NRT) 12:20</li>
+                <li><span class="time">回程</span> 12/12 (週五) 18:25 東京 (NRT) ➡️ 高雄 (KHH) 22:05</li>
+            </ul>
+        </div>
+            
+        <div class="card">
+            <h3>🏨 住宿資訊</h3>
+            <ul class="item-list">
+                <li><span class="time">12/8 - 12/9</span> 東京迪士尼海洋夢幻泉鄉飯店</li>
+                <li><span class="time">12/9 - 12/XX</span> Agoda 預訂飯店 (請自行填寫)</li>
+            </ul>
+        </div>
+            
+        <div class="card">
+            <h3>📞 緊急聯絡電話與必備品</h3>
+            <ul class="item-list">
+                <li>**必需品**：護照、SIM卡 (Klook eSIM)、手機+相機充電器、胃藥</li>
+                <li>**日本警察**：110</li>
+                <li>**救護/消防**：119</li>
+                <li>**重要預約**：利木津巴士票、雙日護照</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="budget" class="content" style="display:none;">
+        <h2>💰 記帳/預算中心</h2>
+        
+        <div class="card" style="background-color: #f0fff0;">
+            <h3>💸 總預算與匯率設定</h3>
+            <p>今日剩餘：<strong id="daily-remaining">¥0</strong> / 總剩餘：<strong id="total-remaining">¥0</strong></p>
+            <div class="budget-input-group">
+                <label for="totalBudget">總預算 (JPY):</label>
+                <input type="number" id="totalBudget" value="100000" min="0">
+            </div>
+            <div class="budget-input-group">
+                <label for="exchangeRate">JPY 對台幣匯率 (例：0.215):</label>
+                <input type="number" id="exchangeRate" value="0.215" step="0.001">
+                <button onclick="saveSettings()" style="background-color:#008CBA; color:white; border:none; padding: 6px 12px; border-radius: 5px; margin-top: 10px;">儲存設定</button>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3>➕ 新增支出</h3>
+            <div class="budget-input-group">
+                <input type="text" id="expenseDesc" placeholder="項目 (例如：午餐)">
+            </div>
+            <div class="budget-input-group">
+                <input type="number" id="expenseAmount" placeholder="金額 (JPY)">
+            </div>
+            <button onclick="addExpense()" class="nav-button" style="background-color:#4CAF50; margin-top: 5px;">記錄支出</button>
+        </div>
+
+        <div class="card">
+            <h3>🧾 支出明細</h3>
+            <ul id="expenseList" class="item-list">
+                </ul>
+            <p style="text-align: right; margin-top: 15px;">總支出 (TWD)：<strong id="total-twd">NT$ 0</strong></p>
+        </div>
+    </div>
+
+
+    <script>
+        // === PWA 服務工作線程註冊 ===
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js').then(registration => {
+                    console.log('SW registered: ', registration);
+                }).catch(registrationError => {
+                    console.log('SW registration failed: ', registrationError);
+                });
+            });
+        }
+        
+        // === 頂部 Tab 分頁切換功能 ===
+        function showTab(tabId, clickedButton) {
+            // 隱藏所有內容區塊
+            document.getElementById('schedule').style.display = 'none';
+            document.getElementById('info').style.display = 'none';
+            document.getElementById('budget').style.display = 'none';
+
+            // 顯示選擇的區塊
+            document.getElementById(tabId).style.display = 'block';
+
+            // 更新按鈕的 active 狀態
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            clickedButton.classList.add('active');
+        }
+
+        // === 離線記帳功能 JavaScript ===
+        let expenses = [];
+        const today = new Date().toISOString().slice(0, 10);
+
+        // 函數：載入設定和支出數據
+        function loadData() {
+            // 載入設定
+            const savedBudget = localStorage.getItem('totalBudget') || 100000;
+            const savedRate = localStorage.getItem('exchangeRate') || 0.215;
+            document.getElementById('totalBudget').value = savedBudget;
+            document.getElementById('exchangeRate').value = savedRate;
+
+            // 載入支出
+            const savedExpenses = localStorage.getItem('expenses');
+            if (savedExpenses) {
+                expenses = JSON.parse(savedExpenses);
+            }
+            renderExpenses();
+            updateSummary();
+        }
+
+        // 函數：儲存設定
+        function saveSettings() {
+            const budget = document.getElementById('totalBudget').value;
+            const rate = document.getElementById('exchangeRate').value;
+            localStorage.setItem('totalBudget', budget);
+            localStorage.setItem('exchangeRate', rate);
+            updateSummary();
+            alert('設定已儲存！');
+        }
+
+        // 函數：新增支出
+        function addExpense() {
+            const desc = document.getElementById('expenseDesc').value.trim();
+            const amount = parseFloat(document.getElementById('expenseAmount').value);
+
+            if (!desc || isNaN(amount) || amount <= 0) {
+                alert('請輸入有效的項目和金額！');
+                return;
+            }
+
+            const newExpense = {
+                id: Date.now(),
+                date: today,
+                desc: desc,
+                amount: amount,
+            };
+
+            expenses.push(newExpense);
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+
+            // 清空輸入欄
+            document.getElementById('expenseDesc').value = '';
+            document.getElementById('expenseAmount').value = '';
+
+            renderExpenses();
+            updateSummary();
+        }
+
+        // 函數：刪除支出
+        function deleteExpense(id) {
+            if (!confirm('確定刪除此筆紀錄嗎？')) return;
+
+            expenses = expenses.filter(exp => exp.id !== id);
+            localStorage.setItem('expenses', JSON.stringify(expenses));
+            renderExpenses();
+            updateSummary();
+        }
+
+        // 函數：渲染支出列表
+        function renderExpenses() {
+            const list = document.getElementById('expenseList');
+            list.innerHTML = '';
+            
+            // 按日期最新排序
+            expenses.sort((a, b) => b.id - a.id).forEach(exp => {
+                const rate = parseFloat(localStorage.getItem('exchangeRate') || 0.215);
+                const twdAmount = (exp.amount * rate).toFixed(0);
+                
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <span class="time">${exp.desc}</span> 
+                    ¥${exp.amount.toLocaleString()} 
+                    (NT$ ${twdAmount.toLocaleString()})
+                    <span class="delete-btn" onclick="deleteExpense(${exp.id})">[X]</span>
+                `;
+                list.appendChild(listItem);
+            });
+        }
+
+        // 函數：更新總結資訊
+        function updateSummary() {
+            const totalBudget = parseFloat(localStorage.getItem('totalBudget') || 100000);
+            const exchangeRate = parseFloat(localStorage.getItem('exchangeRate') || 0.215);
+
+            let totalSpentJPY = 0;
+            let todaySpentJPY = 0;
+            
+            expenses.forEach(exp => {
+                totalSpentJPY += exp.amount;
+                if (exp.date === today) {
+                    todaySpentJPY += exp.amount;
+                }
+            });
+
+            const totalSpentTWD = (totalSpentJPY * exchangeRate).toFixed(0);
+            const totalRemaining = totalBudget - totalSpentJPY;
+            const dailyRemaining = totalBudget - todaySpentJPY;
+
+            document.getElementById('total-remaining').textContent = `¥${totalRemaining.toLocaleString()}`;
+            document.getElementById('daily-remaining').textContent = `¥${dailyRemaining.toLocaleString()}`;
+            document.getElementById('total-twd').textContent = `NT$ ${totalSpentTWD.toLocaleString()}`;
+
+            // 根據剩餘預算調整顏色
+            if (totalRemaining < 0) {
+                document.getElementById('total-remaining').style.color = 'red';
+            } else {
+                document.getElementById('total-remaining').style.color = '#4CAF50';
+            }
+        }
+
+        // 頁面載入後，先執行初始化
+        window.addEventListener('load', loadData); 
+        
+        // 確保初始狀態正確
+        document.addEventListener('DOMContentLoaded', () => {
+             document.getElementById('info').style.display = 'none';
+             document.getElementById('budget').style.display = 'none';
+             document.getElementById('tab-schedule-btn').classList.add('active');
+        });
+
+    </script>
+</body>
+</html>
