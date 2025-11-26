@@ -15,7 +15,7 @@
             padding: 0;
             color: #333333; /* 主要文字色 */
         }
-        /* 頂部導航欄 (日期與工具分頁) */
+        /* 頂部導航欄 (日期與工具分頁) - 保持不變，用於工具分頁 */
         .tab-nav {
             display: flex;
             overflow-x: auto; 
@@ -45,83 +45,95 @@
 
         /* 2. 佈局與卡片設計 */
         .content {
-            padding: 10px 0; /* 縮小邊距 */
-        }
-        /* === 沉浸式 Flight Hero Card (新增) === */
-        .hero-flight-container {
-            position: relative;
-            margin: 0 20px 25px 20px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-        .hero-flight-container img {
-            width: 100%;
-            height: 350px; /* 固定高度 */
-            object-fit: cover;
-            display: block;
-        }
-        .hero-overlay-content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 20px;
-            box-sizing: border-box;
-            z-index: 2;
-        }
-        /* 漸層效果 */
-        .hero-overlay-content::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
-            z-index: -1;
+            padding: 10px 0;
         }
         
-        /* 航班卡片 (樣式調整，使其疊加在圖片上) */
+        /* *** 新增：方塊日期切換條 (Calendar Strip) *** */
+        .calendar-strip {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            margin: 15px 20px;
+            padding-bottom: 10px;
+        }
+        .day-tab-box {
+            background-color: white;
+            color: #333;
+            border: 1px solid #EAEAEA;
+            border-radius: 8px;
+            padding: 10px;
+            margin-right: 8px;
+            text-align: center;
+            width: 60px; /* 方塊固定寬度 */
+            min-width: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s;
+        }
+        .day-tab-box.active {
+            background: #FFF8E0; /* 激活時為米黃色 */
+            border-color: #D4A373;
+            color: #D4A373;
+            transform: scale(1.05);
+        }
+        .day-tab-box .date-num {
+            display: block;
+            font-size: 1.5em;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .day-tab-box .day-text {
+            font-size: 0.8em;
+            display: block;
+        }
+        /* *** 垂直日期標題樣式 (已移除，僅保留簡單標題) *** */
+        .day-title {
+            margin: 0 20px 15px 20px;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #444;
+            letter-spacing: 2px;
+        }
+
+        /* *** 每日圖片樣式 *** */
+        .day-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 0 20px 15px 20px; 
+        }
+        /* *** 卡片樣式 *** */
+        .card {
+            background-color: #FFFFFF; 
+            border-radius: 12px; 
+            padding: 20px 24px; 
+            margin: 0 20px 25px 20px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); 
+            border: 1px solid #E8E8E8; 
+            line-height: 1.6;
+        }
+        
+        /* 航班卡片 */
         .flight-card {
-            background-color: transparent; /* 隱藏背景，只保留文字 */
+            background-color: #385E72; 
             color: white;
-            border-radius: 0;
-            padding: 0;
-            margin: 0;
-            box-shadow: none;
-            position: absolute;
-            bottom: 20px; /* 移到底部，在漸層上 */
-            width: calc(100% - 40px);
-            left: 20px;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 0 20px 25px 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
         .flight-time, .flight-airport { font-size: 2em; font-weight: 700; line-height: 1; margin-bottom: 5px; }
         .flight-details { text-align: center; margin-top: 10px; font-weight: 500; }
         .flight-number { font-size: 1.2em; font-weight: 600; color: #A3D2D9; }
         .flight-reminder { background: rgba(255, 255, 255, 0.2); color: white; padding: 5px 10px; border-radius: 6px; margin-top: 15px; display: inline-block; font-size: 0.9em; }
         
-        /* 垂直日期標題樣式 (疊加在左上角) */
-        .date-header-large {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            display: flex;
-            align-items: center;
-            z-index: 3;
-            color: white;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5); /* 讓文字更清晰 */
-        }
-        .date-header-large h2 { font-size: 2.5em; font-weight: 700; line-height: 1; margin-right: 15px; color: white; }
-        .date-header-large p { font-size: 0.9em; line-height: 1.2; }
-        .day-title { margin: 0 20px 15px 20px; font-size: 1.8em; font-weight: bold; color: #444; letter-spacing: 2px; }
-        
-        /* 其他保留樣式 */
-        .card { background-color: #FFFFFF; border-radius: 12px; padding: 20px 24px; margin: 0 20px 25px 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); border: 1px solid #E8E8E8; line-height: 1.6; }
+        /* 地圖/天氣/列表樣式保持不變 */
         .map-container { margin: 0 20px 20px 20px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
         .item-list { list-style: none; padding: 0; margin: 0; }
-        .tag { display: inline-block; padding: 4px 10px; margin: 3px 5px 3px 0; border-radius: 6px; font-size: 0.75em; font-weight: bold; }
-        .weather-info { padding: 0; margin-bottom: 15px; border: none; box-shadow: none; background-color: transparent; }
+        .delete-btn { color: #D83A56; cursor: pointer; float: right; font-weight: bold; margin-left: 10px; }
     </style>
 </head>
 <body>
@@ -138,34 +150,34 @@
         <button id="tab-budget-btn" class="tab-button" onclick="showTab('budget', this)">記帳</button>
     </div>
 
+    <div class="calendar-strip">
+        <div class="day-tab-box active" onclick="showTab('day-12-6', this)"><span class="date-num">6</span><span class="day-text">FRI</span></div>
+        <div class="day-tab-box" onclick="showTab('day-12-7', this)"><span class="date-num">7</span><span class="day-text">SAT</span></div>
+        <div class="day-tab-box" onclick="showTab('day-12-8', this)"><span class="date-num">8</span><span class="day-text">SUN</span></div>
+        <div class="day-tab-box" onclick="showTab('day-12-9', this)"><span class="date-num">9</span><span class="day-text">MON</span></div>
+        <div class="day-tab-box" onclick="showTab('day-12-10', this)"><span class="date-num">10</span><span class="day-text">TUE</span></div>
+        <div class="day-tab-box" onclick="showTab('day-12-11', this)"><span class="date-num">11</span><span class="day-text">WED</span></div>
+        <div class="day-tab-box" onclick="showTab('day-12-12', this)"><span class="date-num">12</span><span class="day-text">THU</span></div>
+    </div>
     <div id="day-12-6" class="content">
-        <div class="hero-flight-container">
-            <img src="/images/day01_arrival.jpg" alt="機場與東雲" style="object-position: center top;">
-
-            <div class="hero-overlay-content">
-                <div class="date-header-large">
-                    <h2>12</h2>
-                    <p>FRI<br>6</p>
-                </div>
-
-                <div class="flight-card">
-                    <div class="flight-header">
-                        <div><span class="flight-time">08:00</span><p class="flight-airport" style="font-size: 0.6em;">TPE 台北 (假設)</p></div>
-                        <div><span class="flight-time">12:20</span><p class="flight-airport" style="font-size: 0.6em;">NRT 東京</p></div>
-                    </div>
-                    <div class="flight-details">
-                        <span class="flight-number">CI 0102</span>
-                        <div class="flight-line"></div>
-                        <span class="flight-duration">4h 20m</span>
-                    </div>
-                    <div class="flight-reminder">
-                        💼 記得填寫 Visit Japan Web (假設提醒)
-                    </div>
-                </div>
+        <div class="day-title">第一天：抵達東京</div>
+        
+        <div class="flight-card">
+            <div class="flight-header">
+                <div><span class="flight-time">08:00</span><p class="flight-airport" style="font-size: 0.6em;">TPE 台北 (假設)</p></div>
+                <div><span class="flight-time">12:20</span><p class="flight-airport" style="font-size: 0.6em;">NRT 東京</p></div>
+            </div>
+            <div class="flight-details">
+                <span class="flight-number">CI 0102</span>
+                <div class="flight-line"></div>
+                <span class="flight-duration">4h 20m</span>
+            </div>
+            <div class="flight-reminder">
+                💼 記得填寫 Visit Japan Web (假設提醒)
             </div>
         </div>
-        
-        <div class="day-title">第一天：抵達東京</div>
+
+        <img src="/images/day01_arrival.jpg" alt="機場與東雲" class="day-image">
 
         <div class="map-container">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3242.418671064128!2d139.8010629752487!3d35.64205523212584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601889c619efffff%3A0xdd2da6a73aa930d2!2sA-PIT%20Super%20Autobacs!5e0!3m2!1szh-TW!2stw!4v1764142704837!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -197,10 +209,6 @@
     </div>
     
     <div id="day-12-7" class="content" style="display:none;">
-        <div class="date-header-large">
-            <h2>12</h2>
-            <p>SAT<br>7</p>
-        </div>
         <div class="day-title">第二天：川越與地瓜哇</div>
         
         <img src="/images/day02_kawagoe.jpg" alt="川越與聖誕市集" class="day-image">
@@ -230,10 +238,6 @@
     </div>
     
     <div id="day-12-8" class="content" style="display:none;">
-        <div class="date-header-large">
-            <h2>12</h2>
-            <p>SUN<br>8</p>
-        </div>
         <div class="day-title">第三天：嬰兒士尼</div>
         
         <img src="/images/day03_disney_land.jpg" alt="迪士尼樂園" class="day-image">
@@ -267,10 +271,6 @@
     </div>
 
     <div id="day-12-9" class="content" style="display:none;">
-        <div class="date-header-large">
-            <h2>12</h2>
-            <p>MON<br>9</p>
-        </div>
         <div class="day-title">第四天：嬰兒士尼海洋</div>
         
         <img src="/images/day04_disney_sea.jpg" alt="迪士尼海洋" class="day-image">
@@ -302,10 +302,6 @@
     </div>
 
     <div id="day-12-10" class="content" style="display:none;">
-        <div class="date-header-large">
-            <h2>12</h2>
-            <p>TUE<br>10</p>
-        </div>
         <div class="day-title">第五天：嘎哇樂園</div>
         
         <img src="/images/day05_chiikawa.jpg" alt="吉伊卡哇與原宿" class="day-image">
@@ -343,10 +339,6 @@
     </div>
     
     <div id="day-12-11" class="content" style="display:none;">
-        <div class="date-header-large">
-            <h2>12</h2>
-            <p>WED<br>11</p>
-        </div>
         <div class="day-title">第六天：六本木貢丸之內</div>
         
         <img src="/images/day06_roppongi.jpg" alt="六本木與丸之內" class="day-image">
@@ -537,6 +529,17 @@
             if (clickedButton) {
                 clickedButton.classList.add('active');
             }
+            
+            // 更新底部日期方塊的 active 狀態
+            document.querySelectorAll('.day-tab-box').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // 根據點擊的頂部 tab，激活對應的底部日期方塊
+            const bottomTabId = tabId.replace('day-', '');
+            const bottomTab = document.querySelector(`.day-tab-box[onclick*="${bottomTabId}"]`);
+            if (bottomTab) {
+                bottomTab.classList.add('active');
+            }
         }
 
         // === 離線記帳功能 JavaScript (已修復) ===
@@ -663,6 +666,12 @@
              document.getElementById('info').style.display = 'none';
              document.getElementById('budget').style.display = 'none';
              document.getElementById('tab-12-6-btn').classList.add('active'); // 預設顯示 12/6
+             
+             // 初始化底部日期方塊的 active 狀態
+             const initialBottomTab = document.querySelector(`.day-tab-box[onclick*="12-6"]`);
+             if (initialBottomTab) {
+                initialBottomTab.classList.add('active');
+             }
         });
 
     </script>
