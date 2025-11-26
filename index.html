@@ -7,7 +7,7 @@
     <link rel="manifest" href="/manifest.json">
     
     <style>
-        /* 1. 基礎設置與米色調配色 */
+        /* 1. 基礎設置與米黃色配色 */
         body {
             font-family: 'Avenir Next', 'Hiragino Sans', 'Noto Sans TC', sans-serif;
             background-color: #FAF7F0; /* 主米色背景 (暖米白) */
@@ -39,39 +39,37 @@
             transition: color 0.3s;
         }
         .tab-button.active {
-            color: #D4A373; /* 暖棕色/陶土色作為強調色 */
-            border-bottom: 3px solid #D4A373;
+            color: #C48E44; /* 米黃色系強調色 */
+            border-bottom: 3px solid #C48E44;
         }
 
         /* 2. 佈局與卡片設計 */
         .content {
             padding: 10px 0;
         }
-        
-        /* *** 沉浸式頂部 Hero 區塊 (圖片原比例顯示) *** */
+        /* *** 沉浸式頂部 Hero 區塊 (圖片置頂/原比例) *** */
         .hero-header {
             position: relative;
             width: 100%;
-            /* height: auto;  移除固定高度 */
             overflow: hidden;
-            margin-bottom: -40px; /* 讓內容往上疊 */
+            margin-bottom: -40px; 
         }
         .hero-header img {
             width: 100%;
             height: auto;
-            object-fit: contain; /* 確保圖片保持原比例 */
-            filter: brightness(0.8); /* 輕微變暗以突出文字 */
+            object-fit: contain; 
+            filter: brightness(0.9); /* 輕微變暗以突出文字 */
             display: block;
         }
-        /* 底部漸層 */
+        /* === 最終優化：柔和漸層過渡 (只覆蓋底部一小塊) === */
         .hero-header::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 60%;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+            height: 35%; /* 減少漸層高度 */
+            background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0));
             z-index: 1;
         }
         /* 圖片上的日期標題 */
@@ -93,7 +91,7 @@
             margin-top: 5px;
         }
         
-        /* *** 日期方塊切換區 (Calendar Strip) - 放在圖片下方 *** */
+        /* *** 日期方塊切換區 (Calendar Strip) *** */
         .calendar-strip {
             display: flex;
             overflow-x: auto;
@@ -112,7 +110,7 @@
             padding: 10px;
             margin-right: 12px;
             text-align: center;
-            width: 60px; /* 方塊固定寬度 */
+            width: 60px; 
             min-width: 60px;
             font-weight: 600;
             cursor: pointer;
@@ -121,8 +119,8 @@
         }
         .day-tab-box.active {
             background: #FFF8E0; /* 激活時為米黃色 */
-            border-color: #D4A373;
-            color: #D4A373;
+            border-color: #C48E44; /* 米黃色系強調色 */
+            color: #C48E44;
             transform: scale(1.02);
         }
         .day-tab-box .date-num {
@@ -165,21 +163,32 @@
             margin: 0 20px 25px 20px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
-        .flight-header { display: flex; justify-content: space-between; align-items: center; }
-        .flight-time, .flight-airport { font-size: 2em; font-weight: 700; line-height: 1; margin-bottom: 5px; }
-        .flight-details { text-align: center; margin-top: 10px; font-weight: 500; }
-        .flight-number { font-size: 1.2em; font-weight: 600; color: #A3D2D9; }
-        .flight-reminder { background: rgba(255, 255, 255, 0.2); color: white; padding: 5px 10px; border-radius: 6px; margin-top: 15px; display: inline-block; font-size: 0.9em; }
-        
+        /* 垂直日期標題樣式 */
+        .date-header-large {
+            display: flex;
+            align-items: center;
+            margin: 20px 20px 10px 20px;
+        }
+        .date-header-large h2 {
+            font-size: 2.5em; 
+            font-weight: 700;
+            line-height: 1;
+            margin-right: 15px;
+            color: #444;
+        }
         /* 標籤設計 */
         .tag { display: inline-block; padding: 4px 10px; margin: 3px 5px 3px 0; border-radius: 6px; font-size: 0.75em; font-weight: bold; }
         .tag-pass { background-color: #F4E8D4; color: #7B6858; } 
-        .tag-food { background-color: #FFF0D6; color: #C48E44; } 
+        .tag-food { background-color: #FFF0D6; color: #C48E44; } /* 主色調應用 */
         .tag-reservation { background-color: #E0EBF7; color: #4C70A8; } 
-        .action-button { display: block; text-align: center; background-color: #D4A373; color: #FFFFFF; padding: 10px 15px; border-radius: 6px; transition: background-color 0.3s; border: none; font-weight: bold; }
+        .action-button { background-color: #C48E44; color: #FFFFFF; padding: 10px 15px; border-radius: 6px; transition: background-color 0.3s; border: none; font-weight: bold; }
+        /* 記帳頁面綠色按鈕 (保持功能色) */
+        .action-button.green { background-color: #79A37B; color: #FFFFFF; }
+        
         .delete-btn { color: #D83A56; cursor: pointer; float: right; font-weight: bold; margin-left: 10px; }
         .weather-info { padding: 0; margin-bottom: 15px; border: none; box-shadow: none; background-color: transparent; }
         .weatherwidget-io { width: 100%; border-radius: 10px; overflow: hidden; border: 1px solid #E8E8E8; }
+        .item-list { list-style: none; padding: 0; margin: 0; }
     </style>
 </head>
 <body>
@@ -209,6 +218,7 @@
     </div>
     
     <div class="content-wrapper">
+
         <div id="day-12-6" class="content">
             <div class="day-title">第一天：抵達東京</div>
             
@@ -536,7 +546,7 @@
         });
 
         // === 頂部 Tab 分頁切換功能 (修復版) ===
-        // 將所有日期切換邏輯統一只使用 showDay
+        // 核心切換邏輯
         function showDay(tabId, dayIndex, clickedButton) {
             // 隱藏所有內容區塊
             const contentIds = [
@@ -564,30 +574,30 @@
                 clickedButton.classList.add('active');
             }
             
-            // 處理 Hero Image 的切換
+            // 處理 Hero Image 和時間的切換
             const dateMap = {
-                1: { date: '2025.12.06 FRI', time: '08:00', src: '/images/day01_arrival.jpg' },
-                2: { date: '2025.12.07 SAT', time: '09:00', src: '/images/day02_kawagoe.jpg' },
-                3: { date: '2025.12.08 SUN', time: '08:00', src: '/images/day03_disney_land.jpg' },
-                4: { date: '2025.12.09 MON', time: '08:20', src: '/images/day04_disney_sea.jpg' },
-                5: { date: '2025.12.10 TUE', time: '09:00', src: '/images/day05_chiikawa.jpg' },
-                6: { date: '2025.12.11 WED', time: '08:00', src: '/images/day06_roppongi.jpg' },
-                7: { date: '2025.12.12 THU', time: '14:20', src: '/images/day07_departure.jpg' }
+                1: { day: 6, weekday: 'FRI', time: '08:00', src: '/images/day01_arrival.jpg', fullDate: '2025.12.06 FRI' },
+                2: { day: 7, weekday: 'SAT', time: '09:00', src: '/images/day02_kawagoe.jpg', fullDate: '2025.12.07 SAT' },
+                3: { day: 8, weekday: 'SUN', time: '08:00', src: '/images/day03_disney_land.jpg', fullDate: '2025.12.08 SUN' },
+                4: { day: 9, weekday: 'MON', time: '08:20', src: '/images/day04_disney_sea.jpg', fullDate: '2025.12.09 MON' },
+                5: { day: 10, weekday: 'TUE', time: '09:00', src: '/images/day05_chiikawa.jpg', fullDate: '2025.12.10 TUE' },
+                6: { day: 11, weekday: 'WED', time: '08:00', src: '/images/day06_roppongi.jpg', fullDate: '2025.12.11 WED' },
+                7: { day: 12, weekday: 'THU', time: '14:20', src: '/images/day07_departure.jpg', fullDate: '2025.12.12 THU' }
             };
 
             const data = dateMap[dayIndex];
             if (data) {
                 document.getElementById('hero-img-bg').src = data.src;
                 document.getElementById('hero-time-display').textContent = data.time;
-                document.getElementById('hero-date-text-display').textContent = data.date;
+                document.getElementById('hero-date-text-display').textContent = data.fullDate;
             }
 
-            // 確保工具欄按鈕取消激活 (如果點擊的是日期)
+            // 確保工具欄按鈕取消激活
             document.querySelectorAll('.tab-button').forEach(btn => {
                  btn.classList.remove('active');
             });
         }
-        
+
         // 專門用於頂部工具欄按鈕切換
         function showTab(tabId, clickedButton) {
             // 隱藏所有內容區塊
@@ -621,6 +631,11 @@
             document.querySelectorAll('.day-tab-box').forEach(btn => {
                 btn.classList.remove('active');
             });
+            
+            // 重置 Hero 區塊的圖片 (保持一致性)
+            document.getElementById('hero-img-bg').src = "/images/day01_arrival.jpg";
+            document.getElementById('hero-time-display').textContent = "INFO";
+            document.getElementById('hero-date-text-display').textContent = "TRAVEL TOOL";
         }
         
         // === 離線記帳功能 JavaScript (已修復) ===
@@ -747,10 +762,9 @@
              document.getElementById('info').style.display = 'none';
              document.getElementById('budget').style.display = 'none';
              
-             // 初始化 Hero 區塊和 Tab 狀態
+             // 初始化 Hero 區塊和 Tab 狀態 (確保顯示 Day 1 的內容)
              const initialBottomTab = document.querySelector(`.day-tab-box[onclick*="12-6"]`);
              if (initialBottomTab) {
-                // 由於 showDay 包含所有初始化邏輯，我們只調用它
                 showDay('day-12-6', 1, initialBottomTab); 
              }
         });
