@@ -46,7 +46,7 @@
 
         /* 2. 佈局與卡片設計 */
         .content {
-            padding: 10px 0;
+            padding: 10px 0; /* 縮小邊距 */
         }
         /* *** 沉浸式頂部 Hero 區塊 (圖片置頂/原比例) *** */
         .hero-header {
@@ -187,7 +187,8 @@
         .tag-pass { background-color: #F4E8D4; color: #7B6858; } 
         .tag-food { background-color: #FFF0D6; color: #C48E44; } 
         .tag-reservation { background-color: #E0EBF7; color: #4C70A8; } 
-        .action-button { display: block; text-align: center; background-color: #C48E44; color: #FFFFFF; padding: 10px 15px; border-radius: 6px; transition: background-color 0.3s; border: none; font-weight: bold; }
+        .action-button { background-color: #C48E44; color: #FFFFFF; padding: 10px 15px; border-radius: 6px; transition: background-color 0.3s; border: none; font-weight: bold; }
+        .action-button.green { background-color: #79A37B; color: #FFFFFF; }
         .delete-btn { color: #D83A56; cursor: pointer; float: right; font-weight: bold; margin-left: 10px; }
         .weather-info { padding: 0; margin-bottom: 15px; border: none; box-shadow: none; background-color: transparent; }
         .weatherwidget-io { width: 100%; border-radius: 10px; overflow: hidden; border: 1px solid #E8E8E8; }
@@ -271,8 +272,6 @@
         <div id="day-12-7" class="content" style="display:none;">
             <div class="day-title">第二天：川越與地瓜哇</div>
             
-            <img src="/images/day02_kawagoe.jpg" alt="川越與聖誕市集" class="day-image">
-            
             <div class="map-container">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3230.9162671226336!2d139.47892697526183!3d35.92454951657047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018db5ad3fee029%3A0x385f14ef6b654aee!2sChiikawa%20Mogumogu%20Hompo%20Kawagoe!5e0!3m2!1szh-TW!2stw!4v1764142830988!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
@@ -299,8 +298,6 @@
         
         <div id="day-12-8" class="content" style="display:none;">
             <div class="day-title">第三天：嬰兒士尼</div>
-            
-            <img src="/images/day03_disney_land.jpg" alt="迪士尼樂園" class="day-image">
             
             <div class="map-container">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3242.790100527838!2d139.8778193752484!3d35.632900732628215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60187d03114737b3%3A0xe4d93636d509d3cb!2z5p2x5Lqs6L-q5aOr5bC85qiC5ZyS!5e0!3m2!1szh-TW!2stw!4v1764142972772!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -633,7 +630,7 @@
             });
             
             // 重置 Hero 區塊的圖片和時間為默認/資訊模式
-            document.getElementById('hero-img-bg').src = "/images/day01_arrival.jpg"; // 保持圖片不變
+            document.getElementById('hero-img-bg').src = "/images/day01_arrival.jpg"; 
             document.getElementById('hero-time-display').textContent = "INFO";
             document.getElementById('hero-date-text-display').textContent = "TRAVEL TOOL";
         }
