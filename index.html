@@ -7,7 +7,7 @@
     <link rel="manifest" href="/manifest.json">
     
     <style>
-        /* 1. Vibe Coding: 基礎設置與米色調配色 */
+        /* 1. 基礎設置與米色調配色 */
         body {
             font-family: 'Hiragino Sans', 'Noto Sans TC', sans-serif;
             background-color: #FAF7F0; /* 主米色背景 (暖米白) */
@@ -15,13 +15,14 @@
             padding: 0;
             color: #333333; /* 主要文字色 */
         }
-        /* 頂部導航欄 (日期與工具分頁) */
+        
+        /* 頂部日期與工具欄 */
         .tab-nav {
             display: flex;
             overflow-x: auto; 
             white-space: nowrap; 
             background-color: #FFFFFF;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03); 
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); 
             padding: 10px 0;
             position: sticky;
             top: 0;
@@ -39,144 +40,100 @@
             transition: color 0.3s;
         }
         .tab-button.active {
-            color: #D4A373; /* 暖棕色/陶土色作為強調色 */
+            color: #D4A373; 
             border-bottom: 3px solid #D4A373;
         }
 
-        /* 2. 佈局與卡片設計 */
+        /* 2. 內容容器與卡片 */
         .content {
-            padding: 20px;
+            padding: 10px 0; /* 縮小容器邊距，讓卡片更貼邊 */
         }
-        /* *** 每日圖片樣式 *** */
-        .day-image {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        /* *** 米黃色日期方塊 *** */
-        .day-box {
-            background-color: #FFF8E0; /* 純米黃色方塊 */
-            border: 1px solid #E0D8C8; /* 極淺邊框 */
-            border-radius: 8px;
-            padding: 10px 15px;
-            margin-bottom: 25px;
-            display: inline-block;
-        }
-        .day-box h2 {
+        .day-header {
+            margin: 20px 20px 10px 20px;
             font-size: 1.5em;
+            font-weight: bold;
             color: #444;
-            margin: 0;
-        }
-        .day-box p {
-            margin: 5px 0 0 0;
-            font-size: 0.9em;
-            color: #888;
         }
 
+        /* *** 沉浸式 Hero Card (模仿熊本城卡片) *** */
+        .hero-card {
+            position: relative;
+            width: 90%;
+            margin: 0 auto 20px auto;
+            height: 200px; /* 固定高度 */
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85); /* 輕微變暗以突出文字 */
+        }
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
+            color: white;
+        }
+        .hero-overlay h2 {
+            font-size: 1.2em;
+            margin: 0;
+        }
+        .hero-overlay p {
+            font-size: 0.9em;
+            margin: 5px 0 0 0;
+        }
+
+        /* *** 天氣時間軸 (模仿未來24小時預報) *** */
+        .weather-timeline {
+            margin: 20px 20px 20px 20px;
+            padding: 10px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            border-bottom: 1px solid #E5E5E5;
+        }
+        .weather-item {
+            display: inline-block;
+            text-align: center;
+            padding: 0 15px;
+            font-size: 0.9em;
+        }
+        .weather-icon {
+            font-size: 1.8em;
+            display: block;
+            margin: 5px 0;
+            color: #D4A373;
+        }
+
+        /* *** 活動卡片 *** */
         .card {
-            background-color: #FFFFFF; /* 純白色卡片 */
-            border-radius: 12px; /* 略圓潤邊角 */
+            background-color: #FFFFFF; 
+            border-radius: 12px; 
             padding: 20px 24px; 
-            margin-bottom: 25px; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); 
-            border: 1px solid #E8E8E8; /* 淺灰邊框 */
+            margin: 0 20px 20px 20px; /* 統一卡片邊距 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); 
+            border: 1px solid #E8E8E8; 
             line-height: 1.6;
         }
         
-        /* 4. 天氣 Placeholder - 調整內邊距以容納小工具 */
-        .weather-info {
-            padding: 0; 
-            margin-bottom: 15px;
-            border: none;
-            box-shadow: none;
-            background-color: transparent;
-        }
-        /* 針對 WeatherWidget.io 的客製化樣式，確保其符合米色調 */
-        .weatherwidget-io {
-            width: 100%;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid #E8E8E8;
-        }
-        
-        /* 行程列表 */
-        .item-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .item-list li {
-            padding: 10px 0;
-            border-bottom: 1px dashed #E5E5E5; /* 淺灰色虛線 */
-            font-size: 0.95em;
-        }
-        .item-list li:last-child {
-            border-bottom: none;
-        }
-        .item-list .time {
-            font-weight: bold;
-            color: #555;
-            margin-right: 8px;
-            display: inline-block;
-            min-width: 60px; 
-        }
-
-        /* 5. 標籤設計 (使用米色調和少量點綴色) */
-        .tag {
-            display: inline-block;
-            padding: 4px 10px;
-            margin: 3px 5px 3px 0;
-            border-radius: 6px; 
-            font-size: 0.75em;
-            font-weight: bold;
-        }
-        .tag-pass { background-color: #F4E8D4; color: #7B6858; } /* 快速通關/必玩 (淡米棕) */
-        .tag-must-do { background-color: #E6F3E6; color: #4CAF50; } /* 必玩/推薦 (淡綠，保持功能色) */
-        .tag-food { background-color: #FFF0D6; color: #C48E44; } /* 食物 (淡米黃/金) */
-        .tag-reservation { background-color: #E0EBF7; color: #4C70A8; } /* 預約/門票 (淡藍，保持功能色) */
-        .tag-buy { background-color: #F7E6E8; color: #8D545B; } /* 購物 (淺紅棕) */
-        .tag-xmas { background-color: #EFE6DA; color: #6A5B4C; } /* 聖誕市集 (深米棕) */
-
-        /* 6. 記帳頁面樣式 */
-        .budget-input-group {
-            margin-bottom: 15px;
-        }
-        .budget-input-group input, .budget-input-group select {
-            padding: 10px;
-            border-radius: 6px; 
-            border: 1px solid #E8E8E8;
-            width: 100%;
-            box-sizing: border-box;
-            margin-top: 5px;
-        }
-        .delete-btn {
-            color: #D83A56; /* 緊急刪除色 (紅色) */
-            cursor: pointer; 
-            float: right;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-        /* 圓角按鈕 */
-        .action-button {
-            display: block; 
-            text-align: center;
-            background-color: #D4A373; /* 主按鈕色：暖棕色 */
-            color: #FFFFFF;
-            padding: 10px 15px;
-            border-radius: 6px; 
-            text-decoration: none;
-            font-size: 0.95em;
-            margin-top: 15px;
-            transition: background-color 0.3s;
-            border: none;
-            font-weight: bold;
-        }
-        .action-button.green {
-            background-color: #79A37B; /* 記錄支出按鈕 (柔和綠) */
-            color: #FFFFFF;
-        }
+        /* 地圖導航與其他樣式 (保持米色調) */
+        .map-link-container { margin-bottom: 15px; text-align: center; }
+        .map-link { display: block; width: 100%; padding: 12px; background-color: #A3D2D9; color: #385E72; border-radius: 8px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); transition: background-color 0.3s; }
+        .map-image-osm { width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; border: 1px solid #D4A373; display: block; }
+        .tag { display: inline-block; padding: 4px 10px; margin: 3px 5px 3px 0; border-radius: 6px; font-size: 0.75em; font-weight: bold; }
+        .tag-pass { background-color: #F4E8D4; color: #7B6858; } 
+        .tag-food { background-color: #FFF0D6; color: #C48E44; } 
+        .tag-reservation { background-color: #E0EBF7; color: #4C70A8; } 
+        .action-button { display: block; text-align: center; background-color: #D4A373; color: #FFFFFF; padding: 10px 15px; border-radius: 6px; text-decoration: none; font-size: 0.95em; margin-top: 15px; transition: background-color 0.3s; border: none; font-weight: bold; }
+        .action-button.green { background-color: #79A37B; color: #FFFFFF; }
+        .item-list { list-style: none; padding: 0; margin: 0; }
+        .item-list li { padding: 10px 0; border-bottom: 1px dashed #E5E5E5; font-size: 0.95em; }
+        .delete-btn { color: #D83A56; cursor: pointer; float: right; font-weight: bold; margin-left: 10px; }
     </style>
 </head>
 <body>
@@ -194,17 +151,22 @@
     </div>
 
     <div id="day-12-6" class="content">
-        <div class="day-box">
-            <h2>🗓️ 12 月 6 日（週五）</h2>
-            <p>抵達東京，東雲 A-PIT Super Autobacs</p>
+        <div class="hero-card">
+            <img src="/images/day01_arrival.jpg" alt="機場與東雲" class="hero-image">
+            <div class="hero-overlay">
+                <h2>✈️ 抵達東京</h2>
+                <p>東雲 A-PIT Super Autobacs</p>
+            </div>
         </div>
         
-        <img src="/images/day01_arrival.jpg" alt="機場與東雲" class="day-image">
+        <div class="weather-timeline">
+            <div class="weather-item"><span class="time">現在</span><span class="weather-icon">☀️</span><span>9°C</span></div>
+            <div class="weather-item"><span class="time">13:00</span><span class="weather-icon">🌤️</span><span>12°C</span></div>
+            <div class="weather-item"><span class="time">16:00</span><span class="weather-icon">🌤️</span><span>10°C</span></div>
+            <div class="weather-item"><span class="time">19:00</span><span class="weather-icon">☁️</span><span>7°C</span></div>
+            <div class="weather-item"><span class="time">22:00</span><span class="weather-icon">☁️</span><span>5°C</span></div>
+        </div>
 
-        <div class="weather-info">
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
-        </div>
-        
         <div class="card">
             <h3>✈️ 航班與交通</h3>
             <ul class="item-list">
@@ -213,6 +175,11 @@
                 <li><span class="time">住宿</span> Check-in **Comfort Hotel Tokyo Kanda** (12/6 - 12/8)</li>
             </ul>
         </div>
+        
+        <div class="map-link-container">
+             <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東雲A-PIT+Super+Autobacs" target="_blank" class="map-link">🗺️ 點擊導航至 東雲 A-PIT</a>
+        </div>
+
         <div class="card">
             <h3>🚗 下午活動</h3>
             <ul class="item-list">
@@ -222,16 +189,25 @@
     </div>
     
     <div id="day-12-7" class="content" style="display:none;">
-        <div class="day-box">
-            <h2>🗓️ 12 月 7 日（週六）</h2>
-            <p>川越、上野、晴空塔聖誕</p>
+        <div class="hero-card">
+            <img src="/images/day02_kawagoe.jpg" alt="川越與聖誕市集" class="hero-image">
+            <div class="hero-overlay">
+                <h2>🏯 川越半日遊</h2>
+                <p>上野公園聖誕市集</p>
+            </div>
+        </div>
+        <div class="weather-timeline">
+            <div class="weather-item"><span class="time">現在</span><span class="weather-icon">☀️</span><span>6°C</span></div>
+            <div class="weather-item"><span class="time">12:00</span><span class="weather-icon">🌤️</span><span>12°C</span></div>
+            <div class="weather-item"><span class="time">15:00</span><span class="weather-icon">☁️</span><span>9°C</span></div>
+            <div class="weather-item"><span class="time">18:00</span><span class="weather-icon">☁️</span><span>7°C</span></div>
+            <div class="weather-item"><span class="time">21:00</span><span class="weather-icon">🌙</span><span>5°C</span></div>
         </div>
         
-        <img src="/images/day02_kawagoe.jpg" alt="川越與聖誕市集" class="day-image">
-        
-        <div class="weather-info">
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
+        <div class="map-link-container">
+             <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京聖誕+Advent+in+上野公園" target="_blank" class="map-link">🗺️ 點擊導航至 上野公園 (聖誕市集)</a>
         </div>
+
         <div class="card">
             <h3>🎄 戶外活動</h3>
             <ul class="item-list">
@@ -243,16 +219,25 @@
     </div>
     
     <div id="day-12-8" class="content" style="display:none;">
-        <div class="day-box">
-            <h2>🗓️ 12 月 8 日（週日）</h2>
-            <p>新宿剪髮，迪士尼樂園</p>
+        <div class="hero-card">
+            <img src="/images/day03_disney_land.jpg" alt="迪士尼樂園" class="hero-image">
+            <div class="hero-overlay">
+                <h2>🏰 迪士尼樂園</h2>
+                <p>美女與野獸預約</p>
+            </div>
+        </div>
+        <div class="weather-timeline">
+            <div class="weather-item"><span class="time">現在</span><span class="weather-icon">☀️</span><span>5°C</span></div>
+            <div class="weather-item"><span class="time">10:00</span><span class="weather-icon">☀️</span><span>8°C</span></div>
+            <div class="weather-item"><span class="time">14:00</span><span class="weather-icon">🌤️</span><span>10°C</span></div>
+            <div class="weather-item"><span class="time">18:00</span><span class="weather-icon">☁️</span><span>7°C</span></div>
+            <div class="weather-item"><span class="time">21:00</span><span class="weather-icon">🌙</span><span>4°C</span></div>
         </div>
         
-        <img src="/images/day03_disney_land.jpg" alt="迪士尼樂園" class="day-image">
-        
-        <div class="weather-info">
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
+        <div class="map-link-container">
+             <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京迪士尼樂園" target="_blank" class="map-link">🗺️ 點擊導航至 迪士尼樂園</a>
         </div>
+        
         <div class="card">
             <h3>🏰 迪士尼樂園</h3>
             <ul class="item-list">
@@ -274,16 +259,25 @@
     </div>
 
     <div id="day-12-9" class="content" style="display:none;">
-        <div class="day-box">
-            <h2>🗓️ 12 月 9 日（週一）</h2>
-            <p>迪士尼海洋夢幻泉鄉與市區飯店</p>
+        <div class="hero-card">
+            <img src="/images/day04_disney_sea.jpg" alt="迪士尼海洋" class="hero-image">
+            <div class="hero-overlay">
+                <h2>🔱 迪士尼海洋</h2>
+                <p>夢幻泉鄉與 Check-out</p>
+            </div>
+        </div>
+        <div class="weather-timeline">
+            <div class="weather-item"><span class="time">現在</span><span class="weather-icon">🌧️</span><span>7°C</span></div>
+            <div class="weather-item"><span class="time">11:00</span><span class="weather-icon">🌦️</span><span>8°C</span></div>
+            <div class="weather-item"><span class="time">14:00</span><span class="weather-icon">☁️</span><span>9°C</span></div>
+            <div class="weather-item"><span class="time">18:00</span><span class="weather-icon">☁️</span><span>6°C</span></div>
+            <div class="weather-item"><span class="time">21:00</span><span class="weather-icon">🌙</span><span>5°C</span></div>
         </div>
         
-        <img src="/images/day04_disney_sea.jpg" alt="迪士尼海洋" class="day-image">
-        
-        <div class="weather-info">
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
+        <div class="map-link-container">
+             <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京迪士尼海洋" target="_blank" class="map-link">🗺️ 點擊導航至 迪士尼海洋</a>
         </div>
+        
         <div class="card">
             <h3>🔱 迪士尼海洋 - 夢幻泉鄉</h3>
             <ul class="item-list">
@@ -303,16 +297,25 @@
     </div>
 
     <div id="day-12-10" class="content" style="display:none;">
-        <div class="day-box">
-            <h2>🗓️ 12 月 10 日（週二）</h2>
-            <p>吉伊卡哇、原宿、聖誕市集</p>
+        <div class="hero-card">
+            <img src="/images/day05_chiikawa.jpg" alt="吉伊卡哇與原宿" class="hero-image">
+            <div class="hero-overlay">
+                <h2>✨ 吉伊卡哇樂園</h2>
+                <p>池袋、原宿與聖誕市集</p>
+            </div>
+        </div>
+        <div class="weather-timeline">
+            <div class="weather-item"><span class="time">現在</span><span class="weather-icon">☀️</span><span>6°C</span></div>
+            <div class="weather-item"><span class="time">12:00</span><span class="weather-icon">🌤️</span><span>11°C</span></div>
+            <div class="weather-item"><span class="time">15:00</span><span class="weather-icon">☁️</span><span>9°C</span></div>
+            <div class="weather-item"><span class="time">18:00</span><span class="weather-icon">🌙</span><span>7°C</span></div>
+            <div class="weather-item"><span class="time">21:00</span><span class="weather-icon">🌙</span><span>6°C</span></div>
         </div>
         
-        <img src="/images/day05_chiikawa.jpg" alt="吉伊卡哇與原宿" class="day-image">
-        
-        <div class="weather-info">
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
+        <div class="map-link-container">
+             <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=吉伊卡哇樂園" target="_blank" class="map-link">🗺️ 點擊導航至 吉伊卡哇樂園</a>
         </div>
+        
         <div class="card">
             <h3>🛍️ 購物與美食</h3>
             <ul class="item-list">
@@ -332,16 +335,25 @@
     </div>
     
     <div id="day-12-11" class="content" style="display:none;">
-        <div class="day-box">
-            <h2>🗓️ 12 月 11 日（週三）</h2>
-            <p>汽車、六本木、丸之內</p>
+        <div class="hero-card">
+            <img src="/images/day06_roppongi.jpg" alt="六本木與丸之內" class="hero-image">
+            <div class="hero-overlay">
+                <h2>🏙️ 六本木與丸之內</h2>
+                <p>六本木新城聖誕市集</p>
+            </div>
+        </div>
+        <div class="weather-timeline">
+            <div class="weather-item"><span class="time">現在</span><span class="weather-icon">☀️</span><span>8°C</span></div>
+            <div class="weather-item"><span class="time">12:00</span><span class="weather-icon">☀️</span><span>13°C</span></div>
+            <div class="weather-item"><span class="time">15:00</span><span class="weather-icon">🌤️</span><span>11°C</span></div>
+            <div class="weather-item"><span class="time">18:00</span><span class="weather-icon">🌙</span><span>9°C</span></div>
+            <div class="weather-item"><span class="time">21:00</span><span class="weather-icon">🌙</span><span>7°C</span></div>
+        </div>
+
+        <div class="map-link-container">
+             <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=六本木新城" target="_blank" class="map-link">🗺️ 點擊導航至 六本木新城</a>
         </div>
         
-        <img src="/images/day06_roppongi.jpg" alt="六本木與丸之內" class="day-image">
-        
-        <div class="weather-info">
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
-        </div>
         <div class="card">
             <h3>🗼 市區活動</h3>
             <ul class="item-list">
@@ -354,16 +366,25 @@
     </div>
 
     <div id="day-12-12" class="content" style="display:none;">
-        <div class="day-box">
-            <h2>🗓️ 12 月 12 日（週四）</h2>
-            <p>返程</p>
+        <div class="hero-card">
+            <img src="/images/day07_departure.jpg" alt="返程" class="hero-image">
+            <div class="hero-overlay">
+                <h2>✈️ 返程日</h2>
+                <p>SKYLINER 班次 CI 0127</p>
+            </div>
+        </div>
+        <div class="weather-timeline">
+            <div class="weather-item"><span class="time">現在</span><span class="weather-icon">🌤️</span><span>7°C</span></div>
+            <div class="weather-item"><span class="time">11:00</span><span class="weather-icon">☀️</span><span>10°C</span></div>
+            <div class="weather-item"><span class="time">14:00</span><span class="weather-icon">🌤️</span><span>9°C</span></div>
+            <div class="weather-item"><span class="time">17:00</span><span class="weather-icon">☁️</span><span>7°C</span></div>
+            <div class="weather-item"><span class="time">20:00</span><span class="weather-icon">🌙</span><span>5°C</span></div>
+        </div>
+
+        <div class="map-link-container">
+             <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=成田機場" target="_blank" class="map-link">🗺️ 點擊導航至 成田機場</a>
         </div>
         
-        <img src="/images/day07_departure.jpg" alt="返程" class="day-image">
-        
-        <div class="weather-info">
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
-        </div>
         <div class="card">
             <h3>✈️ 返程與購物</h3>
             <ul class="item-list">
@@ -375,12 +396,7 @@
     </div>
 
 
-    <div id="info" class="content" style="display:none;">
-        <div class="day-box">
-            <h2>📝 旅程資訊</h2>
-            <p>航班、住宿與必備清單</p>
-        </div>
-            
+    <div id="info" class="content" style="padding: 20px;" style="display:none;">
         <div class="card">
             <h3>✈️ 航班資訊</h3>
             <ul class="item-list">
@@ -388,7 +404,6 @@
                 <li><span class="time">回程</span> 12/12 (週四) CI 0127</li>
             </ul>
         </div>
-            
         <div class="card">
             <h3>🏨 住宿資訊</h3>
             <ul class="item-list">
@@ -397,7 +412,6 @@
                 <li><span class="time">12/9 - 12/12</span> REMM PLUS GINZA</li>
             </ul>
         </div>
-            
         <div class="card">
             <h3>📞 緊急聯絡電話與必備品</h3>
             <ul class="item-list">
@@ -406,18 +420,12 @@
                 <li>**電子設備**：相機、充電器 (手機+相機)</li>
                 <li>**日本警察**：110</li>
                 <li>**救護/消防**：119</li>
-                <li>**重要預約**：SKYLINER 票、迪士尼預約項目</li>
             </ul>
         </div>
     </div>
 
-    <div id="budget" class="content" style="display:none;">
-        <div class="day-box">
-            <h2>💰 記帳/預算中心</h2>
-            <p>離線記錄每日開銷</p>
-        </div>
-        
-        <div class="card" style="background-color: #f0fff0;">
+    <div id="budget" class="content" style="padding: 20px;" style="display:none;">
+        <div class="card">
             <h3>💸 總預算與匯率設定</h3>
             <p>今日剩餘：<strong id="daily-remaining">¥0</strong> / 總剩餘：<strong id="total-remaining">¥0</strong></p>
             <div class="budget-input-group">
