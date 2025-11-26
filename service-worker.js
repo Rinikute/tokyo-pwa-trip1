@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tokyo-trip-v1';
+const CACHE_NAME = 'tokyo-trip-v2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -49,4 +49,5 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
+
 });
