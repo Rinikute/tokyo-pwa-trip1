@@ -47,25 +47,6 @@
         .content {
             padding: 10px 0; /* 縮小邊距 */
         }
-        /* *** 垂直日期標題樣式 (新增) *** */
-        .date-header-large {
-            display: flex;
-            align-items: center;
-            margin: 20px 20px 10px 20px;
-        }
-        .date-header-large h2 {
-            font-size: 2.5em; /* 放大日期數字 */
-            font-weight: 700;
-            line-height: 1;
-            margin-right: 15px;
-            color: #444;
-        }
-        .date-header-large p {
-            font-size: 0.9em;
-            color: #888;
-            line-height: 1.2;
-        }
-
         /* *** 每日圖片樣式 *** */
         .day-image {
             width: 100%;
@@ -73,65 +54,6 @@
             border-radius: 10px;
             margin-bottom: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        /* *** 航班圖標卡片樣式 *** */
-        .flight-card {
-            background-color: #385E72; /* 沉穩的深藍色背景 */
-            color: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 0 20px 25px 20px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-        .flight-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .flight-time, .flight-airport {
-            font-size: 2em;
-            font-weight: 700;
-            line-height: 1;
-            margin-bottom: 5px;
-        }
-        .flight-details {
-            text-align: center;
-            margin-top: 10px;
-            font-weight: 500;
-        }
-        .flight-line {
-            height: 4px;
-            background: #5A7E97;
-            position: relative;
-            margin: 5px 0;
-        }
-        .flight-line::before, .flight-line::after {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: white;
-            border-radius: 50%;
-            top: -3px;
-        }
-        .flight-line::before { left: 0; }
-        .flight-line::after { right: 0; }
-        .flight-duration {
-            font-size: 1.1em;
-        }
-        .flight-number {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: #A3D2D9;
-        }
-        .flight-reminder {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 6px;
-            margin-top: 15px;
-            display: inline-block;
-            font-size: 0.9em;
         }
         /* *** 地圖容器 *** */
         .map-container {
@@ -148,20 +70,75 @@
             border: none;
             display: block;
         }
-        /* *** 卡片和列表樣式 *** */
+        /* *** 米黃色日期方塊 (已移除此結構，保留 CSS 定義) *** */
+        .day-box {
+            background-color: #FFF8E0; 
+            border: 1px solid #E0D8C8; 
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+        .day-box h2 {
+            font-size: 1.5em;
+            color: #444;
+            margin: 0;
+        }
+        .day-box p {
+            margin: 5px 0 0 0;
+            font-size: 0.9em;
+            color: #888;
+        }
+
         .card {
-            background-color: #FFFFFF; 
-            border-radius: 12px; 
+            background-color: #FFFFFF; /* 純白色卡片 */
+            border-radius: 12px; /* 略圓潤邊角 */
             padding: 20px 24px; 
-            margin: 0 20px 25px 20px;
+            margin: 0 20px 25px 20px; 
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); 
             border: 1px solid #E8E8E8; 
             line-height: 1.6;
         }
-        .item-list { list-style: none; padding: 0; margin: 0; }
-        .item-list li { padding: 10px 0; border-bottom: 1px dashed #E5E5E5; font-size: 0.95em; }
-        .item-list li:last-child { border-bottom: none; }
-        .item-list .time { font-weight: bold; color: #555; margin-right: 8px; display: inline-block; min-width: 60px; }
+        
+        /* 航班卡片 */
+        .flight-card {
+            background-color: #385E72; 
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 0 20px 25px 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        .flight-header { display: flex; justify-content: space-between; align-items: center; }
+        .flight-time, .flight-airport { font-size: 2em; font-weight: 700; line-height: 1; margin-bottom: 5px; }
+        .flight-details { text-align: center; margin-top: 10px; font-weight: 500; }
+        .flight-line { height: 4px; background: #5A7E97; position: relative; margin: 5px 0; }
+        .flight-line::before, .flight-line::after { content: ''; position: absolute; width: 10px; height: 10px; background: white; border-radius: 50%; top: -3px; }
+        .flight-line::before { left: 0; }
+        .flight-line::after { right: 0; }
+        .flight-duration { font-size: 1.1em; }
+        .flight-number { font-size: 1.2em; font-weight: 600; color: #A3D2D9; }
+        .flight-reminder { background: rgba(255, 255, 255, 0.2); color: white; padding: 5px 10px; border-radius: 6px; margin-top: 15px; display: inline-block; font-size: 0.9em; }
+        
+        /* 垂直日期標題樣式 */
+        .date-header-large {
+            display: flex;
+            align-items: center;
+            margin: 20px 20px 10px 20px;
+        }
+        .date-header-large h2 {
+            font-size: 2.5em; 
+            font-weight: 700;
+            line-height: 1;
+            margin-right: 15px;
+            color: #444;
+        }
+        .date-header-large p {
+            font-size: 0.9em;
+            color: #888;
+            line-height: 1.2;
+        }
+        /* 標籤設計 */
         .tag { display: inline-block; padding: 4px 10px; margin: 3px 5px 3px 0; border-radius: 6px; font-size: 0.75em; font-weight: bold; }
         .tag-pass { background-color: #F4E8D4; color: #7B6858; } 
         .tag-food { background-color: #FFF0D6; color: #C48E44; } 
@@ -171,6 +148,8 @@
         .delete-btn { color: #D83A56; cursor: pointer; float: right; font-weight: bold; margin-left: 10px; }
         .weather-info { padding: 0; margin-bottom: 15px; border: none; box-shadow: none; background-color: transparent; }
         .weatherwidget-io { width: 100%; border-radius: 10px; overflow: hidden; border: 1px solid #E8E8E8; }
+        .item-list { list-style: none; padding: 0; margin: 0; }
+        .item-list li { padding: 10px 0; border-bottom: 1px dashed #E5E5E5; font-size: 0.95em; }
     </style>
 </head>
 <body>
@@ -275,18 +254,18 @@
             <h3>🏰 迪士尼樂園</h3>
             <ul class="item-list">
                 <li><span class="time">08:00</span> Check out Comfort Hotel</li>
-                <li><span class="time">09:00</span> **アリエス 新宿東南口店** <span class="tag tag-reservation">預約</span></li>
-                <li><span class="time">上午</span> 前往東京迪士尼海洋 Check-in **夢幻泉鄉** (12/8-12/9)</li>
-                <li><span class="time">17:00</span> **美女與野獸** <span class="tag tag-reservation">已預約</span></li>
+                <li><span class="time">09:00</span> アリエス 新宿東南口店 <span class="tag tag-reservation">預約</span></li>
+                <li><span class="time">上午</span> 前往東京迪士尼海洋 Check-in 夢幻泉鄉 (12/8-12/9)</li>
+                <li><span class="time">17:00</span> 美女與野獸 <span class="tag tag-reservation">已預約</span></li>
             </ul>
         </div>
         <div class="card">
             <h3>🎢 必玩與美食 (樂園)</h3>
             <ul class="item-list">
-                <li>**快速通關**：<span class="tag tag-pass">巨雷山</span>、<span class="tag tag-pass">幽靈公關</span></li>
-                <li>**必玩項目**：<span class="tag tag-must-do">小小世界</span>、<span class="tag tag-must-do">艾芝迷你雲霄飛車</span>、<span class="tag tag-must-do">杯麵</span>、<span class="tag tag-must-do">白雪公主</span></li>
-                <li>**遊行/煙火**：<span class="time">12:45</span> 玩具奇妙聖誕遊行 / <span class="time">19:00</span> 墊子大遊行~夢之光 / <span class="time">20:30</span> 煙火</li>
-                <li>**想吃美食**：<span class="tag tag-food">水晶宮 (吃到飽)</span>、<span class="tag tag-food">中央大道咖啡廳</span></li>
+                <li>快速通關：<span class="tag tag-pass">巨雷山</span>、<span class="tag tag-pass">幽靈公關</span></li>
+                <li>必玩項目：<span class="tag tag-must-do">小小世界</span>、<span class="tag tag-must-do">艾芝迷你雲霄飛車</span>、<span class="tag tag-must-do">杯麵</span>、<span class="tag tag-must-do">白雪公主</span></li>
+                <li>遊行/煙火：<span class="time">12:45</span> 玩具奇妙聖誕遊行 / <span class="time">19:00</span> 墊子大遊行~夢之光 / <span class="time">20:30</span> 煙火</li>
+                <li>想吃美食：<span class="tag tag-food">水晶宮 (吃到飽)</span>、<span class="tag tag-food">中央大道咖啡廳</span></li>
             </ul>
         </div>
         
@@ -312,14 +291,14 @@
             <ul class="item-list">
                 <li><span class="time">08:20</span> 早餐預約</li>
                 <li><span class="time">12:00</span> Check out 夢幻泉鄉</li>
-                <li>**預約設施**：<span class="time">10:00</span> Elsa、<span class="time">11:30</span> 樂佩、<span class="time">13:30</span> 彼得潘</li>
-                <li>**表演**：<span class="time">14:15</span> 迪士尼聖誕迎賓會 / <span class="time">15:25</span> 達菲旅程 (遊行) / <span class="time">20:30</span> 煙火</li>
+                <li>預約設施：<span class="time">10:00</span> Elsa、<span class="time">11:30</span> 樂佩、<span class="time">13:30</span> 彼得潘</li>
+                <li>表演：<span class="time">14:15</span> 迪士尼聖誕迎賓會 / <span class="time">15:25</span> 達菲旅程 (遊行) / <span class="time">20:30</span> 煙火</li>
             </ul>
         </div>
         <div class="card">
             <h3>🎢 必玩與住宿 Check-in</h3>
             <ul class="item-list">
-                <li>**必玩項目**：<span class="tag tag-pass">玩具總動員</span>、<span class="tag tag-pass">驚魂古塔</span>、<span class="tag tag-pass">印第安那冒險</span>、<span class="tag tag-pass">地心探險</span>、<span class="tag tag-pass">憤怒雙神</span></li>
+                <li>必玩項目：<span class="tag tag-pass">玩具總動員</span>、<span class="tag tag-pass">驚魂古塔</span>、<span class="tag tag-pass">印第安那冒險</span>、<span class="tag tag-pass">地心探險</span>、<span class="tag tag-pass">憤怒雙神</span></li>
                 <li><span class="time">晚上</span> Check-in **REMM PLUS GINZA** (12/9 - 12/12)</li>
             </ul>
         </div>
@@ -346,7 +325,7 @@
             <ul class="item-list">
                 <li><span class="time">早上</span> 池袋逛街</li>
                 <li><span class="time">中午</span> ねぎし Negishi <span class="tag tag-food">午餐</span></li>
-                <li><span class="time">13:40</span> **吉伊卡哇樂園** <span class="tag tag-reservation">預約</span></li>
+                <li><span class="time">13:40</span> 吉伊卡哇樂園 <span class="tag tag-reservation">預約</span></li>
                 <li><span class="time">下午</span> 原宿逛街</li>
             </ul>
         </div>
@@ -458,12 +437,12 @@
         <div class="card">
             <h3>📞 緊急聯絡電話與必備品</h3>
             <ul class="item-list">
-                <li>**重要文件/財物**：<span class="tag tag-reservation">護照</span>、錢、<span class="tag tag-reservation">信用卡</span></li>
-                <li>**通信/網路**：**ESIM** (或SIM卡)</li>
-                <li>**電子設備**：相機、充電器 (手機+相機)</li>
-                <li>**日本警察**：110</li>
-                <li>**救護/消防**：119</li>
-                <li>**重要預約**：SKYLINER 票、迪士尼預約項目</li>
+                <li>重要文件/財物：<span class="tag tag-reservation">護照</span>、錢、<span class="tag tag-reservation">信用卡</span></li>
+                <li>通信/網路：ESIM (或SIM卡)</li>
+                <li>電子設備：相機、充電器 (手機+相機)</li>
+                <li>日本警察：110</li>
+                <li>救護/消防：119</li>
+                <li>重要預約：SKYLINER 票、迪士尼預約項目</li>
             </ul>
         </div>
     </div>
