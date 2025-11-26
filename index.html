@@ -15,17 +15,16 @@
             padding: 0;
             color: #333333; /* 主要文字色 */
         }
-        /* 頂部導航欄 (日期與工具分頁) - 保持不變，用於工具分頁 */
+        /* 頂部導航欄 (工具分頁) */
         .tab-nav {
             display: flex;
-            overflow-x: auto; 
-            white-space: nowrap; 
+            justify-content: flex-end;
             background-color: #FFFFFF;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03); 
             padding: 10px 0;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 200; /* 置頂 */
         }
         .tab-button {
             border: none;
@@ -34,27 +33,64 @@
             font-size: 0.95em;
             cursor: pointer;
             font-weight: 600;
-            flex-shrink: 0;
             color: #AAAAAA;
-            transition: color 0.3s;
-        }
-        .tab-button.active {
-            color: #D4A373; /* 暖棕色/陶土色作為強調色 */
-            border-bottom: 3px solid #D4A373;
-        }
-
-        /* 2. 佈局與卡片設計 */
-        .content {
-            padding: 10px 0;
         }
         
-        /* *** 新增：方塊日期切換條 (Calendar Strip) *** */
+        /* === 沉浸式頂部 Hero 區塊 === */
+        .hero-header {
+            position: relative;
+            width: 100%;
+            height: 300px; /* 沉浸式高度 */
+            overflow: hidden;
+            margin-bottom: -40px; /* 讓內容往上疊 */
+        }
+        .hero-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8); /* 輕微變暗以突出文字 */
+            display: block;
+        }
+        /* 底部漸層 (模仿圖片) */
+        .hero-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+            z-index: 1;
+        }
+        /* 圖片上的日期標題 */
+        .hero-title-overlay {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            z-index: 2;
+            color: white;
+        }
+        .hero-title-overlay h2 {
+            font-size: 2.2em;
+            margin: 0;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .hero-title-overlay p {
+            font-size: 1.1em;
+            margin-top: 5px;
+        }
+        
+        /* *** 日期方塊切換區 (Calendar Strip) - 放在圖片下方 *** */
         .calendar-strip {
             display: flex;
             overflow-x: auto;
             white-space: nowrap;
-            margin: 15px 20px;
-            padding-bottom: 10px;
+            margin: 0 20px;
+            padding: 15px 0;
+            background-color: transparent; /* 讓背景米色透出 */
+            position: relative;
+            z-index: 10;
         }
         .day-tab-box {
             background-color: white;
@@ -62,20 +98,20 @@
             border: 1px solid #EAEAEA;
             border-radius: 8px;
             padding: 10px;
-            margin-right: 8px;
+            margin-right: 12px;
             text-align: center;
             width: 60px; /* 方塊固定寬度 */
             min-width: 60px;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
             transition: all 0.2s;
         }
         .day-tab-box.active {
             background: #FFF8E0; /* 激活時為米黃色 */
             border-color: #D4A373;
             color: #D4A373;
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
         .day-tab-box .date-num {
             display: block;
@@ -87,7 +123,10 @@
             font-size: 0.8em;
             display: block;
         }
-        /* *** 垂直日期標題樣式 (已移除，僅保留簡單標題) *** */
+        /* *** 核心內容區塊 *** */
+        .content {
+            padding: 10px 0;
+        }
         .day-title {
             margin: 0 20px 15px 20px;
             font-size: 1.8em;
@@ -95,17 +134,6 @@
             color: #444;
             letter-spacing: 2px;
         }
-
-        /* *** 每日圖片樣式 *** */
-        .day-image {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin: 0 20px 15px 20px; 
-        }
-        /* *** 卡片樣式 *** */
         .card {
             background-color: #FFFFFF; 
             border-radius: 12px; 
@@ -125,40 +153,46 @@
             margin: 0 20px 25px 20px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
+        .flight-header { display: flex; justify-content: space-between; align-items: center; }
         .flight-time, .flight-airport { font-size: 2em; font-weight: 700; line-height: 1; margin-bottom: 5px; }
         .flight-details { text-align: center; margin-top: 10px; font-weight: 500; }
         .flight-number { font-size: 1.2em; font-weight: 600; color: #A3D2D9; }
         .flight-reminder { background: rgba(255, 255, 255, 0.2); color: white; padding: 5px 10px; border-radius: 6px; margin-top: 15px; display: inline-block; font-size: 0.9em; }
         
-        /* 地圖/天氣/列表樣式保持不變 */
-        .map-container { margin: 0 20px 20px 20px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        /* 記帳頁面樣式保持不變 */
+        .action-button { display: block; text-align: center; background-color: #D4A373; color: #FFFFFF; padding: 10px 15px; border-radius: 6px; transition: background-color 0.3s; border: none; font-weight: bold; }
+        .weather-info { padding: 0; margin-bottom: 15px; border: none; box-shadow: none; background-color: transparent; }
+        .weatherwidget-io { width: 100%; border-radius: 10px; overflow: hidden; border: 1px solid #E8E8E8; }
         .item-list { list-style: none; padding: 0; margin: 0; }
-        .delete-btn { color: #D83A56; cursor: pointer; float: right; font-weight: bold; margin-left: 10px; }
+        .tag { display: inline-block; padding: 4px 10px; margin: 3px 5px 3px 0; border-radius: 6px; font-size: 0.75em; font-weight: bold; }
     </style>
 </head>
 <body>
 
+    <div class="hero-header">
+        <img src="/images/day01_arrival.jpg" alt="背景圖片" class="hero-background" id="hero-img-bg"> 
+        
+        <div class="hero-content">
+            <div class="hero-time" id="hero-time-display">12:10</div>
+            <div class="hero-date-text" id="hero-date-text-display">2025.12.06 FRI</div>
+        </div>
+    </div>
+    
     <div class="tab-nav">
-        <button id="tab-12-6-btn" class="tab-button active" onclick="showTab('day-12-6', this)">12/6</button>
-        <button id="tab-12-7-btn" class="tab-button" onclick="showTab('day-12-7', this)">12/7</button>
-        <button id="tab-12-8-btn" class="tab-button" onclick="showTab('day-12-8', this)">12/8</button>
-        <button id="tab-12-9-btn" class="tab-button" onclick="showTab('day-12-9', this)">12/9</button>
-        <button id="tab-12-10-btn" class="tab-button" onclick="showTab('day-12-10', this)">12/10</button>
-        <button id="tab-12-11-btn" class="tab-button" onclick="showTab('day-12-11', this)">12/11</button>
-        <button id="tab-12-12-btn" class="tab-button" onclick="showTab('day-12-12', this)">12/12</button>
-        <button id="tab-info-btn" class="tab-button" onclick="showTab('info', this)" style="margin-left: 15px;">資訊</button>
+        <button id="tab-info-btn" class="tab-button" onclick="showTab('info', this)">資訊</button>
         <button id="tab-budget-btn" class="tab-button" onclick="showTab('budget', this)">記帳</button>
     </div>
 
     <div class="calendar-strip">
-        <div class="day-tab-box active" onclick="showTab('day-12-6', this)"><span class="date-num">6</span><span class="day-text">FRI</span></div>
-        <div class="day-tab-box" onclick="showTab('day-12-7', this)"><span class="date-num">7</span><span class="day-text">SAT</span></div>
-        <div class="day-tab-box" onclick="showTab('day-12-8', this)"><span class="date-num">8</span><span class="day-text">SUN</span></div>
-        <div class="day-tab-box" onclick="showTab('day-12-9', this)"><span class="date-num">9</span><span class="day-text">MON</span></div>
-        <div class="day-tab-box" onclick="showTab('day-12-10', this)"><span class="date-num">10</span><span class="day-text">TUE</span></div>
-        <div class="day-tab-box" onclick="showTab('day-12-11', this)"><span class="date-num">11</span><span class="day-text">WED</span></div>
-        <div class="day-tab-box" onclick="showTab('day-12-12', this)"><span class="date-num">12</span><span class="day-text">THU</span></div>
+        <div class="day-tab-box active" data-day-index="1" onclick="showTab('day-12-6', this)"><span class="date-num">6</span><span class="day-text">FRI</span></div>
+        <div class="day-tab-box" data-day-index="2" onclick="showTab('day-12-7', this)"><span class="date-num">7</span><span class="day-text">SAT</span></div>
+        <div class="day-tab-box" data-day-index="3" onclick="showTab('day-12-8', this)"><span class="date-num">8</span><span class="day-text">SUN</span></div>
+        <div class="day-tab-box" data-day-index="4" onclick="showTab('day-12-9', this)"><span class="date-num">9</span><span class="day-text">MON</span></div>
+        <div class="day-tab-box" data-day-index="5" onclick="showTab('day-12-10', this)"><span class="date-num">10</span><span class="day-text">TUE</span></div>
+        <div class="day-tab-box" data-day-index="6" onclick="showTab('day-12-11', this)"><span class="date-num">11</span><span class="day-text">WED</span></div>
+        <div class="day-tab-box" data-day-index="7" onclick="showTab('day-12-12', this)"><span class="date-num">12</span><span class="day-text">THU</span></div>
     </div>
+    
     <div id="day-12-6" class="content">
         <div class="day-title">第一天：抵達東京</div>
         
@@ -176,8 +210,6 @@
                 💼 記得填寫 Visit Japan Web (假設提醒)
             </div>
         </div>
-
-        <img src="/images/day01_arrival.jpg" alt="機場與東雲" class="day-image">
 
         <div class="map-container">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3242.418671064128!2d139.8010629752487!3d35.64205523212584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601889c619efffff%3A0xdd2da6a73aa930d2!2sA-PIT%20Super%20Autobacs!5e0!3m2!1szh-TW!2stw!4v1764142704837!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -339,6 +371,10 @@
     </div>
     
     <div id="day-12-11" class="content" style="display:none;">
+        <div class="date-header-large">
+            <h2>12</h2>
+            <p>WED<br>11</p>
+        </div>
         <div class="day-title">第六天：六本木貢丸之內</div>
         
         <img src="/images/day06_roppongi.jpg" alt="六本木與丸之內" class="day-image">
@@ -526,15 +562,11 @@
             document.querySelectorAll('.tab-button').forEach(btn => {
                 btn.classList.remove('active');
             });
-            if (clickedButton) {
-                clickedButton.classList.add('active');
-            }
             
-            // 更新底部日期方塊的 active 狀態
+            // 更新底部日期方塊的 active 狀態 (Calendar Strip)
             document.querySelectorAll('.day-tab-box').forEach(btn => {
                 btn.classList.remove('active');
             });
-            // 根據點擊的頂部 tab，激活對應的底部日期方塊
             const bottomTabId = tabId.replace('day-', '');
             const bottomTab = document.querySelector(`.day-tab-box[onclick*="${bottomTabId}"]`);
             if (bottomTab) {
