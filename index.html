@@ -47,91 +47,81 @@
         .content {
             padding: 10px 0; /* 縮小邊距 */
         }
-        /* *** 每日圖片樣式 *** */
-        .day-image {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin: 0 20px 15px 20px; /* 恢復與其他卡片的邊距一致 */
-        }
-        /* *** 地圖容器 *** */
-        .map-container {
-            margin-bottom: 20px;
+        /* === 沉浸式 Flight Hero Card (新增) === */
+        .hero-flight-container {
+            position: relative;
+            margin: 0 20px 25px 20px;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-            margin: 0 20px 20px 20px;
-        }
-        .map-container iframe {
-            width: 100%;
-            height: 250px; 
-            border: none;
-            display: block;
-        }
-        /* *** 卡片樣式 *** */
-        .card {
-            background-color: #FFFFFF; /* 純白色卡片 */
-            border-radius: 12px; /* 略圓潤邊角 */
-            padding: 20px 24px; 
-            margin: 0 20px 25px 20px; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); 
-            border: 1px solid #E8E8E8; 
-            line-height: 1.6;
-        }
-        
-        /* === 航班圖標卡片樣式 (維持長條設計) === */
-        .flight-card {
-            background-color: #385E72; 
-            color: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 0 20px 25px 20px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
-        .flight-header { display: flex; justify-content: space-between; align-items: center; }
+        .hero-flight-container img {
+            width: 100%;
+            height: 350px; /* 固定高度 */
+            object-fit: cover;
+            display: block;
+        }
+        .hero-overlay-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 2;
+        }
+        /* 漸層效果 */
+        .hero-overlay-content::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+            z-index: -1;
+        }
+        
+        /* 航班卡片 (樣式調整，使其疊加在圖片上) */
+        .flight-card {
+            background-color: transparent; /* 隱藏背景，只保留文字 */
+            color: white;
+            border-radius: 0;
+            padding: 0;
+            margin: 0;
+            box-shadow: none;
+            position: absolute;
+            bottom: 20px; /* 移到底部，在漸層上 */
+            width: calc(100% - 40px);
+            left: 20px;
+        }
         .flight-time, .flight-airport { font-size: 2em; font-weight: 700; line-height: 1; margin-bottom: 5px; }
         .flight-details { text-align: center; margin-top: 10px; font-weight: 500; }
         .flight-number { font-size: 1.2em; font-weight: 600; color: #A3D2D9; }
         .flight-reminder { background: rgba(255, 255, 255, 0.2); color: white; padding: 5px 10px; border-radius: 6px; margin-top: 15px; display: inline-block; font-size: 0.9em; }
         
-        /* 垂直日期標題樣式 */
+        /* 垂直日期標題樣式 (疊加在左上角) */
         .date-header-large {
+            position: absolute;
+            top: 20px;
+            left: 20px;
             display: flex;
             align-items: center;
-            margin: 20px 20px 10px 20px;
+            z-index: 3;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5); /* 讓文字更清晰 */
         }
-        .date-header-large h2 {
-            font-size: 2.5em; 
-            font-weight: 700;
-            line-height: 1;
-            margin-right: 15px;
-            color: #444;
-        }
-        .date-header-large p {
-            font-size: 0.9em;
-            color: #888;
-            line-height: 1.2;
-        }
-        .day-title {
-            margin: 0 20px 15px 20px;
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #444;
-            letter-spacing: 2px;
-        }
-        /* 標籤設計 */
-        .tag { display: inline-block; padding: 4px 10px; margin: 3px 5px 3px 0; border-radius: 6px; font-size: 0.75em; font-weight: bold; }
-        .tag-pass { background-color: #F4E8D4; color: #7B6858; } 
-        .tag-food { background-color: #FFF0D6; color: #C48E44; } 
-        .tag-reservation { background-color: #E0EBF7; color: #4C70A8; } 
-        .action-button { display: block; text-align: center; background-color: #D4A373; color: #FFFFFF; padding: 10px 15px; border-radius: 6px; text-decoration: none; font-size: 0.95em; margin-top: 15px; transition: background-color 0.3s; border: none; font-weight: bold; }
+        .date-header-large h2 { font-size: 2.5em; font-weight: 700; line-height: 1; margin-right: 15px; color: white; }
+        .date-header-large p { font-size: 0.9em; line-height: 1.2; }
+        .day-title { margin: 0 20px 15px 20px; font-size: 1.8em; font-weight: bold; color: #444; letter-spacing: 2px; }
+        
+        /* 其他保留樣式 */
+        .card { background-color: #FFFFFF; border-radius: 12px; padding: 20px 24px; margin: 0 20px 25px 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); border: 1px solid #E8E8E8; line-height: 1.6; }
+        .map-container { margin: 0 20px 20px 20px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
         .item-list { list-style: none; padding: 0; margin: 0; }
-        .delete-btn { color: #D83A56; cursor: pointer; float: right; font-weight: bold; margin-left: 10px; }
+        .tag { display: inline-block; padding: 4px 10px; margin: 3px 5px 3px 0; border-radius: 6px; font-size: 0.75em; font-weight: bold; }
         .weather-info { padding: 0; margin-bottom: 15px; border: none; box-shadow: none; background-color: transparent; }
-        .weatherwidget-io { width: 100%; border-radius: 10px; overflow: hidden; border: 1px solid #E8E8E8; }
     </style>
 </head>
 <body>
@@ -149,28 +139,33 @@
     </div>
 
     <div id="day-12-6" class="content">
-        <div class="date-header-large">
-            <h2>12</h2>
-            <p>FRI<br>6</p>
-        </div>
-        <div class="day-title">第一天：抵達東京</div>
-        
-        <div class="flight-card">
-            <div class="flight-header">
-                <div><span class="flight-time">08:00</span><p class="flight-airport" style="font-size: 0.6em;">TPE 台北 (假設)</p></div>
-                <div><span class="flight-time">12:20</span><p class="flight-airport" style="font-size: 0.6em;">NRT 東京</p></div>
-            </div>
-            <div class="flight-details">
-                <span class="flight-number">CI 0102</span>
-                <div class="flight-line"></div>
-                <span class="flight-duration">4h 20m</span>
-            </div>
-            <div class="flight-reminder">
-                💼 記得填寫 Visit Japan Web (假設提醒)
-            </div>
-        </div>
+        <div class="hero-flight-container">
+            <img src="/images/day01_arrival.jpg" alt="機場與東雲" style="object-position: center top;">
 
-        <img src="/images/day01_arrival.jpg" alt="機場與東雲" class="day-image">
+            <div class="hero-overlay-content">
+                <div class="date-header-large">
+                    <h2>12</h2>
+                    <p>FRI<br>6</p>
+                </div>
+
+                <div class="flight-card">
+                    <div class="flight-header">
+                        <div><span class="flight-time">08:00</span><p class="flight-airport" style="font-size: 0.6em;">TPE 台北 (假設)</p></div>
+                        <div><span class="flight-time">12:20</span><p class="flight-airport" style="font-size: 0.6em;">NRT 東京</p></div>
+                    </div>
+                    <div class="flight-details">
+                        <span class="flight-number">CI 0102</span>
+                        <div class="flight-line"></div>
+                        <span class="flight-duration">4h 20m</span>
+                    </div>
+                    <div class="flight-reminder">
+                        💼 記得填寫 Visit Japan Web (假設提醒)
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="day-title">第一天：抵達東京</div>
 
         <div class="map-container">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3242.418671064128!2d139.8010629752487!3d35.64205523212584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601889c619efffff%3A0xdd2da6a73aa930d2!2sA-PIT%20Super%20Autobacs!5e0!3m2!1szh-TW!2stw!4v1764142704837!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
