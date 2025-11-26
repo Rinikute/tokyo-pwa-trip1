@@ -123,8 +123,21 @@
         
         /* 地圖導航與其他樣式 (保持米色調) */
         .map-link-container { margin-bottom: 15px; text-align: center; }
-        .map-link { display: block; width: 100%; padding: 12px; background-color: #A3D2D9; color: #385E72; border-radius: 8px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); transition: background-color 0.3s; }
-        .map-image-osm { width: 100%; height: auto; border-radius: 8px; margin-bottom: 10px; border: 1px solid #D4A373; display: block; }
+        .map-link { 
+            display: block; 
+            width: 100%; 
+            padding: 12px; 
+            background-color: #A3D2D9; 
+            color: #385E72; 
+            border-radius: 8px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+            transition: background-color 0.3s; 
+        }
+        .map-link:hover {
+            background-color: #8CC2C9;
+        }
         .tag { display: inline-block; padding: 4px 10px; margin: 3px 5px 3px 0; border-radius: 6px; font-size: 0.75em; font-weight: bold; }
         .tag-pass { background-color: #F4E8D4; color: #7B6858; } 
         .tag-food { background-color: #FFF0D6; color: #C48E44; } 
@@ -164,9 +177,12 @@
             <div class="weather-item"><span class="time">13:00</span><span class="weather-icon">🌤️</span><span>12°C</span></div>
             <div class="weather-item"><span class="time">16:00</span><span class="weather-icon">🌤️</span><span>10°C</span></div>
             <div class="weather-item"><span class="time">19:00</span><span class="weather-icon">☁️</span><span>7°C</span></div>
-            <div class="weather-item"><span class="time">22:00</span><span class="weather-icon">☁️</span><span>5°C</span></div>
         </div>
 
+        <div class="map-link-container">
+             <a href="https://maps.google.com/?q=東雲A-PIT+Super+Autobacs" target="_blank" class="map-link">🗺️ 點擊導航至 東雲 A-PIT</a>
+        </div>
+        
         <div class="card">
             <h3>✈️ 航班與交通</h3>
             <ul class="item-list">
@@ -175,11 +191,6 @@
                 <li><span class="time">住宿</span> Check-in **Comfort Hotel Tokyo Kanda** (12/6 - 12/8)</li>
             </ul>
         </div>
-        
-        <div class="map-link-container">
-             <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東雲A-PIT+Super+Autobacs" target="_blank" class="map-link">🗺️ 點擊導航至 東雲 A-PIT</a>
-        </div>
-
         <div class="card">
             <h3>🚗 下午活動</h3>
             <ul class="item-list">
@@ -201,11 +212,10 @@
             <div class="weather-item"><span class="time">12:00</span><span class="weather-icon">🌤️</span><span>12°C</span></div>
             <div class="weather-item"><span class="time">15:00</span><span class="weather-icon">☁️</span><span>9°C</span></div>
             <div class="weather-item"><span class="time">18:00</span><span class="weather-icon">☁️</span><span>7°C</span></div>
-            <div class="weather-item"><span class="time">21:00</span><span class="weather-icon">🌙</span><span>5°C</span></div>
         </div>
         
         <div class="map-link-container">
-             <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京聖誕+Advent+in+上野公園" target="_blank" class="map-link">🗺️ 點擊導航至 上野公園 (聖誕市集)</a>
+             <a href="https://maps.google.com/?q=東京聖誕+Advent+in+上野公園" target="_blank" class="map-link">🗺️ 點擊導航至 上野公園 (聖誕市集)</a>
         </div>
 
         <div class="card">
@@ -231,11 +241,10 @@
             <div class="weather-item"><span class="time">10:00</span><span class="weather-icon">☀️</span><span>8°C</span></div>
             <div class="weather-item"><span class="time">14:00</span><span class="weather-icon">🌤️</span><span>10°C</span></div>
             <div class="weather-item"><span class="time">18:00</span><span class="weather-icon">☁️</span><span>7°C</span></div>
-            <div class="weather-item"><span class="time">21:00</span><span class="weather-icon">🌙</span><span>4°C</span></div>
         </div>
         
         <div class="map-link-container">
-             <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京迪士尼樂園" target="_blank" class="map-link">🗺️ 點擊導航至 迪士尼樂園</a>
+             <a href="https://maps.google.com/?q=東京迪士尼樂園" target="_blank" class="map-link">🗺️ 點擊導航至 迪士尼樂園</a>
         </div>
         
         <div class="card">
@@ -252,7 +261,7 @@
             <ul class="item-list">
                 <li>**快速通關**：<span class="tag tag-pass">巨雷山</span>、<span class="tag tag-pass">幽靈公關</span></li>
                 <li>**必玩項目**：<span class="tag tag-must-do">小小世界</span>、<span class="tag tag-must-do">艾芝迷你雲霄飛車</span>、<span class="tag tag-must-do">杯麵</span>、<span class="tag tag-must-do">白雪公主</span></li>
-                <li>**遊行/煙火**：<span class="time">12:45</span> 玩具奇妙聖誕遊行 / <span class="time">19:00</span> 墊子大遊行~夢之光 / <span class="time">20:30</span> 煙火</li>
+                <li>**遊行/煙火**：<span class="time">12:45</span> 玩具奇妙聖誕遊行 / <span class="time">19:00</span> 墊子大遊行~夢之光 / <span class="tag tag-pass">20:30 煙火</span></li>
                 <li>**想吃美食**：<span class="tag tag-food">水晶宮 (吃到飽)</span>、<span class="tag tag-food">中央大道咖啡廳</span></li>
             </ul>
         </div>
@@ -271,11 +280,10 @@
             <div class="weather-item"><span class="time">11:00</span><span class="weather-icon">🌦️</span><span>8°C</span></div>
             <div class="weather-item"><span class="time">14:00</span><span class="weather-icon">☁️</span><span>9°C</span></div>
             <div class="weather-item"><span class="time">18:00</span><span class="weather-icon">☁️</span><span>6°C</span></div>
-            <div class="weather-item"><span class="time">21:00</span><span class="weather-icon">🌙</span><span>5°C</span></div>
         </div>
         
         <div class="map-link-container">
-             <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京迪士尼海洋" target="_blank" class="map-link">🗺️ 點擊導航至 迪士尼海洋</a>
+             <a href="https://maps.google.com/?q=東京迪士尼海洋" target="_blank" class="map-link">🗺️ 點擊導航至 迪士尼海洋</a>
         </div>
         
         <div class="card">
@@ -284,7 +292,7 @@
                 <li><span class="time">08:20</span> 早餐預約</li>
                 <li><span class="time">12:00</span> Check out 夢幻泉鄉</li>
                 <li>**預約設施**：<span class="time">10:00</span> Elsa、<span class="time">11:30</span> 樂佩、<span class="time">13:30</span> 彼得潘</li>
-                <li>**表演**：<span class="time">14:15</span> 迪士尼聖誕迎賓會 / <span class="time">15:25</span> 達菲旅程 (遊行) / <span class="time">20:30</span> 煙火</li>
+                <li>**表演**：<span class="time">14:15</span> 迪士尼聖誕迎賓會 / <span class="time">15:25</span> 達菲旅程 (遊行) / <span class="tag tag-pass">20:30 煙火</span></li>
             </ul>
         </div>
         <div class="card">
@@ -309,13 +317,12 @@
             <div class="weather-item"><span class="time">12:00</span><span class="weather-icon">🌤️</span><span>11°C</span></div>
             <div class="weather-item"><span class="time">15:00</span><span class="weather-icon">☁️</span><span>9°C</span></div>
             <div class="weather-item"><span class="time">18:00</span><span class="weather-icon">🌙</span><span>7°C</span></div>
-            <div class="weather-item"><span class="time">21:00</span><span class="weather-icon">🌙</span><span>6°C</span></div>
         </div>
         
         <div class="map-link-container">
-             <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=吉伊卡哇樂園" target="_blank" class="map-link">🗺️ 點擊導航至 吉伊卡哇樂園</a>
+             <a href="https://maps.google.com/?q=吉伊卡哇樂園" target="_blank" class="map-link">🗺️ 點擊導航至 吉伊卡哇樂園</a>
         </div>
-        
+
         <div class="card">
             <h3>🛍️ 購物與美食</h3>
             <ul class="item-list">
@@ -347,11 +354,10 @@
             <div class="weather-item"><span class="time">12:00</span><span class="weather-icon">☀️</span><span>13°C</span></div>
             <div class="weather-item"><span class="time">15:00</span><span class="weather-icon">🌤️</span><span>11°C</span></div>
             <div class="weather-item"><span class="time">18:00</span><span class="weather-icon">🌙</span><span>9°C</span></div>
-            <div class="weather-item"><span class="time">21:00</span><span class="weather-icon">🌙</span><span>7°C</span></div>
         </div>
 
         <div class="map-link-container">
-             <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=六本木新城" target="_blank" class="map-link">🗺️ 點擊導航至 六本木新城</a>
+             <a href="https://maps.google.com/?q=六本木新城" target="_blank" class="map-link">🗺️ 點擊導航至 六本木新城</a>
         </div>
         
         <div class="card">
@@ -378,11 +384,10 @@
             <div class="weather-item"><span class="time">11:00</span><span class="weather-icon">☀️</span><span>10°C</span></div>
             <div class="weather-item"><span class="time">14:00</span><span class="weather-icon">🌤️</span><span>9°C</span></div>
             <div class="weather-item"><span class="time">17:00</span><span class="weather-icon">☁️</span><span>7°C</span></div>
-            <div class="weather-item"><span class="time">20:00</span><span class="weather-icon">🌙</span><span>5°C</span></div>
         </div>
 
         <div class="map-link-container">
-             <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=成田機場" target="_blank" class="map-link">🗺️ 點擊導航至 成田機場</a>
+             <a href="https://maps.google.com/?q=成田機場" target="_blank" class="map-link">🗺️ 點擊導航至 成田機場</a>
         </div>
         
         <div class="card">
@@ -471,14 +476,6 @@
             });
         }
         
-        // 確保天氣小工具腳本在 DOM 載入後執行
-        window.addEventListener('load', function() {
-            var script = document.createElement('script');
-            script.src = 'https://weatherwidget.io/js/widget.min.js';
-            var firstScript = document.getElementsByTagName('script')[0];
-            firstScript.parentNode.insertBefore(script, firstScript);
-        });
-
         // === 頂部 Tab 分頁切換功能 (修復版) ===
         function showTab(tabId, clickedButton) {
             // 隱藏所有內容區塊 (所有日期 + info + budget)
