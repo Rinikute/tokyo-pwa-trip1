@@ -7,514 +7,481 @@
     <link rel="manifest" href="/manifest.json">
     
     <style>
-        /* 1. 基礎設置與米色調配色 */
+        /* 1. 基礎設置與沉浸式背景 */
         body {
-            font-family: 'Hiragino Sans', 'Noto Sans TC', sans-serif;
-            background-color: #FAF7F0; /* 主米色背景 (暖米白) */
+            font-family: 'Avenir Next', 'Hiragino Sans', 'Noto Sans TC', sans-serif;
+            background-color: #F8F6F1; /* 柔和暖米白色背景 */
             margin: 0;
             padding: 0;
-            color: #333333; /* 主要文字色 */
-        }
-        /* 頂部導航欄 (日期與工具分頁) */
-        .tab-nav {
-            display: flex;
-            overflow-x: auto; 
-            white-space: nowrap; 
-            background-color: #FFFFFF;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03); 
-            padding: 10px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .tab-button {
-            border: none;
-            background: none;
-            padding: 10px 15px;
-            font-size: 0.95em;
-            cursor: pointer;
-            font-weight: 600;
-            flex-shrink: 0;
-            color: #AAAAAA;
-            transition: color 0.3s;
-        }
-        .tab-button.active {
-            color: #D4A373; /* 暖棕色/陶土色作為強調色 */
-            border-bottom: 3px solid #D4A373;
+            color: #333333; 
+            min-height: 100vh;
         }
 
-        /* 2. 佈局與卡片設計 */
-        .content {
-            padding: 10px 0; /* 縮小邊距 */
-        }
-        /* *** 每日圖片樣式 *** */
-        .day-image {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        /* *** 地圖容器 *** */
-        .map-container {
-            margin-bottom: 20px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        /* *** 頂部 Hero 區塊 (包含背景圖和日期) *** */
+        .hero-section {
             position: relative;
-            margin: 0 20px 20px 20px;
-        }
-        .map-container iframe {
             width: 100%;
-            height: 250px; 
-            border: none;
+            height: 350px; /* 沉浸式高度 */
+            overflow: hidden;
+            margin-bottom: -100px; /* 讓內容往上疊 */
+        }
+        .hero-background {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85); /* 輕微變暗以突出文字 */
             display: block;
         }
-        /* *** 米黃色日期方塊 (已移除此結構，保留 CSS 定義) *** */
-        .day-box {
-            background-color: #FFF8E0; 
-            border: 1px solid #E0D8C8; 
-            border-radius: 8px;
-            padding: 10px 15px;
-            margin-bottom: 25px;
-            display: inline-block;
-        }
-        .day-box h2 {
-            font-size: 1.5em;
-            color: #444;
-            margin: 0;
-        }
-        .day-box p {
-            margin: 5px 0 0 0;
-            font-size: 0.9em;
-            color: #888;
-        }
-
-        .card {
-            background-color: #FFFFFF; /* 純白色卡片 */
-            border-radius: 12px; /* 略圓潤邊角 */
-            padding: 20px 24px; 
-            margin: 0 20px 25px 20px; 
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); 
-            border: 1px solid #E8E8E8; 
-            line-height: 1.6;
-        }
-        
-        /* 航班卡片 */
-        .flight-card {
-            background-color: #385E72; 
-            color: white;
-            border-radius: 12px;
+        /* 頂部文字層 - 絕對定位 */
+        .hero-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             padding: 20px;
-            margin: 0 20px 25px 20px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+            color: white; /* 頂部文字顏色 */
         }
-        .flight-header { display: flex; justify-content: space-between; align-items: center; }
-        .flight-time, .flight-airport { font-size: 2em; font-weight: 700; line-height: 1; margin-bottom: 5px; }
-        .flight-details { text-align: center; margin-top: 10px; font-weight: 500; }
-        .flight-number { font-size: 1.2em; font-weight: 600; color: #A3D2D9; }
-        .flight-reminder { background: rgba(255, 255, 255, 0.2); color: white; padding: 5px 10px; border-radius: 6px; margin-top: 15px; display: inline-block; font-size: 0.9em; }
-        
-        /* 垂直日期標題樣式 */
-        .date-header-large {
-            display: flex;
-            align-items: center;
-            margin: 20px 20px 10px 20px;
-        }
-        .date-header-large h2 {
-            font-size: 2.5em; 
+        .hero-time {
+            font-size: 2.5em;
             font-weight: 700;
             line-height: 1;
-            margin-right: 15px;
-            color: #444;
+            margin-bottom: 5px;
         }
-        .date-header-large p {
+        .hero-date-text {
             font-size: 0.9em;
-            color: #888;
-            line-height: 1.2;
+            opacity: 0.8;
+            margin-bottom: 10px;
         }
-        .day-title {
-            margin: 0 20px 15px 20px;
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #444;
-            letter-spacing: 2px;
+
+        /* *** Day Tabs (模仿 Day 1, Day 2 按鈕) *** */
+        .day-tabs-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            margin: 0 15px;
+            background-color: transparent; /* 位於背景圖上 */
+            position: absolute;
+            top: 80px; /* 調整到日期下方 */
+            width: calc(100% - 40px);
         }
-        /* 標籤設計 */
+        .day-tab-button {
+            background: white;
+            color: #333;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 0;
+            width: 13%;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .day-tab-button.active {
+            background: #D4A373;
+            color: white;
+        }
+
+        /* *** 核心內容區塊 *** */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+            padding-top: 100px; /* 為了讓內容從 Hero Card 下方開始 */
+        }
+        .content {
+            padding: 10px 0;
+        }
+
+        /* *** 活動卡片樣式 (簡化) *** */
+        .card {
+            background-color: #FFFFFF; 
+            border-radius: 16px; 
+            padding: 20px 24px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
+            border: 1px solid #EAEAEA; 
+            line-height: 1.6;
+        }
+
+        /* *** 時間軸活動卡 (新增，模仿圖中 14:00 交通) *** */
+        .timeline-card {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .timeline-time {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #D4A373;
+        }
+        .timeline-type {
+            font-size: 0.8em;
+            background: #EAEAEA;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #666;
+            margin-left: 5px;
+        }
+        .timeline-title {
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        .timeline-action {
+            background: #E0EBF7;
+            padding: 8px;
+            border-radius: 50%;
+            font-size: 1.2em;
+            color: #4C70A8;
+        }
+        
+        /* 其他保留樣式 (縮減長度) */
+        .flight-card, .map-container, .weather-info { margin: 0 20px 25px 20px; }
+        .map-container iframe { width: 100%; height: 200px; border: none; display: block; border-radius: 12px;}
+        .day-title { margin: 0 20px 15px 20px; font-size: 1.2em; font-weight: bold; color: #444; letter-spacing: 1px; }
         .tag { display: inline-block; padding: 4px 10px; margin: 3px 5px 3px 0; border-radius: 6px; font-size: 0.75em; font-weight: bold; }
         .tag-pass { background-color: #F4E8D4; color: #7B6858; } 
         .tag-food { background-color: #FFF0D6; color: #C48E44; } 
         .tag-reservation { background-color: #E0EBF7; color: #4C70A8; } 
-        .action-button { display: block; text-align: center; background-color: #D4A373; color: #FFFFFF; padding: 10px 15px; border-radius: 6px; text-decoration: none; font-size: 0.95em; margin-top: 15px; transition: background-color 0.3s; border: none; font-weight: bold; }
-        .action-button.green { background-color: #79A37B; color: #FFFFFF; }
+        .action-button { background-color: #D4A373; color: #FFFFFF; padding: 10px 15px; border-radius: 6px; }
         .delete-btn { color: #D83A56; cursor: pointer; float: right; font-weight: bold; margin-left: 10px; }
-        .weather-info { padding: 0; margin-bottom: 15px; border: none; box-shadow: none; background-color: transparent; }
-        .weatherwidget-io { width: 100%; border-radius: 10px; overflow: hidden; border: 1px solid #E8E8E8; }
-        .item-list { list-style: none; padding: 0; margin: 0; }
-        .item-list li { padding: 10px 0; border-bottom: 1px dashed #E5E5E5; font-size: 0.95em; }
     </style>
 </head>
 <body>
 
-    <div class="tab-nav">
-        <button id="tab-12-6-btn" class="tab-button active" onclick="showTab('day-12-6', this)">12/6</button>
-        <button id="tab-12-7-btn" class="tab-button" onclick="showTab('day-12-7', this)">12/7</button>
-        <button id="tab-12-8-btn" class="tab-button" onclick="showTab('day-12-8', this)">12/8</button>
-        <button id="tab-12-9-btn" class="tab-button" onclick="showTab('day-12-9', this)">12/9</button>
-        <button id="tab-12-10-btn" class="tab-button" onclick="showTab('day-12-10', this)">12/10</button>
-        <button id="tab-12-11-btn" class="tab-button" onclick="showTab('day-12-11', this)">12/11</button>
-        <button id="tab-12-12-btn" class="tab-button" onclick="showTab('day-12-12', this)">12/12</button>
-        <button id="tab-info-btn" class="tab-button" onclick="showTab('info', this)" style="margin-left: 15px;">資訊</button>
-        <button id="tab-budget-btn" class="tab-button" onclick="showTab('budget', this)">記帳</button>
-    </div>
-
-    <div id="day-12-6" class="content">
-        <div class="date-header-large">
-            <h2>12</h2>
-            <p>FRI<br>6</p>
-        </div>
-        <div class="day-title">第一天：抵達東京</div>
+    <div class="hero-section">
+        <img src="/images/day01_arrival.jpg" alt="背景圖片" class="hero-background" id="hero-img-1"> 
         
-        <div class="flight-card">
-            <div class="flight-header">
-                <div><span class="flight-time">08:00</span><p class="flight-airport" style="font-size: 0.6em;">TPE 台北 (假設)</p></div>
-                <div><span class="flight-time">12:20</span><p class="flight-airport" style="font-size: 0.6em;">NRT 東京</p></div>
-            </div>
-            <div class="flight-details">
-                <span class="flight-number">CI 0102</span>
-                <div class="flight-line"></div>
-                <span class="flight-duration">4h 20m</span>
-            </div>
-            <div class="flight-reminder">
-                💼 記得填寫 Visit Japan Web 
-            </div>
+        <div class="hero-content">
+            <div class="hero-time">12:10</div>
+            <div class="hero-date-text">2025.12.06 FRI</div>
         </div>
 
-        <img src="/images/day01_arrival.jpg" alt="機場與東雲" class="day-image">
-
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3242.418671064128!2d139.8010629752487!3d35.64205523212584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601889c619efffff%3A0xdd2da6a73aa930d2!2sA-PIT%20Super%20Autobacs!5e0!3m2!1szh-TW!2stw!4v1764142704837!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-        
-        <div class="card">
-            <h3>✈️ 交通與住宿</h3>
-            <ul class="item-list">
-                <li><span class="time">交通</span> 搭乘 SKYLINER 班次: <span class="tag tag-reservation">12:42</span> 或 <span class="tag tag-reservation">13:02</span> 至上野</li>
-                <li><span class="time">住宿</span> Check-in Comfort Hotel Tokyo Kanda (12/6 - 12/8)</li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3>🚗 下午活動</h3>
-            <ul class="item-list">
-                <li><span class="time">下午</span> 東雲 A-PIT Super Autobacs</li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3>🍽️ 晚餐預約</h3>
-            <ul class="item-list">
-                <li><span class="time">20:00</span> 肉屋橫丁 秋葉原 <span class="tag tag-reservation">預約</span></li>
-            </ul>
-        </div>
-        
-        <div class="weather-info">
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
+        <div class="day-tabs-container">
+            <button class="day-tab-button active" onclick="showTab('day-12-6', this)">Day 1</button>
+            <button class="day-tab-button" onclick="showTab('day-12-7', this)">Day 2</button>
+            <button class="day-tab-button" onclick="showTab('day-12-8', this)">Day 3</button>
+            <button class="day-tab-button" onclick="showTab('day-12-9', this)">Day 4</button>
+            <button class="day-tab-button" onclick="showTab('day-12-10', this)">Day 5</button>
+            <button class="day-tab-button" onclick="showTab('day-12-11', this)">Day 6</button>
+            <button class="day-tab-button" onclick="showTab('day-12-12', this)">Day 7</button>
         </div>
     </div>
     
-    <div id="day-12-7" class="content" style="display:none;">
-        <div class="date-header-large">
-            <h2>12</h2>
-            <p>SAT<br>7</p>
-        </div>
-        <div class="day-title">第二天：川越與地瓜哇</div>
-        
-        <img src="/images/day02_kawagoe.jpg" alt="川越與聖誕市集" class="day-image">
-        
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3230.9162671226336!2d139.47892697526183!3d35.92454951657047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018db5ad3fee029%3A0x385f14ef6b654aee!2sChiikawa%20Mogumogu%20Hompo%20Kawagoe!5e0!3m2!1szh-TW!2stw!4v1764142830988!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+    <div class="content-wrapper">
 
-        <div class="card">
-            <h3>🎄 戶外活動</h3>
-            <ul class="item-list">
-                <li><span class="time">早上</span> 川越半日遊</li>
-                <li><span class="time">下午</span> 東京聖誕 Advent in 上野公園 <span class="tag tag-xmas">聖誕市集</span></li>
-                <li><span class="time">晚上</span> SKYTREE Dream Christmas 2025</li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3>🍽️ 晚餐預約</h3>
-            <ul class="item-list">
-                <li><span class="time">21:30</span> yakiniku yattyattyan <span class="tag tag-reservation">預約</span></li>
-            </ul>
-        </div>
-        
-        <div class="weather-info">
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
-        </div>
-    </div>
-    
-    <div id="day-12-8" class="content" style="display:none;">
-        <div class="date-header-large">
-            <h2>12</h2>
-            <p>SUN<br>8</p>
-        </div>
-        <div class="day-title">第三天：嬰兒士尼</div>
-        
-        <img src="/images/day03_disney_land.jpg" alt="迪士尼樂園" class="day-image">
-        
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3242.790100527838!2d139.8778193752484!3d35.632900732628215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60187d03114737b3%3A0xe4d93636d509d3cb!2z5p2x5Lqs6L-q5aOr5bC85qiC5ZyS!5e0!3m2!1szh-TW!2stw!4v1764142972772!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-
-        <div class="card">
-            <h3>🏰 迪士尼樂園</h3>
-            <ul class="item-list">
-                <li><span class="time">08:00</span> Check out Comfort Hotel</li>
-                <li><span class="time">09:00</span> アリエス 新宿東南口店 <span class="tag tag-reservation">預約</span></li>
-                <li><span class="time">上午</span> 前往東京迪士尼海洋 Check-in 夢幻泉鄉 (12/8-12/9)</li>
-                <li><span class="time">17:00</span> 美女與野獸 <span class="tag tag-reservation">已預約</span></li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3>🎢 必玩與美食 (樂園)</h3>
-            <ul class="item-list">
-                <li>快速通關：<span class="tag tag-pass">巨雷山</span>、<span class="tag tag-pass">幽靈公關</span></li>
-                <li>必玩項目：<span class="tag tag-must-do">小小世界</span>、<span class="tag tag-must-do">艾芝迷你雲霄飛車</span>、<span class="tag tag-must-do">杯麵</span>、<span class="tag tag-must-do">白雪公主</span></li>
-                <li>遊行/煙火：<span class="time">12:45</span> 玩具奇妙聖誕遊行 / <span class="time">19:00</span> 墊子大遊行~夢之光 / <span class="time">20:30</span> 煙火</li>
-                <li>想吃美食：<span class="tag tag-food">水晶宮 (吃到飽)</span>、<span class="tag tag-food">中央大道咖啡廳</span></li>
-            </ul>
-        </div>
-        
-        <div class="weather-info">
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
-        </div>
-    </div>
-
-    <div id="day-12-9" class="content" style="display:none;">
-        <div class="date-header-large">
-            <h2>12</h2>
-            <p>MON<br>9</p>
-        </div>
-        <div class="day-title">第四天：嬰兒士尼海洋</div>
-        
-        <img src="/images/day04_disney_sea.jpg" alt="迪士尼海洋" class="day-image">
-        
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3243.0410246706615!2d139.88250297524812!3d35.62671513296778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60187d03114737b3%3A0x41471d704ab72d25!2z5p2x5Lqs6L-q5aOr5bC85rW35rSL!5e0!3m2!1szh-TW!2stw!4v1764143000637!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-
-        <div class="card">
-            <h3>🔱 迪士尼海洋 - 夢幻泉鄉</h3>
-            <ul class="item-list">
-                <li><span class="time">08:20</span> 早餐預約</li>
-                <li><span class="time">12:00</span> Check out 夢幻泉鄉</li>
-                <li>預約設施：<span class="time">10:00</span> Elsa、<span class="time">11:30</span> 樂佩、<span class="time">13:30</span> 彼得潘</li>
-                <li>表演：<span class="time">14:15</span> 迪士尼聖誕迎賓會 / <span class="time">15:25</span> 達菲旅程 (遊行) / <span class="time">20:30</span> 煙火</li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3>🎢 必玩與住宿 Check-in</h3>
-            <ul class="item-list">
-                <li>必玩項目：<span class="tag tag-pass">玩具總動員</span>、<span class="tag tag-pass">驚魂古塔</span>、<span class="tag tag-pass">印第安那冒險</span>、<span class="tag tag-pass">地心探險</span>、<span class="tag tag-pass">憤怒雙神</span></li>
-                <li><span class="time">晚上</span> Check-in **REMM PLUS GINZA** (12/9 - 12/12)</li>
-            </ul>
-        </div>
-        
-        <div class="weather-info">
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
-        </div>
-    </div>
-
-    <div id="day-12-10" class="content" style="display:none;">
-        <div class="date-header-large">
-            <h2>12</h2>
-            <p>TUE<br>10</p>
-        </div>
-        <div class="day-title">第五天：嘎哇樂園</div>
-        
-        <img src="/images/day05_chiikawa.jpg" alt="吉伊卡哇與原宿" class="day-image">
-        
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25910.806406990017!2d139.6791950743164!3d35.729887699999985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d006f3d976b%3A0xc471e5c44aa64c5a!2sChiikawa%20Park!5e0!3m2!1szh-TW!2stw!4v1764143112168!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-
-        <div class="card">
-            <h3>🛍️ 購物與美食</h3>
-            <ul class="item-list">
-                <li><span class="time">早上</span> 池袋逛街</li>
-                <li><span class="time">中午</span> ねぎし Negishi <span class="tag tag-food">午餐</span></li>
-                <li><span class="time">13:40</span> 吉伊卡哇樂園 <span class="tag tag-reservation">預約</span></li>
-                <li><span class="time">下午</span> 原宿逛街</li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3>🎄 聖誕夜景</h3>
-            <ul class="item-list">
-                <li><span class="time">晚上</span> 明治神宮外苑聖誕市集 <span class="tag tag-xmas">聖誕市集</span></li>
-                <li><span class="time">可選</span> 芝公園聖誕市集 <span class="tag tag-xmas">聖誕市集</span></li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3>🍽️ 晚餐預約</h3>
-            <ul class="item-list">
-                <li><span class="time">21:30</span> yakiniku omi gyuniku ten hon ten <span class="tag tag-reservation">預約</span></li>
-            </ul>
-        </div>
-        
-        <div class="weather-info">
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
-        </div>
-    </div>
-    
-    <div id="day-12-11" class="content" style="display:none;">
-        <div class="date-header-large">
-            <h2>12</h2>
-            <p>WED<br>11</p>
-        </div>
-        <div class="day-title">第六天：六本木貢丸之內</div>
-        
-        <img src="/images/day06_roppongi.jpg" alt="六本木與丸之內" class="day-image">
-        
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.627464952162!2d139.7382552752496!3d35.66154903105576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b2e40342225%3A0x3f9a1673138a69c1!2z6bq75biD5Y-w5LmL5LiY!5e0!3m2!1szh-TW!2stw!4v1764143323938!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-
-        <div class="card">
-            <h3>🗼 市區活動</h3>">晚上</span> 丸之內 Street Park 2025 Winter</li>
-            </ul>
-        </div>
-        
-        <div class="weather-inf
-            <ul class="item-list">
-                <li><span class="time">早餐</span> Tricolore coffee <span class="tag tag-food">咖啡廳</span></li>
-                <li><span class="time">上午</span> BINGO SPORTS 東京ショールーム <span class="tag tag-buy">可選/看車</span></li>
-                <li><span class="time">中午</span> 六本木新城 & 麻布台Hills <span class="tag tag-xmas">聖誕市集/逛街</span></li>
-                <li><span class="timeo">
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
-        </div>
-    </div>
-
-    <div id="day-12-12" class="content" style="display:none;">
-        <div class="date-header-large">
-            <h2>12</h2>
-            <p>THU<br>12</p>
-        </div>
-        <div class="day-title">第七天：返程日</div>
-        
-        <div class="flight-card">
-            <div class="flight-header">
-                <div><span class="flight-time">14:20</span><p class="flight-airport" style="font-size: 0.6em;">NRT 東京</p></div>
-                <div><span class="flight-time">18:40</span><p class="flight-airport" style="font-size: 0.6em;">TPE 台北 (假設)</p></div>
-            </div>
-            <div class="flight-details">
-                <span class="flight-number">CI 0127</span>
-                <div class="flight-line"></div>
-                <span class="flight-duration">4h 20m</span>
-            </div>
-            <div class="flight-reminder">
-                💼 請預留充足時間辦理登機
-            </div>
-        </div>
-        
-        <img src="/images/day07_departure.jpg" alt="返程" class="day-image">
-        
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.85812501851!2d139.76043317525054!3d35.680495230015275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b39eb095801%3A0x64a29f9f2f81d5f7!2z5Li45LmL5YWn5Luy6YCa!5e0!3m2!1szh-TW!2stw!4v1764143400134!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-
-        <div class="card">
-            <h3>✈️ 返程與購物</h3>
-            <ul class="item-list">
-                <li><span class="time">上午</span> Check-out 飯店</li>
-                <li><span class="time">交通</span> 搭乘 SKYLINER 班次: <span class="tag tag-reservation">14:20</span> 或 <span class="tag tag-reservation">14:37</span> 至成田</li>
-                <li><span class="time">班機</span> CI 0127 東京 (NRT) ➡️ 高雄 (KHH) (回程地點假設為高雄)</li>
-            </ul>
-        </div>
-        
-        <div class="weather-info">
-            <a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-label_2="WEATHER" data-font="微軟正黑體 (Microsoft JhengHei)" data-theme="original" >TOKYO WEATHER</a>
-        </div>
-    </div>
-
-
-    <div id="info" class="content" style="display:none;">
-        <div class="date-header-large">
-            <h2>旅程</h2>
-            <p>資訊<br>總覽</p>
-        </div>
+        <div id="day-12-6" class="content">
+            <div class="day-title">✈️ 著陸 & 東雲風情</div>
             
-        <div class="card">
-            <h3>✈️ 航班資訊</h3>
-            <ul class="item-list">
-                <li><span class="time">去程</span> 12/6 (週五) CI 0102 (TPE 08:00 - NRT 12:20)</li>
-                <li><span class="time">回程</span> 12/12 (週四) CI 0127 (NRT 14:20 - TPE 18:40)</li>
-            </ul>
-        </div>
-            
-        <div class="card">
-            <h3>🏨 住宿資訊</h3>
-            <ul class="item-list">
-                <li><span class="time">12/6 - 12/8</span> Comfort Hotel Tokyo Kanda</li>
-                <li><span class="time">12/8 - 12/9</span> 東京迪士尼海洋夢幻泉鄉飯店</li>
-                <li><span class="time">12/9 - 12/12</span> REMM PLUS GINZA</li>
-            </ul>
-        </div>
-            
-        <div class="card">
-            <h3>📞 緊急聯絡電話與必備品</h3>
-            <ul class="item-list">
-                <li>重要文件/財物：<span class="tag tag-reservation">護照</span>、錢、<span class="tag tag-reservation">信用卡</span></li>
-                <li>通信/網路：ESIM (或SIM卡)</li>
-                <li>電子設備：相機、充電器 (手機+相機)</li>
-                <li>日本警察：110</li>
-                <li>救護/消防：119</li>
-                <li>重要預約：餐廳、髮型、迪士尼預約項目</li>
-            </ul>
-        </div>
-    </div>
+            <div class="flight-card">
+                <div class="flight-header">
+                    <div><span class="flight-time">08:00</span><p class="flight-airport" style="font-size: 0.6em;">TPE 台北 (假設)</p></div>
+                    <div><span class="flight-time">12:20</span><p class="flight-airport" style="font-size: 0.6em;">NRT 東京</p></div>
+                </div>
+                <div class="flight-details">
+                    <span class="flight-number">CI 0102</span>
+                    <div class="flight-line"></div>
+                    <span class="flight-duration">4h 20m</span>
+                </div>
+                <div class="flight-reminder">
+                    💼 記得填寫 Visit Japan Web (假設提醒)
+                </div>
+            </div>
 
-    <div id="budget" class="content" style="display:none;">
-        <div class="date-header-large">
-            <h2>💰</h2>
-            <p>記帳<br>中心</p>
-        </div>
-        
-        <div class="card" style="background-color: #f0fff0;">
-            <h3>💸 總預算與匯率設定</h3>
-            <p>今日剩餘：<strong id="daily-remaining">¥0</strong> / 總剩餘：<strong id="total-remaining">¥0</strong></p>
-            <div class="budget-input-group">
-                <label for="totalBudget">總預算 (JPY):</label>
-                <input type="number" id="totalBudget" value="100000" min="0">
+            <div class="card" style="padding: 10px 20px; width: 50%; float: right; margin-top: -100px;">
+                <div style="font-size: 0.9em; color: #D4A373;">當日天氣</div>
+                <div style="font-size: 1.5em; font-weight: bold;">15°C 晴</div>
             </div>
-            <div class="budget-input-group">
-                <label for="exchangeRate">JPY 對台幣匯率 (例：0.215):</label>
-                <input type="number" id="exchangeRate" value="0.215" step="0.001">
-                <button onclick="saveSettings()" class="action-button" style="background-color:#D4A373; color:white; margin-top: 10px;">儲存設定</button>
-            </div>
-        </div>
-        
-        <div class="card">
-            <h3>➕ 新增支出</h3>
-            <div class="budget-input-group">
-                <input type="text" id="expenseDesc" placeholder="項目 (例如：午餐)">
-            </div>
-            <div class="budget-input-group">
-                <input type="number" id="expenseAmount" placeholder="金額 (JPY)">
-            </div>
-            <button onclick="addExpense()" class="action-button green" style="margin-top: 5px;">記錄支出</button>
-        </div>
 
-        <div class="card">
-            <h3>🧾 支出明細</h3>
-            <ul id="expenseList" class="item-list">
+            <div class="timeline-card" style="margin-top: 20px;">
+                <div>
+                    <span class="timeline-time">12:42</span><span class="timeline-type">交通</span>
+                    <div class="timeline-title">抵達東京 / 搭乘 skyliner</div>
+                    <div style="font-size: 0.8em; color: #888;">成田 -> 上野</div>
+                </div>
+                <div class="timeline-action">➡️</div>
+            </div>
+
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3242.418671064128!2d139.8010629752487!3d35.64205523212584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601889c619efffff%3A0xdd2da6a73aa930d2!2sA-PIT%20Super%20Autobacs!5e0!3m2!1szh-TW!2stw!4v1764142704837!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            
+            <div class="card">
+                <h3>🚗 下午活動</h3>
+                <ul class="item-list">
+                    <li><span class="time">下午</span> 東雲 A-PIT Super Autobacs</li>
                 </ul>
-            <p style="text-align: right; margin-top: 15px;">總支出 (TWD)：<strong id="total-twd">NT$ 0</strong></p>
+            </div>
+            <div class="card">
+                <h3>🍽️ 晚餐預約</h3>
+                <ul class="item-list">
+                    <li><span class="time">20:00</span> 肉屋橫丁 秋葉原 <span class="tag tag-reservation">預約</span></li>
+                </ul>
+            </div>
         </div>
-    </div>
+        
+        <div id="day-12-7" class="content" style="display:none;">
+            <div class="day-title">🏯 第二天：川越與聖誕氛圍</div>
+            
+            <div class="card" style="padding: 10px 20px; width: 50%; float: right; margin-top: 10px;">
+                <div style="font-size: 0.9em; color: #D4A373;">當日天氣</div>
+                <div style="font-size: 1.5em; font-weight: bold;">12°C 多雲</div>
+            </div>
+
+            <img src="/images/day02_kawagoe.jpg" alt="川越與聖誕市集" class="day-image" style="margin-top: 10px;">
+            
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3230.9162671226336!2d139.47892697526183!3d35.92454951657047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018db5ad3fee029%3A0x385f14ef6b654aee!2sChiikawa%20Mogumogu%20Hompo%20Kawagoe!5e0!3m2!1szh-TW!2stw!4v1764142830988!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="card">
+                <h3>🎄 戶外活動</h3>
+                <ul class="item-list">
+                    <li><span class="time">早上</span> 川越半日遊</li>
+                    <li><span class="time">下午</span> 東京聖誕 Advent in 上野公園 <span class="tag tag-xmas">聖誕市集</span></li>
+                    <li><span class="time">晚上</span> SKYTREE Dream Christmas 2025</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🍽️ 晚餐預約</h3>
+                <ul class="item-list">
+                    <li><span class="time">21:30</span> yakiniku yattyattyan <span class="tag tag-reservation">預約</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="day-12-8" class="content" style="display:none;">
+            <div class="day-title">🏰 第三天：迪士尼樂園</div>
+            <div class="card" style="padding: 10px 20px; width: 50%; float: right; margin-top: 10px;">
+                <div style="font-size: 0.9em; color: #D4A373;">當日天氣</div>
+                <div style="font-size: 1.5em; font-weight: bold;">10°C 晴</div>
+            </div>
+            
+            <img src="/images/day03_disney_land.jpg" alt="迪士尼樂園" class="day-image" style="margin-top: 10px;">
+            
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3242.790100527838!2d139.8778193752484!3d35.632900732628215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60187d03114737b3%3A0xe4d93636d509d3cb!2z5p2x5Lqs6L-q5aOr5bC85qiC5ZyS!5e0!3m2!1szh-TW!2stw!4v1764142972772!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="card">
+                <h3>🏰 迪士尼樂園</h3>
+                <ul class="item-list">
+                    <li><span class="time">08:00</span> Check out Comfort Hotel</li>
+                    <li><span class="time">09:00</span> **アリエス 新宿東南口店** <span class="tag tag-reservation">預約</span></li>
+                    <li><span class="time">上午</span> 前往東京迪士尼海洋 Check-in **夢幻泉鄉** (12/8-12/9)</li>
+                    <li><span class="time">17:00</span> **美女與野獸** <span class="tag tag-reservation">已預約</span></li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🎢 必玩與美食 (樂園)</h3>
+                <ul class="item-list">
+                    <li>**快速通關**：<span class="tag tag-pass">巨雷山</span>、<span class="tag tag-pass">幽靈公關</span></li>
+                    <li>**遊行/煙火**：<span class="time">12:45</span> 玩具奇妙聖誕遊行 / <span class="time">20:30</span> 煙火</li>
+                    <li>**想吃美食**：<span class="tag tag-food">水晶宮 (吃到飽)</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="day-12-9" class="content" style="display:none;">
+            <div class="day-title">🧜‍♀️ 第四天：迪士尼海洋</div>
+            <div class="card" style="padding: 10px 20px; width: 50%; float: right; margin-top: 10px;">
+                <div style="font-size: 0.9em; color: #D4A373;">當日天氣</div>
+                <div style="font-size: 1.5em; font-weight: bold;">9°C 陰雨</div>
+            </div>
+            
+            <img src="/images/day04_disney_sea.jpg" alt="迪士尼海洋" class="day-image" style="margin-top: 10px;">
+            
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3243.0410246706615!2d139.88250297524812!3d35.62671513296778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60187d03114737b3%3A0x41471d704ab72d25!2z5p2x5Lqs6L-q5aOr5bC85rW35rSL!5e0!3m2!1szh-TW!2stw!4v1764143000637!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="card">
+                <h3>🔱 迪士尼海洋 - 夢幻泉鄉</h3>
+                <ul class="item-list">
+                    <li><span class="time">08:20</span> 早餐預約</li>
+                    <li><span class="time">12:00</span> Check out 夢幻泉鄉</li>
+                    <li>**預約設施**：<span class="time">10:00</span> Elsa、<span class="time">11:30</span> 樂佩、<span class="time">13:30</span> 彼得潘</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🎢 必玩與住宿 Check-in</h3>
+                <ul class="item-list">
+                    <li>**必玩項目**：<span class="tag tag-pass">玩具總動員</span>、<span class="tag tag-pass">驚魂古塔</span>、<span class="tag tag-pass">地心探險</span></li>
+                    <li><span class="time">晚上</span> Check-in **REMM PLUS GINZA** (12/9 - 12/12)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="day-12-10" class="content" style="display:none;">
+            <div class="day-title">🎀 第五天：吉伊卡哇樂園</div>
+            <div class="card" style="padding: 10px 20px; width: 50%; float: right; margin-top: 10px;">
+                <div style="font-size: 0.9em; color: #D4A373;">當日天氣</div>
+                <div style="font-size: 1.5em; font-weight: bold;">11°C 晴</div>
+            </div>
+            
+            <img src="/images/day05_chiikawa.jpg" alt="吉伊卡哇與原宿" class="day-image" style="margin-top: 10px;">
+            
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25910.806406990017!2d139.6791950743164!3d35.729887699999985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d006f3d976b%3A0xc471e5c44aa64c5a!2sChiikawa%20Park!5e0!3m2!1szh-TW!2stw!4v1764143112168!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="card">
+                <h3>🛍️ 購物與美食</h3>
+                <ul class="item-list">
+                    <li><span class="time">早上</span> 池袋逛街</li>
+                    <li><span class="time">中午</span> ねぎし Negishi <span class="tag tag-food">午餐</span></li>
+                    <li><span class="time">13:40</span> **吉伊卡哇樂園** <span class="tag tag-reservation">預約</span></li>
+                    <li><span class="time">下午</span> 原宿逛街</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🍽️ 晚餐預約</h3>
+                <ul class="item-list">
+                    <li><span class="time">21:30</span> yakiniku omi gyuniku ten hon ten <span class="tag tag-reservation">預約</span></li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🎄 聖誕夜景</h3>
+                <ul class="item-list">
+                    <li><span class="time">晚上</span> 明治神宮外苑聖誕市集 <span class="tag tag-xmas">聖誕市集</span></li>
+                    <li><span class="time">可選</span> 芝公園聖誕市集 <span class="tag tag-xmas">聖誕市集</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="day-12-11" class="content" style="display:none;">
+            <div class="day-title">🌃 第六天：六本木與丸之內</div>
+            <div class="card" style="padding: 10px 20px; width: 50%; float: right; margin-top: 10px;">
+                <div style="font-size: 0.9em; color: #D4A373;">當日天氣</div>
+                <div style="font-size: 1.5em; font-weight: bold;">13°C 晴</div>
+            </div>
+            
+            <img src="/images/day06_roppongi.jpg" alt="六本木與丸之內" class="day-image" style="margin-top: 10px;">
+            
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.627464952162!2d139.7382552752496!3d35.66154903105576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b2e40342225%3A0x3f9a1673138a69c1!2z6bq75biD5Y-w5LmL5LiY!5e0!3m2!1szh-TW!2stw!4v1764143323938!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="card">
+                <h3>🗼 市區活動</h3>
+                <ul class="item-list">
+                    <li><span class="time">早餐</span> Tricolore coffee <span class="tag tag-food">咖啡廳</span></li>
+                    <li><span class="time">上午</span> BINGO SPORTS 東京ショールーム <span class="tag tag-buy">可選/看車</span></li>
+                    <li><span class="time">中午</span> 六本木新城 & 麻布台Hills <span class="tag tag-xmas">聖誕市集/逛街</span></li>
+                    <li><span class="time">晚上</span> 丸之內 Street Park 2025 Winter</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="day-12-12" class="content" style="display:none;">
+            <div class="day-title">✈️ 第七天：返程日</div>
+            <div class="card" style="padding: 10px 20px; width: 50%; float: right; margin-top: 10px;">
+                <div style="font-size: 0.9em; color: #D4A373;">當日天氣</div>
+                <div style="font-size: 1.5em; font-weight: bold;">10°C 晴</div>
+            </div>
+            
+            <div class="flight-card" style="margin-top: 10px;">
+                <div class="flight-header">
+                    <div><span class="flight-time">14:20</span><p class="flight-airport" style="font-size: 0.6em;">NRT 東京</p></div>
+                    <div><span class="flight-time">18:40</span><p class="flight-airport" style="font-size: 0.6em;">TPE 台北 (假設)</p></div>
+                </div>
+                <div class="flight-details">
+                    <span class="flight-number">CI 0127</span>
+                    <div class="flight-line"></div>
+                    <span class="flight-duration">4h 20m</span>
+                </div>
+                <div class="flight-reminder">
+                    💼 請預留充足時間辦理登機
+                </div>
+            </div>
+            
+            <img src="/images/day07_departure.jpg" alt="返程" class="day-image">
+            
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.85812501851!2d139.76043317525054!3d35.680495230015275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b39eb095801%3A0x64a29f9f2f81d5f7!2z5Li45LmL5YWn5Luy6YCa!5e0!3m2!1szh-TW!2stw!4v1764143400134!5m2!1szh-TW!2stw" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="card">
+                <h3>✈️ 返程與購物</h3>
+                <ul class="item-list">
+                    <li><span class="time">上午</span> Check-out 飯店</li>
+                    <li><span class="time">交通</span> 搭乘 SKYLINER 班次: <span class="tag tag-reservation">14:20</span> 或 <span class="tag tag-reservation">14:37</span> 至成田</li>
+                    <li><span class="time">班機</span> CI 0127 東京 (NRT) ➡️ 高雄 (KHH) (回程地點假設為高雄)</li>
+                </ul>
+            </div>
+        </div>
 
 
-    <script>
+        <div id="info" class="content" style="padding: 20px;" style="display:none;">
+            <div class="day-title" style="margin-top: 0;">📝 旅程資訊總覽</div>
+            <div class="card">
+                <h3>✈️ 航班資訊</h3>
+                <ul class="item-list">
+                    <li><span class="time">去程</span> 12/6 (週五) CI 0102 (TPE 08:00 - NRT 12:20)</li>
+                    <li><span class="time">回程</span> 12/12 (週四) CI 0127 (NRT 14:20 - TPE 18:40)</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🏨 住宿資訊</h3>
+                <ul class="item-list">
+                    <li><span class="time">12/6 - 12/8</span> Comfort Hotel Tokyo Kanda</li>
+                    <li><span class="time">12/8 - 12/9</span> 東京迪士尼海洋夢幻泉鄉飯店</li>
+                    <li><span class="time">12/9 - 12/12</span> REMM PLUS GINZA</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>📞 緊急聯絡電話與必備品</h3>
+                <ul class="item-list">
+                    <li>**重要文件/財物**：<span class="tag tag-reservation">護照</span>、錢、<span class="tag tag-reservation">信用卡</span></li>
+                    <li>**通信/網路**：**ESIM** (或SIM卡)</li>
+                    <li>**電子設備**：相機、充電器 (手機+相機)</li>
+                    <li>**日本警察**：110</li>
+                    <li>**救護/消防**：119</li>
+                    <li>**重要預約**：餐廳、迪士尼預約項目</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="budget" class="content" style="padding: 20px;" style="display:none;">
+            <div class="day-title" style="margin-top: 0;">💰 記帳中心</div>
+            
+            <div class="card" style="background-color: #f0fff0;">
+                <h3>💸 總預算與匯率設定</h3>
+                <p>今日剩餘：<strong id="daily-remaining">¥0</strong> / 總剩餘：<strong id="total-remaining">¥0</strong></p>
+                <div class="budget-input-group">
+                    <label for="totalBudget">總預算 (JPY):</label>
+                    <input type="number" id="totalBudget" value="100000" min="0">
+                </div>
+                <div class="budget-input-group">
+                    <label for="exchangeRate">JPY 對台幣匯率 (例：0.215):</label>
+                    <input type="number" id="exchangeRate" value="0.215" step="0.001">
+                    <button onclick="saveSettings()" class="action-button" style="background-color:#D4A373; color:white; margin-top: 10px;">儲存設定</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>➕ 新增支出</h3>
+                <div class="budget-input-group">
+                    <input type="text" id="expenseDesc" placeholder="項目 (例如：午餐)">
+                </div>
+                <div class="budget-input-group">
+                    <input type="number" id="expenseAmount" placeholder="金額 (JPY)">
+                </div>
+                <button onclick="addExpense()" class="action-button green" style="margin-top: 5px;">記錄支出</button>
+            </div>
+
+            <div class="card">
+                <h3>🧾 支出明細</h3>
+                <ul id="expenseList" class="item-list">
+                    </ul>
+                <p style="text-align: right; margin-top: 15px;">總支出 (TWD)：<strong id="total-twd">NT$ 0</strong></p>
+            </div>
+        </div>
+
+    </div><script>
         // === PWA 服務工作線程註冊 ===
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -556,13 +523,42 @@
             }
 
             // 更新按鈕的 active 狀態
-            document.querySelectorAll('.tab-button').forEach(btn => {
+            document.querySelectorAll('.day-tab-button').forEach(btn => {
                 btn.classList.remove('active');
             });
+            // 也更新工具欄的 Tab 狀態 (因為工具欄使用了不同的 class)
+             document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
             if (clickedButton) {
                 clickedButton.classList.add('active');
             }
         }
+        
+        // 額外功能：更新 Hero 圖片和時間 (模擬)
+        document.querySelectorAll('.day-tab-button').forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                const day = index + 1;
+                const dateMap = {
+                    1: { date: '2025.12.06 FRI', time: '08:00', src: '/images/day01_arrival.jpg' },
+                    2: { date: '2025.12.07 SAT', time: '09:00', src: '/images/day02_kawagoe.jpg' },
+                    3: { date: '2025.12.08 SUN', time: '08:00', src: '/images/day03_disney_land.jpg' },
+                    4: { date: '2025.12.09 MON', time: '08:20', src: '/images/day04_disney_sea.jpg' },
+                    5: { date: '2025.12.10 TUE', time: '09:00', src: '/images/day05_chiikawa.jpg' },
+                    6: { date: '2025.12.11 WED', time: '08:00', src: '/images/day06_roppongi.jpg' },
+                    7: { date: '2025.12.12 THU', time: '14:20', src: '/images/day07_departure.jpg' }
+                };
+                
+                const data = dateMap[day];
+                if (data) {
+                    document.querySelector('.hero-time').textContent = data.time;
+                    document.querySelector('.hero-date-text').textContent = data.date;
+                    document.querySelector('.hero-background').src = data.src;
+                }
+            });
+        });
+
 
         // === 離線記帳功能 JavaScript (已修復) ===
         let expenses = [];
@@ -687,11 +683,14 @@
              document.getElementById('day-12-12').style.display = 'none';
              document.getElementById('info').style.display = 'none';
              document.getElementById('budget').style.display = 'none';
-             document.getElementById('tab-12-6-btn').classList.add('active'); // 預設顯示 12/6
+             
+             // 初始化 Hero 區塊和 Tab 狀態
+             const activeTab = document.getElementById('tab-12-6-btn');
+             if (activeTab) {
+                showTab('day-12-6', activeTab);
+             }
         });
 
     </script>
 </body>
 </html>
-
-
