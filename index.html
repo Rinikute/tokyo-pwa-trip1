@@ -7,14 +7,16 @@
     <link rel="manifest" href="/manifest.json">
     
     <style>
-        /* 1. 基礎設置與米色調配色 */
+        /* [字體替換區塊：若有陳森田字體授權，請在此處貼上 @font-face] */
+        /* 由於無法嵌入，我們使用圓體作為視覺模擬 */
         body {
-            font-family: 'Hiragino Sans', 'Noto Sans TC', sans-serif;
+            font-family: 'Avenir Next', 'Hiragino Sans', 'Noto Sans TC', sans-serif;
             background-color: #FAF7F0; /* 主米色背景 (暖米白) */
             margin: 0;
             padding: 0;
             color: #333333; /* 主要文字色 */
         }
+        
         /* 頂部導航欄 (日期與工具分頁) */
         .tab-nav {
             display: flex;
@@ -47,6 +49,32 @@
         .content {
             padding: 10px 0; /* 縮小邊距 */
         }
+        /* *** 每日標題樣式 (畫圈處) *** */
+        .day-title {
+            margin: 0 20px 15px 20px;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #444;
+            letter-spacing: 2px;
+        }
+        /* *** 垂直日期標題樣式 *** */
+        .date-header-large {
+            display: flex;
+            align-items: center;
+            margin: 20px 20px 10px 20px;
+        }
+        .date-header-large h2 {
+            font-size: 2.5em; /* 放大日期數字 */
+            font-weight: 700;
+            line-height: 1;
+            margin-right: 15px;
+            color: #444;
+        }
+        .date-header-large p {
+            font-size: 0.9em;
+            color: #888;
+            line-height: 1.2;
+        }
         /* *** 每日圖片樣式 *** */
         .day-image {
             width: 100%;
@@ -70,26 +98,7 @@
             border: none;
             display: block;
         }
-        /* *** 米黃色日期方塊 (已移除此結構，保留 CSS 定義) *** */
-        .day-box {
-            background-color: #FFF8E0; 
-            border: 1px solid #E0D8C8; 
-            border-radius: 8px;
-            padding: 10px 15px;
-            margin-bottom: 25px;
-            display: inline-block;
-        }
-        .day-box h2 {
-            font-size: 1.5em;
-            color: #444;
-            margin: 0;
-        }
-        .day-box p {
-            margin: 5px 0 0 0;
-            font-size: 0.9em;
-            color: #888;
-        }
-
+        /* *** 卡片和列表樣式 *** */
         .card {
             background-color: #FFFFFF; /* 純白色卡片 */
             border-radius: 12px; /* 略圓潤邊角 */
@@ -112,44 +121,19 @@
         .flight-header { display: flex; justify-content: space-between; align-items: center; }
         .flight-time, .flight-airport { font-size: 2em; font-weight: 700; line-height: 1; margin-bottom: 5px; }
         .flight-details { text-align: center; margin-top: 10px; font-weight: 500; }
-        .flight-line { height: 4px; background: #5A7E97; position: relative; margin: 5px 0; }
-        .flight-line::before, .flight-line::after { content: ''; position: absolute; width: 10px; height: 10px; background: white; border-radius: 50%; top: -3px; }
-        .flight-line::before { left: 0; }
-        .flight-line::after { right: 0; }
-        .flight-duration { font-size: 1.1em; }
         .flight-number { font-size: 1.2em; font-weight: 600; color: #A3D2D9; }
         .flight-reminder { background: rgba(255, 255, 255, 0.2); color: white; padding: 5px 10px; border-radius: 6px; margin-top: 15px; display: inline-block; font-size: 0.9em; }
         
-        /* 垂直日期標題樣式 */
-        .date-header-large {
-            display: flex;
-            align-items: center;
-            margin: 20px 20px 10px 20px;
-        }
-        .date-header-large h2 {
-            font-size: 2.5em; 
-            font-weight: 700;
-            line-height: 1;
-            margin-right: 15px;
-            color: #444;
-        }
-        .date-header-large p {
-            font-size: 0.9em;
-            color: #888;
-            line-height: 1.2;
-        }
         /* 標籤設計 */
         .tag { display: inline-block; padding: 4px 10px; margin: 3px 5px 3px 0; border-radius: 6px; font-size: 0.75em; font-weight: bold; }
         .tag-pass { background-color: #F4E8D4; color: #7B6858; } 
         .tag-food { background-color: #FFF0D6; color: #C48E44; } 
         .tag-reservation { background-color: #E0EBF7; color: #4C70A8; } 
-        .action-button { display: block; text-align: center; background-color: #D4A373; color: #FFFFFF; padding: 10px 15px; border-radius: 6px; text-decoration: none; font-size: 0.95em; margin-top: 15px; transition: background-color 0.3s; border: none; font-weight: bold; }
-        .action-button.green { background-color: #79A37B; color: #FFFFFF; }
+        .action-button { display: block; text-align: center; background-color: #D4A373; color: #FFFFFF; padding: 10px 15px; border-radius: 6px; text-decoration: none; font-size: 0.95em; margin-top: 15px; border: none; font-weight: bold; }
+        .item-list { list-style: none; padding: 0; margin: 0; }
         .delete-btn { color: #D83A56; cursor: pointer; float: right; font-weight: bold; margin-left: 10px; }
         .weather-info { padding: 0; margin-bottom: 15px; border: none; box-shadow: none; background-color: transparent; }
         .weatherwidget-io { width: 100%; border-radius: 10px; overflow: hidden; border: 1px solid #E8E8E8; }
-        .item-list { list-style: none; padding: 0; margin: 0; }
-        .item-list li { padding: 10px 0; border-bottom: 1px dashed #E5E5E5; font-size: 0.95em; }
     </style>
 </head>
 <body>
@@ -171,6 +155,7 @@
             <h2>12</h2>
             <p>FRI<br>6</p>
         </div>
+        <div class="day-title">第一天：抵達東京</div>
         
         <div class="flight-card">
             <div class="flight-header">
@@ -197,7 +182,7 @@
             <h3>✈️ 交通與住宿</h3>
             <ul class="item-list">
                 <li><span class="time">交通</span> 搭乘 SKYLINER 班次: <span class="tag tag-reservation">12:42</span> 或 <span class="tag tag-reservation">13:02</span> 至上野</li>
-                <li><span class="time">住宿</span> Check-in **Comfort Hotel Tokyo Kanda** (12/6 - 12/8)</li>
+                <li><span class="time">住宿</span> Check-in Comfort Hotel Tokyo Kanda (12/6 - 12/8)</li>
             </ul>
         </div>
         <div class="card">
@@ -217,6 +202,7 @@
             <h2>12</h2>
             <p>SAT<br>7</p>
         </div>
+        <div class="day-title">第二天：川越與聖誕氛圍</div>
         
         <img src="/images/day02_kawagoe.jpg" alt="川越與聖誕市集" class="day-image">
         
@@ -243,6 +229,7 @@
             <h2>12</h2>
             <p>SUN<br>8</p>
         </div>
+        <div class="day-title">第三天：迪士尼樂園</div>
         
         <img src="/images/day03_disney_land.jpg" alt="迪士尼樂園" class="day-image">
         
@@ -279,6 +266,7 @@
             <h2>12</h2>
             <p>MON<br>9</p>
         </div>
+        <div class="day-title">第四天：迪士尼海洋</div>
         
         <img src="/images/day04_disney_sea.jpg" alt="迪士尼海洋" class="day-image">
         
@@ -299,7 +287,7 @@
             <h3>🎢 必玩與住宿 Check-in</h3>
             <ul class="item-list">
                 <li>必玩項目：<span class="tag tag-pass">玩具總動員</span>、<span class="tag tag-pass">驚魂古塔</span>、<span class="tag tag-pass">印第安那冒險</span>、<span class="tag tag-pass">地心探險</span>、<span class="tag tag-pass">憤怒雙神</span></li>
-                <li><span class="time">晚上</span> Check-in **REMM PLUS GINZA** (12/9 - 12/12)</li>
+                <li><span class="time">晚上</span> Check-in REMM PLUS GINZA (12/9 - 12/12)</li>
             </ul>
         </div>
         
@@ -313,6 +301,7 @@
             <h2>12</h2>
             <p>TUE<br>10</p>
         </div>
+        <div class="day-title">第五天：吉伊卡哇與銀座購物</div>
         
         <img src="/images/day05_chiikawa.jpg" alt="吉伊卡哇與原宿" class="day-image">
         
@@ -347,6 +336,7 @@
             <h2>12</h2>
             <p>WED<br>11</p>
         </div>
+        <div class="day-title">第六天：六本木與丸之內</div>
         
         <img src="/images/day06_roppongi.jpg" alt="六本木與丸之內" class="day-image">
         
@@ -374,6 +364,7 @@
             <h2>12</h2>
             <p>THU<br>12</p>
         </div>
+        <div class="day-title">第七天：返程日</div>
         
         <div class="flight-card">
             <div class="flight-header">
