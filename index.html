@@ -76,15 +76,13 @@
         .map-container iframe { width: 100%; height: 250px; border: none; display: block; }
         .location-link { display: block; margin: 15px 0; text-decoration: none; font-weight: bold; color: #C48E44; font-size: 1.1em; padding: 10px 15px; background-color: #FFF8E0; border-radius: 8px; border: 1px solid #E8E8E8; text-align: center; transition: background-color 0.3s; }
         
-        /* 標籤樣式 */
         .tag { display: inline-block; padding: 4px 10px; margin: 3px 5px 3px 0; border-radius: 6px; font-size: 0.75em; font-weight: bold; }
-        .tag-pass { background-color: #F4E8D4; color: #7B6858; } /* 快速通關 */
-        .tag-must-do { background-color: #E6F3E6; color: #4CAF50; } /* 必玩 */
-        .tag-food { background-color: #FFF0D6; color: #C48E44; } /* 美食 */
-        .tag-reservation { background-color: #E0EBF7; color: #4C70A8; } /* 預約 */
-        .tag-xmas { background-color: #EFE6DA; color: #6A5B4C; } /* 聖誕 */
-        .tag-buy { background-color: #F7E6E8; color: #8D545B; } /* 購物 */
-
+        .tag-pass { background-color: #F4E8D4; color: #7B6858; } 
+        .tag-must-do { background-color: #E6F3E6; color: #4CAF50; }
+        .tag-food { background-color: #FFF0D6; color: #C48E44; } 
+        .tag-reservation { background-color: #E0EBF7; color: #4C70A8; } 
+        .tag-xmas { background-color: #EFE6DA; color: #6A5B4C; }
+        .tag-buy { background-color: #F7E6E8; color: #8D545B; }
         .action-button { background-color: #C48E44; color: #FFFFFF; padding: 10px 15px; border-radius: 6px; transition: background-color 0.3s; border: none; font-weight: bold; }
         .action-button.green { background-color: #79A37B; color: #FFFFFF; }
         .weather-info { padding: 0; margin-bottom: 15px; border: none; box-shadow: none; background-color: transparent; }
@@ -153,9 +151,12 @@
         <div id="day-12-6" class="content">
             <div class="day-title">第一天：抵達東京</div>
             <div class="flight-card"><div class="flight-header"><div><span class="flight-time">08:00</span><p class="flight-airport" style="font-size: 0.6em;">TPE</p></div><div><span class="flight-time">12:20</span><p class="flight-airport" style="font-size: 0.6em;">NRT</p></div></div><div class="flight-details"><span class="flight-number">CI 0102</span></div></div>
-            <div class="card"><h3>✈️ 交通</h3><ul class="item-list"><li>搭乘 SKYLINER (12:42/13:02)</li><li>Check-in Comfort Hotel</li></ul></div>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.82803077263!2d139.7671248152588!3d35.68123618019432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f7007%3A0x277c49ba34ed38!2z5p2x5Lqs6Zui!5e0!3m2!1szh-TW!2stw!4v1625555555555!5m2!1szh-TW!2stw" loading="lazy"></iframe>
+            </div>
+            <div class="card"><h3>✈️ 交通與住宿</h3><ul class="item-list"><li>搭乘 SKYLINER (12:42/13:02)</li><li>Check-in Comfort Hotel Tokyo Kanda (12/6 - 12/8)</li></ul></div>
             <div class="card"><h3>🚗 下午活動</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東雲A-PIT+Super+Autobacs" target="_blank" class="location-link">📍 東雲 A-PIT</a></div>
-            <div class="card"><h3>🍽️ 晚餐</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=肉屋橫丁+秋葉原" target="_blank" class="location-link">📍 肉屋橫丁 秋葉原</a><ul class="item-list"><li>20:00 預約 <span class="tag tag-reservation">重要</span></li></ul></div>
+            <div class="card"><h3>🍽️ 晚餐預約</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=肉屋橫丁+秋葉原" target="_blank" class="location-link">📍 肉屋橫丁 秋葉原</a><ul class="item-list"><li>20:00 預約 <span class="tag tag-reservation">重要</span></li></ul></div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
         </div>
         
@@ -172,7 +173,7 @@
                     <li>晴空塔聖誕市集</li>
                 </ul>
             </div>
-            <div class="card"><h3>🍽️ 晚餐</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=yakiniku+yattyattyan" target="_blank" class="location-link">📍 yakiniku yattyattyan</a><ul class="item-list"><li>21:30 預約</li></ul></div>
+            <div class="card"><h3>🍽️ 晚餐預約</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=yakiniku+yattyattyan" target="_blank" class="location-link">📍 yakiniku yattyattyan</a><ul class="item-list"><li>21:30 預約</li></ul></div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
         </div>
         
@@ -191,10 +192,10 @@
             <div class="card">
                 <h3>🎢 必玩與美食</h3>
                 <ul class="item-list">
-                    <li>**快速通關**：<span class="tag tag-pass">巨雷山</span>、<span class="tag tag-pass">幽靈公關</span></li>
-                    <li>**必玩**：<span class="tag tag-must-do">小小世界</span>、<span class="tag tag-must-do">杯麵</span>、<span class="tag tag-must-do">白雪公主</span></li>
-                    <li>**遊行**：<span class="time">12:45</span> 聖誕遊行 / <span class="time">19:00</span> 夢之光</li>
-                    <li>**美食**：<span class="tag tag-food">水晶宮 (吃到飽)</span>、<span class="tag tag-food">中央大道咖啡廳</span></li>
+                    <li>快速通關：<span class="tag tag-pass">巨雷山</span>、<span class="tag tag-pass">幽靈公關</span></li>
+                    <li>必玩：<span class="tag tag-must-do">小小世界</span>、<span class="tag tag-must-do">杯麵</span>、<span class="tag tag-must-do">白雪公主</span></li>
+                    <li>遊行：<span class="time">12:45</span> 聖誕遊行 / <span class="time">19:00</span> 夢之光</li>
+                    <li>美食：<span class="tag tag-food">水晶宮 (吃到飽)</span>、<span class="tag tag-food">中央大道咖啡廳</span></li>
                 </ul>
             </div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
@@ -209,15 +210,15 @@
                 <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京迪士尼海洋" target="_blank" class="location-link">📍 東京迪士尼海洋</a>
                 <ul class="item-list">
                     <li><span class="time">08:20</span> 早餐預約</li>
-                    <li>**預約設施**：<span class="time">10:00</span> Elsa、<span class="time">11:30</span> 樂佩、<span class="time">13:30</span> 彼得潘</li>
+                    <li>預約設施：<span class="time">10:00</span> Elsa、<span class="time">11:30</span> 樂佩、<span class="time">13:30</span> 彼得潘</li>
                 </ul>
             </div>
             <div class="card">
                 <h3>🎢 必玩與美食</h3>
                 <ul class="item-list">
-                    <li>**必玩**：<span class="tag tag-pass">玩具總動員</span>、<span class="tag tag-pass">驚魂古塔</span>、<span class="tag tag-pass">地心探險</span></li>
-                    <li>**表演**：<span class="time">14:15</span> 聖誕迎賓會 / <span class="time">15:25</span> 達菲旅程</li>
-                    <li>**住宿**：Check-in REMM PLUS GINZA</li>
+                    <li>必玩：<span class="tag tag-pass">玩具總動員</span>、<span class="tag tag-pass">驚魂古塔</span>、<span class="tag tag-pass">地心探險</span></li>
+                    <li>表演：<span class="time">14:15</span> 聖誕迎賓會 / <span class="time">15:25</span> 達菲旅程</li>
+                    <li>住宿：Check-in REMM PLUS GINZA</li>
                 </ul>
             </div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
@@ -270,7 +271,7 @@
             <img src="/images/day07_departure.jpg" alt="返程" class="hero-background" style="width:100%; border-radius:10px; margin-bottom:15px;">
             <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.85812501851!2d139.76043317525054!3d35.680495230015275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b39eb095801%3A0x64a29f9f2f81d5f7!2z5Li45LmL5YWn5Luy6YCa!5e0!3m2!1szh-TW!2stw!4v1764143400134!5m2!1szh-TW!2stw" loading="lazy"></iframe></div>
             <div class="card">
-                <h3>✈️ 返程</h3>
+                <h3>✈️ 返程與購物</h3>
                 <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=成田機場" target="_blank" class="location-link">📍 成田機場</a>
                 <ul class="item-list">
                     <li><span class="time">上午</span> Check-out 飯店</li>
@@ -307,9 +308,9 @@
                     <button onclick="saveSettings()" class="action-button" style="background-color:#D4A373; color:white; margin-top: 5px;">儲存設定</button>
                 </div>
                 <p style="margin-top: 15px;">
-                    **總預算:** <strong id="budget-twd-display" style="color:#D4A373;">NT$ 0</strong><br>
-                    **已支出:** <strong id="total-spent-twd" style="color:#D83A56;">讀取中...</strong><br>
-                    **剩餘:** <strong id="remaining-twd" style="color:#79A37B;">讀取中...</strong>
+                    總預算: <strong id="budget-twd-display" style="color:#D4A373;">NT$ 0</strong><br>
+                    已支出: <strong id="total-spent-twd" style="color:#D83A56;">讀取中...</strong><br>
+                    剩餘: <strong id="remaining-twd" style="color:#79A37B;">讀取中...</strong>
                 </p>
                 <hr style="border-top:1px dashed #ccc;">
                 <p>
@@ -335,7 +336,7 @@
             </div>
 
             <div class="card">
-                <h3>🧾 支出明細 (可刪除)</h3>
+                <h3>🧾 支出明細</h3>
                 <ul id="expenseList" class="item-list"><li>載入中...</li></ul>
             </div>
         </div>
@@ -343,7 +344,7 @@
     </div>
 
     <script>
-        // === 🔴 Google Apps Script 網址 (已自動填入) ===
+        // === 🔴 Google Apps Script 網址 ===
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQ9JTsKgQIs22NzJjLxQseBD2YFWwE9xGJmYRMWgyVv5d8nci1JUazXnvhIB9bkdY-yw/exec';
 
         // === 狀態記憶與導航 ===
@@ -465,7 +466,6 @@
 
         function handleExpense(action, rowId) {
             const btn = document.getElementById('add-btn');
-            
             let payload = { action: action };
             
             if(action === 'add') {
