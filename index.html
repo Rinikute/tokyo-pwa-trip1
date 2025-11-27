@@ -664,10 +664,42 @@
 
         // 讀取資料：Google Visualization API 參數
         const SPREADSHEET_ID = '1quyZDgEyX5FMDQmGAkVrQo7CJEFaEN16VHHTzgCrn5s';
-        // 這是最穩定的公開讀取方式，不使用 API_KEY
-        const SHEET_API_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&tq=SELECT%20A%2CB%2CC%2CD%2CE%20WHERE%20A%20IS%20NOT%20NULL&sheet=Sheet1`;
+        // 關鍵修正：工作表名稱為 'sheet1 ans'，並使用最穩定的公開讀取方式
+        const SHEET_API_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&tq=SELECT%20A%2CB%2CC%2CD%2CE%20WHERE%20A%20IS%20NOT%20NULL&sheet=sheet1%20ans`;
         
-        // === Hero 區塊切換邏輯 (結合圖片和日期切換) ===
+        // --- API 數據解析函式 (專為 Visualization API 設計) ---
+        function parseVisualizationData(jsonText) {
+            // 清理 Google 試算表 API 的 JSON 雜訊
+            const dataText = jsonText.substring(jsonText.indexOf('{'), jsonText.lastIndexOf('}') + 1);
+            const data = JSON.parse(dataText);
+            
+            const rows = data.table.rows;
+            const expenses = [];
+
+            if (!rows) return expenses;
+
+            rows.forEach(row => {
+                const cols = row.c;
+                // A=0, B=1, C=2, D=3, E=4
+                
+                // 檢查是否有足夠的欄位
+                if (cols.length >= 5) { 
+                    
+                    expenses.push({
+                        timestamp: cols[0] && cols[0].f ? cols[0].f : 'N/A', // A欄: Timestamp
+                        user: cols[1] && cols[1].v ? cols[1].v : '匿名', // B欄: User
+                        desc: cols[2] && cols[2].v ? cols[2].v : 'N/A', // C欄: Description
+                        // 修正：Visualization API 的數值 (v) 可能是字串。我們用 parseFloat
+                        amountJPY: cols[3] && cols[3].v ? parseFloat(cols[3].v) : 0, // D欄: JPY
+                        amountTWD: cols[4] && cols[4].v ? parseFloat(cols[4].v) : 0, // E欄: TWD
+                    });
+                }
+            });
+
+            return expenses;
+        }
+
+        // === Hero 區塊切換邏輯 (結合圖片和日期切換) (保持不變) ===
         const DATE_MAP = {
             1: { day: 6, weekday: 'FRI', time: '08:00', src: '/images/day01_arrival.jpg', fullDate: '2025.12.06 FRI', departureTime: '2025-12-06T08:00:00' },
             2: { day: 7, weekday: 'SAT', time: '09:00', src: '/images/day02_kawagoe.jpg', fullDate: '2025.12.07 SAT', departureTime: '2025-12-07T09:00:00' },
@@ -762,7 +794,7 @@
             document.querySelector('.calendar-strip').style.display = 'none';
         }
         
-        // === 倒數計時器邏輯 (新增) ===
+        // === 倒數計時器邏輯 (保持不變) ===
         function updateCountdown() {
             // 獲取當前激活日期的目標時間 (預設使用 Day 1 的航班時間)
             let targetTimeStr = document.getElementById('countdown-timer').dataset.targetTime || '2025-12-06T08:00:00';
@@ -839,7 +871,7 @@
             fetchExpensesFromSheet(); // 更新匯率或預算後重新計算總額/剩餘
             alert('設定已儲存！');
         }
-        
+
         // --- A. 讀取功能：從 Google Sheet 取得資料 (使用 Visualization API) ---
         function parseVisualizationData(jsonText) {
             // 清理 Google 試算表 API 的 JSON 雜訊
@@ -853,14 +885,12 @@
 
             rows.forEach(row => {
                 const cols = row.c;
-                // Visualization API 的欄位索引：A=0, B=1, C=2, D=3, E=4
+                // A=0, B=1, C=2, D=3, E=4
                 
-                // 檢查是否有足夠的欄位
                 if (cols.length >= 5) { 
-                    // 備註：.f 是格式化後的文字，.v 是原始值。對於日期我們取格式化文字，金額取原始值
                     
                     expenses.push({
-                        timestamp: cols[0] && cols[0].f ? cols[0].f : 'N/A', // A欄: Timestamp (格式化日期時間)
+                        timestamp: cols[0] && cols[0].f ? cols[0].f : 'N/A', // A欄: Timestamp
                         user: cols[1] && cols[1].v ? cols[1].v : '匿名', // B欄: User
                         desc: cols[2] && cols[2].v ? cols[2].v : 'N/A', // C欄: Description
                         amountJPY: cols[3] && cols[3].v ? parseFloat(cols[3].v) : 0, // D欄: JPY
@@ -880,8 +910,8 @@
             document.getElementById('remaining-twd').textContent = '載入中...';
             document.getElementById('expenseList').innerHTML = '<li>載入試算表資料中...</li>';
             
-            // 替換為 Google Visualization Query URL (最穩定)
-            const SHEET_API_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&tq=SELECT%20A%2CB%2CC%2CD%2CE%20WHERE%20A%20IS%20NOT%20NULL&sheet=Sheet1`;
+            // 替換為 Google Visualization Query URL (使用精確分頁名稱 sheet1 ans)
+            const SHEET_API_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:json&tq=SELECT%20A%2CB%2CC%2CD%2CE%20WHERE%20A%20IS%20NOT%20NULL&sheet=sheet1%20ans`;
 
 
             fetch(SHEET_API_URL)
@@ -901,11 +931,12 @@
                     document.getElementById('total-spent-jpy').textContent = '讀取失敗';
                     document.getElementById('total-spent-twd').textContent = '讀取失敗';
                     document.getElementById('remaining-twd').textContent = '讀取失敗';
-                    document.getElementById('expenseList').innerHTML = '<li><span style="color: red;">⚠️ 資料讀取失敗。請確認試算表已設為「發佈到網路」。</span></li>';
+                    // 修正錯誤提示：已確認分頁名稱
+                    document.getElementById('expenseList').innerHTML = '<li><span style="color: red;">⚠️ 資料讀取失敗，請確認試算表已設為「發佈到網路」。</span></li>';
                 });
         }
         
-        // --- B. 渲染明細列表 ---
+        // --- B. 渲染明細列表 (保持不變) ---
         function renderExpenses(expenses) {
             const list = document.getElementById('expenseList');
             list.innerHTML = ''; 
@@ -917,7 +948,6 @@
 
             expenses.slice().reverse().forEach(exp => {
                 const listItem = document.createElement('li');
-                // 由於 Visualization API 已經格式化了日期，這裡直接使用 timestamp
                 const datePart = exp.timestamp.split(' ')[0].replace(/\//g, '-'); 
                 listItem.innerHTML = `
                     <span class="time">${datePart}</span> 
@@ -929,7 +959,7 @@
             });
         }
 
-        // --- C. 計算總結算 ---
+        // --- C. 計算總結算 (保持不變) ---
         function updateSummary(expenses) {
             let totalSpentJPY = 0;
             let totalSpentTWD = 0;
@@ -956,7 +986,7 @@
             }
         }
 
-        // --- D. 寫入功能：提交資料到 Google 表單 (同步) ---
+        // --- D. 寫入功能：提交資料到 Google 表單 (同步) (保持不變) ---
         function addExpense() {
             const user = document.getElementById('expenseUser').value.trim();
             const desc = document.getElementById('expenseDesc').value.trim();
