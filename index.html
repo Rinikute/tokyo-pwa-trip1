@@ -52,16 +52,24 @@
         .hero-header img { width: 100%; height: auto; object-fit: contain; filter: brightness(0.9); display: block; }
         .hero-header::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 35%; background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0)); z-index: 1; }
         .hero-content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 20px; box-sizing: border-box; z-index: 2; }
-        .hero-time-display { font-size: 2.5em; font-weight: 700; line-height: 1; margin-bottom: 5px; position: absolute; top: 15px; left: 20px; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
-        .hero-date-text { font-size: 0.9em; position: absolute; top: 60px; left: 20px; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+        
+        /* 日本時間時鐘樣式 */
+        .hero-time-group { position: absolute; top: 15px; left: 20px; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+        .hero-time-label { color: #EEE; font-size: 0.7em; font-weight: 600; letter-spacing: 1px; display: block; margin-bottom: -5px; }
+        .hero-time-display { font-size: 2.8em; font-weight: 700; line-height: 1; color: white; display: inline-block;}
+        
+        .hero-date-text { font-size: 0.9em; position: absolute; top: 70px; left: 20px; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.5); letter-spacing: 1px; }
         .countdown-display { position: absolute; top: 20px; right: 20px; color: white; font-size: 0.9em; font-weight: 600; background: rgba(0, 0, 0, 0.4); padding: 5px 10px; border-radius: 5px; letter-spacing: 1px; text-shadow: none; }
         
-        /* 日期條 */
+        /* 日期條 (調整樣式以容納月份) */
         .calendar-strip { display: flex; overflow-x: auto; white-space: nowrap; margin: 0 20px; padding: 15px 0; background-color: transparent; position: relative; z-index: 10; }
-        .day-tab-box { background-color: white; color: #333; border: 1px solid #EAEAEA; border-radius: 8px; padding: 10px; margin-right: 12px; text-align: center; width: 60px; min-width: 60px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); transition: all 0.2s; }
+        .day-tab-box { background-color: white; color: #333; border: 1px solid #EAEAEA; border-radius: 8px; padding: 8px 5px; margin-right: 12px; text-align: center; width: 60px; min-width: 60px; cursor: pointer; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); transition: all 0.2s; }
         .day-tab-box.active { background: #FFF8E0; border-color: #C48E44; color: #C48E44; transform: scale(1.02); }
-        .day-tab-box .date-num { display: block; font-size: 1.5em; font-weight: 800; line-height: 1.2; }
-        .day-tab-box .day-text { font-size: 0.8em; display: block; }
+        
+        .day-tab-box .month-text { font-size: 0.7em; display: block; color: #888; margin-bottom: 2px; }
+        .day-tab-box.active .month-text { color: #C48E44; }
+        .day-tab-box .date-num { display: block; font-size: 1.4em; font-weight: 800; line-height: 1; margin-bottom: 2px; }
+        .day-tab-box .day-text { font-size: 0.75em; display: block; font-weight: 600; }
         
         .day-title { margin: 0 20px 15px 20px; font-size: 1.8em; font-weight: bold; color: #444; letter-spacing: 2px; }
         .card { background-color: #FFFFFF; border-radius: 12px; padding: 20px 24px; margin: 0 20px 25px 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03); border: 1px solid #E8E8E8; line-height: 1.6; }
@@ -130,20 +138,37 @@
     <div class="hero-header">
         <img src="/images/day01_arrival.jpg" alt="背景圖片" class="hero-background" id="hero-img-bg"> 
         <div class="hero-content">
-            <div class="hero-time-display" id="hero-time-display">08:00</div>
+            <div class="hero-time-group">
+                <span class="hero-time-label">TOKYO TIME</span>
+                <div class="hero-time-display" id="hero-time-display">--:--</div>
+            </div>
             <div class="hero-date-text" id="hero-date-text-display">2025.12.06 FRI</div>
             <div class="countdown-display" id="countdown-timer">計算中...</div>
         </div>
     </div>
     
     <div class="calendar-strip">
-        <div class="day-tab-box active" data-day-index="1" onclick="showDay('day-12-6', 1, this)"><span class="date-num">6</span><span class="day-text">FRI</span></div>
-        <div class="day-tab-box" data-day-index="2" onclick="showDay('day-12-7', 2, this)"><span class="date-num">7</span><span class="day-text">SAT</span></div>
-        <div class="day-tab-box" data-day-index="3" onclick="showDay('day-12-8', 3, this)"><span class="date-num">8</span><span class="day-text">SUN</span></div>
-        <div class="day-tab-box" data-day-index="4" onclick="showDay('day-12-9', 4, this)"><span class="date-num">9</span><span class="day-text">MON</span></div>
-        <div class="day-tab-box" data-day-index="5" onclick="showDay('day-12-10', 5, this)"><span class="date-num">10</span><span class="day-text">TUE</span></div>
-        <div class="day-tab-box" data-day-index="6" onclick="showDay('day-12-11', 6, this)"><span class="date-num">11</span><span class="day-text">WED</span></div>
-        <div class="day-tab-box" data-day-index="7" onclick="showDay('day-12-12', 7, this)"><span class="date-num">12</span><span class="day-text">THU</span></div>
+        <div class="day-tab-box active" data-day-index="1" onclick="showDay('day-12-6', 1, this)">
+            <span class="month-text">12月</span><span class="date-num">6</span><span class="day-text">FRI</span>
+        </div>
+        <div class="day-tab-box" data-day-index="2" onclick="showDay('day-12-7', 2, this)">
+            <span class="month-text">12月</span><span class="date-num">7</span><span class="day-text">SAT</span>
+        </div>
+        <div class="day-tab-box" data-day-index="3" onclick="showDay('day-12-8', 3, this)">
+            <span class="month-text">12月</span><span class="date-num">8</span><span class="day-text">SUN</span>
+        </div>
+        <div class="day-tab-box" data-day-index="4" onclick="showDay('day-12-9', 4, this)">
+            <span class="month-text">12月</span><span class="date-num">9</span><span class="day-text">MON</span>
+        </div>
+        <div class="day-tab-box" data-day-index="5" onclick="showDay('day-12-10', 5, this)">
+            <span class="month-text">12月</span><span class="date-num">10</span><span class="day-text">TUE</span>
+        </div>
+        <div class="day-tab-box" data-day-index="6" onclick="showDay('day-12-11', 6, this)">
+            <span class="month-text">12月</span><span class="date-num">11</span><span class="day-text">WED</span>
+        </div>
+        <div class="day-tab-box" data-day-index="7" onclick="showDay('day-12-12', 7, this)">
+            <span class="month-text">12月</span><span class="date-num">12</span><span class="day-text">THU</span>
+        </div>
     </div>
     
     <div class="content-wrapper">
@@ -336,7 +361,7 @@
             </div>
 
             <div class="card">
-                <h3>🧾 支出明細</h3>
+                <h3>🧾 支出明細 (可刪除)</h3>
                 <ul id="expenseList" class="item-list"><li>載入中...</li></ul>
             </div>
         </div>
@@ -344,7 +369,7 @@
     </div>
 
     <script>
-        // === 🔴 Google Apps Script 網址 ===
+        // === 🔴 Google Apps Script 網址 (已自動填入) ===
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQ9JTsKgQIs22NzJjLxQseBD2YFWwE9xGJmYRMWgyVv5d8nci1JUazXnvhIB9bkdY-yw/exec';
 
         // === 狀態記憶與導航 ===
@@ -391,25 +416,33 @@
             btn.classList.add('active');
         }
 
-        // === Hero Data ===
+        // === Hero Data & Clock ===
         const DATE_MAP = {
-            1: { time: '08:00', src: '/images/day01_arrival.jpg', fullDate: '2025.12.06 FRI', departureTime: '2025-12-06T08:00:00' },
-            2: { time: '09:00', src: '/images/day02_kawagoe.jpg', fullDate: '2025.12.07 SAT', departureTime: '2025-12-07T09:00:00' },
-            3: { time: '08:00', src: '/images/day03_disney_land.jpg', fullDate: '2025.12.08 SUN', departureTime: '2025-12-08T08:00:00' },
-            4: { time: '08:20', src: '/images/day04_disney_sea.jpg', fullDate: '2025.12.09 MON', departureTime: '2025-12-09T08:20:00' },
-            5: { time: '09:00', src: '/images/day05_chiikawa.jpg', fullDate: '2025.12.10 TUE', departureTime: '2025-12-10T09:00:00' },
-            6: { time: '08:00', src: '/images/day06_roppongi.jpg', fullDate: '2025.12.11 WED', departureTime: '2025-12-11T08:00:00' },
-            7: { time: '14:20', src: '/images/day07_departure.jpg', fullDate: '2025.12.12 THU', departureTime: '2025-12-12T14:20:00' }
+            1: { src: '/images/day01_arrival.jpg', fullDate: '2025.12.06 FRI', departureTime: '2025-12-06T08:00:00' },
+            2: { src: '/images/day02_kawagoe.jpg', fullDate: '2025.12.07 SAT', departureTime: '2025-12-07T09:00:00' },
+            3: { src: '/images/day03_disney_land.jpg', fullDate: '2025.12.08 SUN', departureTime: '2025-12-08T08:00:00' },
+            4: { src: '/images/day04_disney_sea.jpg', fullDate: '2025.12.09 MON', departureTime: '2025-12-09T08:20:00' },
+            5: { src: '/images/day05_chiikawa.jpg', fullDate: '2025.12.10 TUE', departureTime: '2025-12-10T09:00:00' },
+            6: { src: '/images/day06_roppongi.jpg', fullDate: '2025.12.11 WED', departureTime: '2025-12-11T08:00:00' },
+            7: { src: '/images/day07_departure.jpg', fullDate: '2025.12.12 THU', departureTime: '2025-12-12T14:20:00' }
         };
+        
         function updateHeroContent(idx) {
             const d = DATE_MAP[idx];
             if(d) {
                 document.getElementById('hero-img-bg').src = d.src;
-                document.getElementById('hero-time-display').textContent = d.time;
+                // 注意：時間不再靜態更新，而是由時鐘控制
                 document.getElementById('hero-date-text-display').textContent = d.fullDate;
                 document.getElementById('countdown-timer').dataset.targetTime = d.departureTime;
                 updateCountdown();
             }
+        }
+        
+        function updateJapanClock() {
+            // 顯示東京時間
+            const options = { timeZone: 'Asia/Tokyo', hour: '2-digit', minute: '2-digit', hour12: false };
+            const timeString = new Date().toLocaleTimeString('en-US', options);
+            document.getElementById('hero-time-display').textContent = timeString;
         }
 
         // === 記帳邏輯 (Apps Script) ===
@@ -556,6 +589,8 @@
             if(startBtn) showDay('day-12-6', 1, startBtn);
             
             setInterval(updateCountdown, 60000);
+            setInterval(updateJapanClock, 1000); // 啟動日本時鐘
+            updateJapanClock(); // 立即執行一次
             
             // Weather Widget
             var s = document.createElement('script'); 
