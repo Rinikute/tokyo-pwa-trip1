@@ -53,7 +53,7 @@
         .hero-header::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 35%; background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0)); z-index: 1; }
         .hero-content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 20px; box-sizing: border-box; z-index: 2; }
         
-        /* 日本時間時鐘樣式 */
+        /* 日本時間時鐘 */
         .hero-time-group { position: absolute; top: 15px; left: 20px; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
         .hero-time-label { color: #EEE; font-size: 0.7em; font-weight: 600; letter-spacing: 1px; display: block; margin-bottom: -5px; }
         .hero-time-display { font-size: 2.8em; font-weight: 700; line-height: 1; color: white; display: inline-block;}
@@ -61,11 +61,10 @@
         .hero-date-text { font-size: 0.9em; position: absolute; top: 70px; left: 20px; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.5); letter-spacing: 1px; }
         .countdown-display { position: absolute; top: 20px; right: 20px; color: white; font-size: 0.9em; font-weight: 600; background: rgba(0, 0, 0, 0.4); padding: 5px 10px; border-radius: 5px; letter-spacing: 1px; text-shadow: none; }
         
-        /* 日期條 (調整樣式以容納月份) */
+        /* 日期條 */
         .calendar-strip { display: flex; overflow-x: auto; white-space: nowrap; margin: 0 20px; padding: 15px 0; background-color: transparent; position: relative; z-index: 10; }
         .day-tab-box { background-color: white; color: #333; border: 1px solid #EAEAEA; border-radius: 8px; padding: 8px 5px; margin-right: 12px; text-align: center; width: 60px; min-width: 60px; cursor: pointer; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); transition: all 0.2s; }
         .day-tab-box.active { background: #FFF8E0; border-color: #C48E44; color: #C48E44; transform: scale(1.02); }
-        
         .day-tab-box .month-text { font-size: 0.7em; display: block; color: #888; margin-bottom: 2px; }
         .day-tab-box.active .month-text { color: #C48E44; }
         .day-tab-box .date-num { display: block; font-size: 1.4em; font-weight: 800; line-height: 1; margin-bottom: 2px; }
@@ -84,6 +83,7 @@
         .map-container iframe { width: 100%; height: 250px; border: none; display: block; }
         .location-link { display: block; margin: 15px 0; text-decoration: none; font-weight: bold; color: #C48E44; font-size: 1.1em; padding: 10px 15px; background-color: #FFF8E0; border-radius: 8px; border: 1px solid #E8E8E8; text-align: center; transition: background-color 0.3s; }
         
+        /* 標籤 */
         .tag { display: inline-block; padding: 4px 10px; margin: 3px 5px 3px 0; border-radius: 6px; font-size: 0.75em; font-weight: bold; }
         .tag-pass { background-color: #F4E8D4; color: #7B6858; } 
         .tag-must-do { background-color: #E6F3E6; color: #4CAF50; }
@@ -101,13 +101,13 @@
         .item-list li:last-child { border-bottom: none; }
         .item-list .time { font-weight: bold; color: #555; margin-right: 8px; }
         
-        /* 記帳特定樣式 */
+        /* 記帳樣式 */
         .budget-input-group { margin-bottom: 15px; }
         .budget-input-group input { padding: 10px; border-radius: 6px; border: 1px solid #E8E8E8; width: 100%; box-sizing: border-box; margin-top: 5px; }
         .budget-input-group .action-button { width: auto; display: inline-block; padding: 5px 10px; margin-top: 5px; }
         .budget-input-group input[type="number"]#exchangeRate { width: 80px; display: inline-block; }
         
-        /* 刪除按鈕樣式 */
+        /* 刪除按鈕 */
         .delete-btn {
             position: absolute;
             right: 0;
@@ -148,27 +148,13 @@
     </div>
     
     <div class="calendar-strip">
-        <div class="day-tab-box active" data-day-index="1" onclick="showDay('day-12-6', 1, this)">
-            <span class="month-text">12月</span><span class="date-num">6</span><span class="day-text">FRI</span>
-        </div>
-        <div class="day-tab-box" data-day-index="2" onclick="showDay('day-12-7', 2, this)">
-            <span class="month-text">12月</span><span class="date-num">7</span><span class="day-text">SAT</span>
-        </div>
-        <div class="day-tab-box" data-day-index="3" onclick="showDay('day-12-8', 3, this)">
-            <span class="month-text">12月</span><span class="date-num">8</span><span class="day-text">SUN</span>
-        </div>
-        <div class="day-tab-box" data-day-index="4" onclick="showDay('day-12-9', 4, this)">
-            <span class="month-text">12月</span><span class="date-num">9</span><span class="day-text">MON</span>
-        </div>
-        <div class="day-tab-box" data-day-index="5" onclick="showDay('day-12-10', 5, this)">
-            <span class="month-text">12月</span><span class="date-num">10</span><span class="day-text">TUE</span>
-        </div>
-        <div class="day-tab-box" data-day-index="6" onclick="showDay('day-12-11', 6, this)">
-            <span class="month-text">12月</span><span class="date-num">11</span><span class="day-text">WED</span>
-        </div>
-        <div class="day-tab-box" data-day-index="7" onclick="showDay('day-12-12', 7, this)">
-            <span class="month-text">12月</span><span class="date-num">12</span><span class="day-text">THU</span>
-        </div>
+        <div class="day-tab-box active" data-day-index="1" onclick="showDay('day-12-6', 1, this)"><span class="month-text">12月</span><span class="date-num">6</span><span class="day-text">FRI</span></div>
+        <div class="day-tab-box" data-day-index="2" onclick="showDay('day-12-7', 2, this)"><span class="month-text">12月</span><span class="date-num">7</span><span class="day-text">SAT</span></div>
+        <div class="day-tab-box" data-day-index="3" onclick="showDay('day-12-8', 3, this)"><span class="month-text">12月</span><span class="date-num">8</span><span class="day-text">SUN</span></div>
+        <div class="day-tab-box" data-day-index="4" onclick="showDay('day-12-9', 4, this)"><span class="month-text">12月</span><span class="date-num">9</span><span class="day-text">MON</span></div>
+        <div class="day-tab-box" data-day-index="5" onclick="showDay('day-12-10', 5, this)"><span class="month-text">12月</span><span class="date-num">10</span><span class="day-text">TUE</span></div>
+        <div class="day-tab-box" data-day-index="6" onclick="showDay('day-12-11', 6, this)"><span class="month-text">12月</span><span class="date-num">11</span><span class="day-text">WED</span></div>
+        <div class="day-tab-box" data-day-index="7" onclick="showDay('day-12-12', 7, this)"><span class="month-text">12月</span><span class="date-num">12</span><span class="day-text">THU</span></div>
     </div>
     
     <div class="content-wrapper">
@@ -177,40 +163,44 @@
             <div class="day-title">第一天：抵達東京</div>
             <div class="flight-card"><div class="flight-header"><div><span class="flight-time">08:00</span><p class="flight-airport" style="font-size: 0.6em;">TPE</p></div><div><span class="flight-time">12:20</span><p class="flight-airport" style="font-size: 0.6em;">NRT</p></div></div><div class="flight-details"><span class="flight-number">CI 0102</span></div></div>
             <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.82803077263!2d139.7671248152588!3d35.68123618019432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bfbd89f7007%3A0x277c49ba34ed38!2z5p2x5Lqs6Zui!5e0!3m2!1szh-TW!2stw!4v1625555555555!5m2!1szh-TW!2stw" loading="lazy"></iframe>
+                <iframe src="https://maps.google.com/maps?q=A-PIT+Autobacs+Shinonome&t=&z=13&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
             </div>
             <div class="card"><h3>✈️ 交通與住宿</h3><ul class="item-list"><li>搭乘 SKYLINER (12:42/13:02)</li><li>Check-in Comfort Hotel Tokyo Kanda (12/6 - 12/8)</li></ul></div>
-            <div class="card"><h3>🚗 下午活動</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東雲A-PIT+Super+Autobacs" target="_blank" class="location-link">📍 東雲 A-PIT</a></div>
-            <div class="card"><h3>🍽️ 晚餐預約</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=肉屋橫丁+秋葉原" target="_blank" class="location-link">📍 肉屋橫丁 秋葉原</a><ul class="item-list"><li>20:00 預約 <span class="tag tag-reservation">重要</span></li></ul></div>
+            <div class="card"><h3>🚗 下午活動</h3><a href="https://www.google.com/maps/search/?api=1&query=A-PIT+AUTOBACS+SHINONOME" target="_blank" class="location-link">📍 東雲 A pit</a></div>
+            <div class="card"><h3>🍽️ 晚餐預約</h3><a href="https://www.google.com/maps/search/?api=1&query=Nikuya+Yokocho+Akihabara" target="_blank" class="location-link">📍 肉屋橫丁 秋葉原</a><ul class="item-list"><li>20:00 預約 <span class="tag tag-reservation">重要</span></li></ul></div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
         </div>
         
         <div id="day-12-7" class="content" style="display:none;">
             <div class="day-title">第二天：川越與地瓜哇</div>
             <img src="/images/day02_kawagoe.jpg" alt="川越" class="hero-background" style="width:100%; border-radius:10px; margin-bottom:15px;">
-            <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3230.9162671226336!2d139.47892697526183!3d35.92454951657047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018db5ad3fee029%3A0x385f14ef6b654aee!2sChiikawa%20Mogumogu%20Hompo%20Kawagoe!5e0!3m2!1szh-TW!2stw!4v1764142830988!5m2!1szh-TW!2stw" loading="lazy"></iframe></div>
+            <div class="map-container">
+                <iframe src="https://maps.google.com/maps?q=Kawagoe+Hikawa+Shrine&t=&z=13&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
+            </div>
             <div class="card">
                 <h3>🎄 戶外活動</h3>
-                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京聖誕+Advent+in+上野公園" target="_blank" class="location-link">📍 上野聖誕市集</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Ueno+Park" target="_blank" class="location-link">📍 上野聖誕市集</a>
                 <ul class="item-list">
                     <li>川越半日遊</li>
                     <li><span class="tag tag-xmas">聖誕市集</span> 東京聖誕 Advent</li>
                     <li>晴空塔聖誕市集</li>
                 </ul>
             </div>
-            <div class="card"><h3>🍽️ 晚餐預約</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=yakiniku+yattyattyan" target="_blank" class="location-link">📍 yakiniku yattyattyan</a><ul class="item-list"><li>21:30 預約</li></ul></div>
+            <div class="card"><h3>🍽️ 晚餐預約</h3><a href="https://www.google.com/maps/search/?api=1&query=Yakiniku+Yacchan+Kanda" target="_blank" class="location-link">📍 焼肉やっちゃん 神田店</a><ul class="item-list"><li>21:30 預約</li></ul></div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
         </div>
         
         <div id="day-12-8" class="content" style="display:none;">
             <div class="day-title">第三天：嬰兒士尼</div>
             <img src="/images/day03_disney_land.jpg" alt="迪士尼" class="hero-background" style="width:100%; border-radius:10px; margin-bottom:15px;">
-            <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3242.790100527838!2d139.8778193752484!3d35.632900732628215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60187d03114737b3%3A0xe4d93636d509d3cb!2z5p2x5Lqs6L-q5aOr5bC85qiC5ZyS!5e0!3m2!1szh-TW!2stw!4v1764142972772!5m2!1szh-TW!2stw" loading="lazy"></iframe></div>
+            <div class="map-container">
+                <iframe src="https://maps.google.com/maps?q=Tokyo+Disneyland&t=&z=13&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
+            </div>
             <div class="card">
                 <h3>🏰 迪士尼樂園</h3>
-                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京迪士尼樂園" target="_blank" class="location-link">📍 東京迪士尼樂園</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Disneyland" target="_blank" class="location-link">📍 東京迪士尼樂園</a>
                 <ul class="item-list">
-                    <li><span class="time">09:00</span> 新宿剪髮 (アリエス) <span class="tag tag-reservation">預約</span></li>
+                    <li><span class="time">09:00</span> アリエス 新宿東南口店 <span class="tag tag-reservation">預約</span></li>
                     <li><span class="time">17:00</span> 美女與野獸 <span class="tag tag-reservation">DPA已買</span></li>
                 </ul>
             </div>
@@ -229,10 +219,12 @@
         <div id="day-12-9" class="content" style="display:none;">
             <div class="day-title">第四天：嬰兒士尼海洋</div>
             <img src="/images/day04_disney_sea.jpg" alt="海洋" class="hero-background" style="width:100%; border-radius:10px; margin-bottom:15px;">
-            <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3243.0410246706615!2d139.88250297524812!3d35.62671513296778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60187d03114737b3%3A0x41471d704ab72d25!2z5p2x5Lqs6L-q5aOr5bC85rW35rSL!5e0!3m2!1szh-TW!2stw!4v1764143000637!5m2!1szh-TW!2stw" loading="lazy"></iframe></div>
+            <div class="map-container">
+                <iframe src="https://maps.google.com/maps?q=Tokyo+DisneySea&t=&z=13&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
+            </div>
             <div class="card">
                 <h3>🔱 迪士尼海洋 (夢幻泉鄉)</h3>
-                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京迪士尼海洋" target="_blank" class="location-link">📍 東京迪士尼海洋</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+DisneySea" target="_blank" class="location-link">📍 東京迪士尼海洋</a>
                 <ul class="item-list">
                     <li><span class="time">08:20</span> 早餐預約</li>
                     <li>預約設施：<span class="time">10:00</span> Elsa、<span class="time">11:30</span> 樂佩、<span class="time">13:30</span> 彼得潘</li>
@@ -252,22 +244,24 @@
         <div id="day-12-10" class="content" style="display:none;">
             <div class="day-title">第五天：嘎哇樂園</div>
             <img src="/images/day05_chiikawa.jpg" alt="吉伊卡哇" class="hero-background" style="width:100%; border-radius:10px; margin-bottom:15px;">
-            <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25910.806406990017!2d139.6791950743164!3d35.729887699999985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d006f3d976b%3A0xc471e5c44aa64c5a!2sChiikawa%20Park!5e0!3m2!1szh-TW!2stw!4v1764143112168!5m2!1szh-TW!2stw" loading="lazy"></iframe></div>
+            <div class="map-container">
+                <iframe src="https://maps.google.com/maps?q=Harajuku+Takeshita+Street&t=&z=14&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
+            </div>
             <div class="card">
                 <h3>🛍️ 購物與美食</h3>
-                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=吉伊卡哇樂園" target="_blank" class="location-link">📍 吉伊卡哇樂園</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Chiikawa+Land+Harajuku" target="_blank" class="location-link">📍 吉伊卡哇樂園</a>
                 <ul class="item-list">
-                    <li><span class="time">午餐</span> ねぎし Negishi <span class="tag tag-food">牛舌</span></li>
+                    <li><span class="time">午餐</span> ねぎし Negish池袋東口店 <span class="tag tag-food">牛舌</span></li>
                     <li><span class="time">13:40</span> 吉伊卡哇樂園 (入場)</li>
                     <li><span class="time">下午</span> 原宿逛街</li>
                 </ul>
             </div>
             <div class="card">
                 <h3>🎄 聖誕夜景</h3>
-                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=明治神宮外苑聖誕市集" target="_blank" class="location-link">📍 明治神宮外苑</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Meiji+Jingu+Gaien" target="_blank" class="location-link">📍 明治神宮外苑</a>
                 <ul class="item-list">
                     <li><span class="tag tag-xmas">聖誕市集</span> 明治神宮外苑</li>
-                    <li><span class="tag tag-xmas">可選</span> 芝公園聖誕市集</li>
+                    <li><span class="tag tag-xmas">可選</span> 芝公園</li>
                 </ul>
             </div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-theme="original" >TOKYO WEATHER</a></div>
@@ -276,15 +270,17 @@
         <div id="day-12-11" class="content" style="display:none;">
             <div class="day-title">第六天：六本木貢丸之內</div>
             <img src="/images/day06_roppongi.jpg" alt="六本木" class="hero-background" style="width:100%; border-radius:10px; margin-bottom:15px;">
-            <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.627464952162!2d139.7382552752496!3d35.66154903105576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b2e40342225%3A0x3f9a1673138a69c1!2z6bq75biD5Y-w5LmL5LiY!5e0!3m2!1szh-TW!2stw!4v1764143323938!5m2!1szh-TW!2stw" loading="lazy"></iframe></div>
+            <div class="map-container">
+                <iframe src="https://maps.google.com/maps?q=Roppongi+Hills&t=&z=14&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
+            </div>
             <div class="card">
                 <h3>🗼 市區活動</h3>
-                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=六本木新城" target="_blank" class="location-link">📍 六本木新城</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Roppongi+Hills" target="_blank" class="location-link">📍 六本木新城 & 麻布台hills</a>
                 <ul class="item-list">
                     <li><span class="time">早餐</span> Tricolore coffee <span class="tag tag-food">咖啡</span></li>
-                    <li><span class="time">上午</span> BINGO SPORTS <span class="tag tag-buy">看車</span></li>
-                    <li><span class="time">中午</span> 六本木/麻布台Hills <span class="tag tag-xmas">聖誕</span></li>
-                    <li><span class="time">晚上</span> 丸之內 Street Park</li>
+                    <li><span class="time">上午</span> BINGO Sports <span class="tag tag-buy">看車</span></li>
+                    <li><span class="time">中午</span> 六本木新城 & 麻布台hills</li>
+                    <li><span class="time">晚上</span> 丸之內street park</li>
                 </ul>
             </div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-theme="original" >TOKYO WEATHER</a></div>
@@ -294,10 +290,12 @@
             <div class="day-title">第七天：返程日</div>
             <div class="flight-card"><div class="flight-header"><div><span class="flight-time">14:20</span><p class="flight-airport">NRT</p></div><div><span class="flight-time">18:40</span><p class="flight-airport">TPE</p></div></div><div class="flight-details"><span class="flight-number">CI 0127</span></div></div>
             <img src="/images/day07_departure.jpg" alt="返程" class="hero-background" style="width:100%; border-radius:10px; margin-bottom:15px;">
-            <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.85812501851!2d139.76043317525054!3d35.680495230015275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b39eb095801%3A0x64a29f9f2f81d5f7!2z5Li45LmL5YWn5Luy6YCa!5e0!3m2!1szh-TW!2stw!4v1764143400134!5m2!1szh-TW!2stw" loading="lazy"></iframe></div>
+            <div class="map-container">
+                <iframe src="https://maps.google.com/maps?q=Narita+International+Airport&t=&z=12&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
+            </div>
             <div class="card">
                 <h3>✈️ 返程與購物</h3>
-                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=成田機場" target="_blank" class="location-link">📍 成田機場</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Narita+International+Airport" target="_blank" class="location-link">📍 成田機場</a>
                 <ul class="item-list">
                     <li><span class="time">上午</span> Check-out 飯店</li>
                     <li><span class="time">交通</span> SKYLINER (14:20/14:37)</li>
@@ -309,7 +307,7 @@
 
         <div id="info" class="content" style="display:none;">
             <div class="day-title">📝 旅程資訊總覽</div>
-            <div class="card"><h3>🗓️ 重要預約</h3><ul class="item-list"><li>12/6 20:00 肉屋橫丁</li><li>12/7 21:30 yakiniku yattyattyan</li><li>12/8 09:00 アリエス 新宿</li><li>12/8 17:00 美女與野獸</li><li>12/10 13:40 吉伊卡哇樂園</li></ul></div>
+            <div class="card"><h3>🗓️ 重要預約</h3><ul class="item-list"><li>12/6 20:00 肉屋橫丁 秋葉原</li><li>12/7 21:30 焼肉やっちゃん 神田店</li><li>12/8 09:00 アリエス 新宿東南口店</li><li>12/8 17:00 美女與野獸</li><li>12/10 13:40 吉伊卡哇樂園</li></ul></div>
             <div class="card">
                 <h3>✅ 任務/打包清單</h3>
                 <ul class="task-list">
@@ -431,7 +429,7 @@
             const d = DATE_MAP[idx];
             if(d) {
                 document.getElementById('hero-img-bg').src = d.src;
-                // 注意：時間不再靜態更新，而是由時鐘控制
+                // 時間不再靜態更新，而是由時鐘控制
                 document.getElementById('hero-date-text-display').textContent = d.fullDate;
                 document.getElementById('countdown-timer').dataset.targetTime = d.departureTime;
                 updateCountdown();
@@ -439,7 +437,6 @@
         }
         
         function updateJapanClock() {
-            // 顯示東京時間
             const options = { timeZone: 'Asia/Tokyo', hour: '2-digit', minute: '2-digit', hour12: false };
             const timeString = new Date().toLocaleTimeString('en-US', options);
             document.getElementById('hero-time-display').textContent = timeString;
@@ -590,7 +587,7 @@
             
             setInterval(updateCountdown, 60000);
             setInterval(updateJapanClock, 1000); // 啟動日本時鐘
-            updateJapanClock(); // 立即執行一次
+            updateJapanClock();
             
             // Weather Widget
             var s = document.createElement('script'); 
