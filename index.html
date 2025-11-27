@@ -76,10 +76,15 @@
         .map-container iframe { width: 100%; height: 250px; border: none; display: block; }
         .location-link { display: block; margin: 15px 0; text-decoration: none; font-weight: bold; color: #C48E44; font-size: 1.1em; padding: 10px 15px; background-color: #FFF8E0; border-radius: 8px; border: 1px solid #E8E8E8; text-align: center; transition: background-color 0.3s; }
         
+        /* 標籤樣式 */
         .tag { display: inline-block; padding: 4px 10px; margin: 3px 5px 3px 0; border-radius: 6px; font-size: 0.75em; font-weight: bold; }
-        .tag-pass { background-color: #F4E8D4; color: #7B6858; } 
-        .tag-reservation { background-color: #E0EBF7; color: #4C70A8; } 
-        .tag-xmas { background-color: #EFE6DA; color: #6A5B4C; }
+        .tag-pass { background-color: #F4E8D4; color: #7B6858; } /* 快速通關 */
+        .tag-must-do { background-color: #E6F3E6; color: #4CAF50; } /* 必玩 */
+        .tag-food { background-color: #FFF0D6; color: #C48E44; } /* 美食 */
+        .tag-reservation { background-color: #E0EBF7; color: #4C70A8; } /* 預約 */
+        .tag-xmas { background-color: #EFE6DA; color: #6A5B4C; } /* 聖誕 */
+        .tag-buy { background-color: #F7E6E8; color: #8D545B; } /* 購物 */
+
         .action-button { background-color: #C48E44; color: #FFFFFF; padding: 10px 15px; border-radius: 6px; transition: background-color 0.3s; border: none; font-weight: bold; }
         .action-button.green { background-color: #79A37B; color: #FFFFFF; }
         .weather-info { padding: 0; margin-bottom: 15px; border: none; box-shadow: none; background-color: transparent; }
@@ -150,7 +155,7 @@
             <div class="flight-card"><div class="flight-header"><div><span class="flight-time">08:00</span><p class="flight-airport" style="font-size: 0.6em;">TPE</p></div><div><span class="flight-time">12:20</span><p class="flight-airport" style="font-size: 0.6em;">NRT</p></div></div><div class="flight-details"><span class="flight-number">CI 0102</span></div></div>
             <div class="card"><h3>✈️ 交通</h3><ul class="item-list"><li>搭乘 SKYLINER (12:42/13:02)</li><li>Check-in Comfort Hotel</li></ul></div>
             <div class="card"><h3>🚗 下午活動</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東雲A-PIT+Super+Autobacs" target="_blank" class="location-link">📍 東雲 A-PIT</a></div>
-            <div class="card"><h3>🍽️ 晚餐</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=肉屋橫丁+秋葉原" target="_blank" class="location-link">📍 肉屋橫丁 秋葉原</a><ul class="item-list"><li>20:00 預約</li></ul></div>
+            <div class="card"><h3>🍽️ 晚餐</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=肉屋橫丁+秋葉原" target="_blank" class="location-link">📍 肉屋橫丁 秋葉原</a><ul class="item-list"><li>20:00 預約 <span class="tag tag-reservation">重要</span></li></ul></div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
         </div>
         
@@ -158,7 +163,15 @@
             <div class="day-title">第二天：川越與地瓜哇</div>
             <img src="/images/day02_kawagoe.jpg" alt="川越" class="hero-background" style="width:100%; border-radius:10px; margin-bottom:15px;">
             <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3230.9162671226336!2d139.47892697526183!3d35.92454951657047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018db5ad3fee029%3A0x385f14ef6b654aee!2sChiikawa%20Mogumogu%20Hompo%20Kawagoe!5e0!3m2!1szh-TW!2stw!4v1764142830988!5m2!1szh-TW!2stw" loading="lazy"></iframe></div>
-            <div class="card"><h3>🎄 活動</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京聖誕+Advent+in+上野公園" target="_blank" class="location-link">📍 上野聖誕市集</a><ul class="item-list"><li>川越半日遊 / 晴空塔聖誕</li></ul></div>
+            <div class="card">
+                <h3>🎄 戶外活動</h3>
+                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京聖誕+Advent+in+上野公園" target="_blank" class="location-link">📍 上野聖誕市集</a>
+                <ul class="item-list">
+                    <li>川越半日遊</li>
+                    <li><span class="tag tag-xmas">聖誕市集</span> 東京聖誕 Advent</li>
+                    <li>晴空塔聖誕市集</li>
+                </ul>
+            </div>
             <div class="card"><h3>🍽️ 晚餐</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=yakiniku+yattyattyan" target="_blank" class="location-link">📍 yakiniku yattyattyan</a><ul class="item-list"><li>21:30 預約</li></ul></div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
         </div>
@@ -167,7 +180,23 @@
             <div class="day-title">第三天：嬰兒士尼</div>
             <img src="/images/day03_disney_land.jpg" alt="迪士尼" class="hero-background" style="width:100%; border-radius:10px; margin-bottom:15px;">
             <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3242.790100527838!2d139.8778193752484!3d35.632900732628215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60187d03114737b3%3A0xe4d93636d509d3cb!2z5p2x5Lqs6L-q5aOr5bC85qiC5ZyS!5e0!3m2!1szh-TW!2stw!4v1764142972772!5m2!1szh-TW!2stw" loading="lazy"></iframe></div>
-            <div class="card"><h3>🏰 樂園</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京迪士尼樂園" target="_blank" class="location-link">📍 東京迪士尼樂園</a><ul class="item-list"><li>09:00 新宿剪髮 / 17:00 美女與野獸</li></ul></div>
+            <div class="card">
+                <h3>🏰 迪士尼樂園</h3>
+                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京迪士尼樂園" target="_blank" class="location-link">📍 東京迪士尼樂園</a>
+                <ul class="item-list">
+                    <li><span class="time">09:00</span> 新宿剪髮 (アリエス) <span class="tag tag-reservation">預約</span></li>
+                    <li><span class="time">17:00</span> 美女與野獸 <span class="tag tag-reservation">DPA已買</span></li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🎢 必玩與美食</h3>
+                <ul class="item-list">
+                    <li>**快速通關**：<span class="tag tag-pass">巨雷山</span>、<span class="tag tag-pass">幽靈公關</span></li>
+                    <li>**必玩**：<span class="tag tag-must-do">小小世界</span>、<span class="tag tag-must-do">杯麵</span>、<span class="tag tag-must-do">白雪公主</span></li>
+                    <li>**遊行**：<span class="time">12:45</span> 聖誕遊行 / <span class="time">19:00</span> 夢之光</li>
+                    <li>**美食**：<span class="tag tag-food">水晶宮 (吃到飽)</span>、<span class="tag tag-food">中央大道咖啡廳</span></li>
+                </ul>
+            </div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
         </div>
 
@@ -175,7 +204,22 @@
             <div class="day-title">第四天：嬰兒士尼海洋</div>
             <img src="/images/day04_disney_sea.jpg" alt="海洋" class="hero-background" style="width:100%; border-radius:10px; margin-bottom:15px;">
             <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3243.0410246706615!2d139.88250297524812!3d35.62671513296778!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60187d03114737b3%3A0x41471d704ab72d25!2z5p2x5Lqs6L-q5aOr5bC85rW35rSL!5e0!3m2!1szh-TW!2stw!4v1764143000637!5m2!1szh-TW!2stw" loading="lazy"></iframe></div>
-            <div class="card"><h3>🔱 海洋</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京迪士尼海洋" target="_blank" class="location-link">📍 東京迪士尼海洋</a><ul class="item-list"><li>08:20 早餐預約 / 換飯店至銀座</li></ul></div>
+            <div class="card">
+                <h3>🔱 迪士尼海洋 (夢幻泉鄉)</h3>
+                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京迪士尼海洋" target="_blank" class="location-link">📍 東京迪士尼海洋</a>
+                <ul class="item-list">
+                    <li><span class="time">08:20</span> 早餐預約</li>
+                    <li>**預約設施**：<span class="time">10:00</span> Elsa、<span class="time">11:30</span> 樂佩、<span class="time">13:30</span> 彼得潘</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🎢 必玩與美食</h3>
+                <ul class="item-list">
+                    <li>**必玩**：<span class="tag tag-pass">玩具總動員</span>、<span class="tag tag-pass">驚魂古塔</span>、<span class="tag tag-pass">地心探險</span></li>
+                    <li>**表演**：<span class="time">14:15</span> 聖誕迎賓會 / <span class="time">15:25</span> 達菲旅程</li>
+                    <li>**住宿**：Check-in REMM PLUS GINZA</li>
+                </ul>
+            </div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
         </div>
 
@@ -183,17 +227,41 @@
             <div class="day-title">第五天：嘎哇樂園</div>
             <img src="/images/day05_chiikawa.jpg" alt="吉伊卡哇" class="hero-background" style="width:100%; border-radius:10px; margin-bottom:15px;">
             <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25910.806406990017!2d139.6791950743164!3d35.729887699999985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d006f3d976b%3A0xc471e5c44aa64c5a!2sChiikawa%20Park!5e0!3m2!1szh-TW!2stw!4v1764143112168!5m2!1szh-TW!2stw" loading="lazy"></iframe></div>
-            <div class="card"><h3>🛍️ 逛街</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=吉伊卡哇樂園" target="_blank" class="location-link">📍 吉伊卡哇樂園</a><ul class="item-list"><li>13:40 入場 / 原宿</li></ul></div>
-            <div class="card"><h3>🎄 夜景</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=明治神宮外苑聖誕市集" target="_blank" class="location-link">📍 明治神宮外苑</a></div>
-            <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
+            <div class="card">
+                <h3>🛍️ 購物與美食</h3>
+                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=吉伊卡哇樂園" target="_blank" class="location-link">📍 吉伊卡哇樂園</a>
+                <ul class="item-list">
+                    <li><span class="time">午餐</span> ねぎし Negishi <span class="tag tag-food">牛舌</span></li>
+                    <li><span class="time">13:40</span> 吉伊卡哇樂園 (入場)</li>
+                    <li><span class="time">下午</span> 原宿逛街</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🎄 聖誕夜景</h3>
+                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=明治神宮外苑聖誕市集" target="_blank" class="location-link">📍 明治神宮外苑</a>
+                <ul class="item-list">
+                    <li><span class="tag tag-xmas">聖誕市集</span> 明治神宮外苑</li>
+                    <li><span class="tag tag-xmas">可選</span> 芝公園聖誕市集</li>
+                </ul>
+            </div>
+            <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-theme="original" >TOKYO WEATHER</a></div>
         </div>
         
         <div id="day-12-11" class="content" style="display:none;">
             <div class="day-title">第六天：六本木貢丸之內</div>
             <img src="/images/day06_roppongi.jpg" alt="六本木" class="hero-background" style="width:100%; border-radius:10px; margin-bottom:15px;">
             <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.627464952162!2d139.7382552752496!3d35.66154903105576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b2e40342225%3A0x3f9a1673138a69c1!2z6bq75biD5Y-w5LmL5LiY!5e0!3m2!1szh-TW!2stw!4v1764143323938!5m2!1szh-TW!2stw" loading="lazy"></iframe></div>
-            <div class="card"><h3>🗼 市區</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=六本木新城" target="_blank" class="location-link">📍 六本木新城</a><ul class="item-list"><li>Tricolore coffee / BINGO SPORTS</li></ul></div>
-            <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
+            <div class="card">
+                <h3>🗼 市區活動</h3>
+                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=六本木新城" target="_blank" class="location-link">📍 六本木新城</a>
+                <ul class="item-list">
+                    <li><span class="time">早餐</span> Tricolore coffee <span class="tag tag-food">咖啡</span></li>
+                    <li><span class="time">上午</span> BINGO SPORTS <span class="tag tag-buy">看車</span></li>
+                    <li><span class="time">中午</span> 六本木/麻布台Hills <span class="tag tag-xmas">聖誕</span></li>
+                    <li><span class="time">晚上</span> 丸之內 Street Park</li>
+                </ul>
+            </div>
+            <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-theme="original" >TOKYO WEATHER</a></div>
         </div>
 
         <div id="day-12-12" class="content" style="display:none;">
@@ -201,8 +269,15 @@
             <div class="flight-card"><div class="flight-header"><div><span class="flight-time">14:20</span><p class="flight-airport">NRT</p></div><div><span class="flight-time">18:40</span><p class="flight-airport">TPE</p></div></div><div class="flight-details"><span class="flight-number">CI 0127</span></div></div>
             <img src="/images/day07_departure.jpg" alt="返程" class="hero-background" style="width:100%; border-radius:10px; margin-bottom:15px;">
             <div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.85812501851!2d139.76043317525054!3d35.680495230015275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b39eb095801%3A0x64a29f9f2f81d5f7!2z5Li45LmL5YWn5Luy6YCa!5e0!3m2!1szh-TW!2stw!4v1764143400134!5m2!1szh-TW!2stw" loading="lazy"></iframe></div>
-            <div class="card"><h3>✈️ 返程</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=成田機場" target="_blank" class="location-link">📍 成田機場</a></div>
-            <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
+            <div class="card">
+                <h3>✈️ 返程</h3>
+                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=成田機場" target="_blank" class="location-link">📍 成田機場</a>
+                <ul class="item-list">
+                    <li><span class="time">上午</span> Check-out 飯店</li>
+                    <li><span class="time">交通</span> SKYLINER (14:20/14:37)</li>
+                </ul>
+            </div>
+            <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-theme="original" >TOKYO WEATHER</a></div>
         </div>
 
 
@@ -213,7 +288,7 @@
                 <h3>✅ 任務/打包清單</h3>
                 <ul class="task-list">
                     <li><input type="checkbox" id="t1"><label for="t1">護照、簽證</label></li>
-                    <li><input type="checkbox" id="t2"><label for="t2">ESIM</label></li>
+                    <li><input type="checkbox" id="t2"><label for="t2">ESIM / 網卡</label></li>
                     <li><input type="checkbox" id="t3"><label for="t3">日幣現金</label></li>
                     <li><input type="checkbox" id="t4"><label for="t4">SKYLINER 車票</label></li>
                     <li><input type="checkbox" id="t5"><label for="t5">聖誕市集門票</label></li>
@@ -260,7 +335,7 @@
             </div>
 
             <div class="card">
-                <h3>🧾 支出明細</h3>
+                <h3>🧾 支出明細 (可刪除)</h3>
                 <ul id="expenseList" class="item-list"><li>載入中...</li></ul>
             </div>
         </div>
@@ -268,7 +343,7 @@
     </div>
 
     <script>
-        // === 🔴 您的 Apps Script 網址 (已自動填入) ===
+        // === 🔴 Google Apps Script 網址 (已自動填入) ===
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQ9JTsKgQIs22NzJjLxQseBD2YFWwE9xGJmYRMWgyVv5d8nci1JUazXnvhIB9bkdY-yw/exec';
 
         // === 狀態記憶與導航 ===
@@ -348,7 +423,7 @@
                 })
                 .catch(e => {
                     console.error(e);
-                    document.getElementById('expenseList').innerHTML = '<li style="color:red">連線失敗，請檢查 Script 部署權限</li>';
+                    document.getElementById('expenseList').innerHTML = '<li style="color:red">連線失敗，請檢查 Script 網址</li>';
                 });
         }
 
@@ -390,6 +465,7 @@
 
         function handleExpense(action, rowId) {
             const btn = document.getElementById('add-btn');
+            
             let payload = { action: action };
             
             if(action === 'add') {
@@ -413,7 +489,7 @@
 
             fetch(SCRIPT_URL, {
                 method: 'POST',
-                mode: 'no-cors', 
+                mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             })
@@ -450,7 +526,8 @@
             document.getElementById('exchangeRate').value = localStorage.getItem('exchangeRate') || 0.215;
             document.getElementById('expenseUser').value = localStorage.getItem('expenseUser') || '';
             document.getElementById('budget-twd-display').textContent = `NT$ ${parseFloat(document.getElementById('totalBudgetTWD').value).toLocaleString()}`;
-            fetchExpenses();
+            
+            if(SCRIPT_URL.includes('http')) fetchExpenses();
         }
 
         function updateCountdown() {
@@ -469,12 +546,15 @@
 
         window.addEventListener('load', () => {
             loadData();
+            
             document.querySelectorAll('.task-list input').forEach(box => {
                 box.checked = localStorage.getItem(box.id) === 'true';
                 box.addEventListener('change', () => localStorage.setItem(box.id, box.checked));
             });
+
             const startBtn = document.querySelector(`.day-tab-box[data-day-index="1"]`);
             if(startBtn) showDay('day-12-6', 1, startBtn);
+            
             setInterval(updateCountdown, 60000);
             
             // Weather Widget
