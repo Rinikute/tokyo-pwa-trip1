@@ -145,7 +145,7 @@
             min-width: 60px; 
         }
 
-        /* 5. 標籤設計 (使用米色調和少量點綴色) */
+        /* 5. 標籤設計 (保持不變) */
         .tag {
             display: inline-block;
             padding: 4px 10px;
@@ -191,6 +191,17 @@
         .action-button.green {
             background-color: #79A37B; /* 記錄支出按鈕 (柔和綠) */
             color: #FFFFFF;
+        }
+        /* 專門為預算卡片中的小按鈕調整 */
+        .budget-input-group .action-button {
+            width: auto; 
+            display: inline-block; 
+            padding: 5px 10px;
+            margin-top: 5px;
+        }
+        .budget-input-group input[type="number"]#exchangeRate {
+            width: 80px; 
+            display: inline-block;
         }
     </style>
 </head>
@@ -466,22 +477,33 @@
             <p>支出將會**同步**至 Google 試算表</p>
         </div>
 
-        <div class="card" style="background-color: #f0fff0;">
-            <h3>💸 總結算與匯率設定</h3>
+        <div class="card" style="background-color: #FFF0E6; border: 1px solid #D4A373;">
+            <h3>📊 預算概覽</h3>
+            
+            <div class="budget-input-group">
+                <label for="totalBudgetTWD">總預算 (TWD):</label>
+                <input type="number" id="totalBudgetTWD" value="0" placeholder="設定本次旅程總預算 (台幣)">
+                <button onclick="saveSettings()" class="action-button" style="background-color:#D4A373; color:white; margin-top: 5px;">儲存預算</button>
+            </div>
+
+            <p style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+                **總預算 (TWD):** <strong id="budget-twd-display" style="color:#D4A373;">NT$ 0</strong><br>
+                **已支出 (TWD):** <strong id="total-spent-twd" style="color:#D83A56;">載入中...</strong><br>
+                **剩餘預算 (TWD):** <strong id="remaining-twd" style="color:#79A37B;">載入中...</strong>
+            </p>
+            
+            <hr style="border: none; border-top: 1px dashed #E8E8E8; margin: 15px 0;">
+            
             <p>
+                **日幣總支出:** <strong id="total-spent-jpy">載入中...</strong><br>
+                <label for="exchangeRate">當前匯率:</label>
+                <input type="number" id="exchangeRate" value="0.215" step="0.001" style="width: 80px; display: inline-block;">
+                <button onclick="saveSettings()" class="action-button" style="background-color:#D4A373; color:white; margin-top: 5px; display: inline-block; padding: 5px 10px;">更新匯率</button>
+            </p>
+            <p style="font-size: 0.8em; color: #888; margin-top: 5px;">
                 連線狀態：<span style="color:#4CAF50;">✅ 已連線</span> | 
                 <a id="sheet-link" href="https://docs.google.com/spreadsheets/d/1quyZDgEyX5FMDQmGAkVrQo7CJEFaEN16VHHTzgCrn5s/edit" target="_blank">點此查看試算表</a>
             </p>
-            <p>
-                **總支出 (JPY):** <strong id="total-spent-jpy">載入中...</strong><br>
-                **總支出 (TWD):** <strong id="total-spent-twd" style="color:#C48E44;">載入中...</strong>
-            </p>
-
-            <div class="budget-input-group">
-                <label for="exchangeRate">JPY 對台幣匯率 (用於計算 TWD):</label>
-                <input type="number" id="exchangeRate" value="0.215" step="0.001">
-                <button onclick="saveSettings()" class="action-button" style="background-color:#D4A373; color:white; margin-top: 10px;">儲存設定</button>
-            </div>
         </div>
         
         <div class="card">
@@ -578,7 +600,7 @@
 
         // === 共享連動記帳功能 JavaScript (讀取、寫入、更新) ===
         
-        // 載入設定（匯率和使用者名稱）
+        // 載入設定（匯率、使用者名稱和總預算）
         function loadData() {
             const savedRate = localStorage.getItem('exchangeRate') || 0.215;
             document.getElementById('exchangeRate').value = savedRate;
@@ -586,17 +608,26 @@
             const savedUser = localStorage.getItem('expenseUser') || '';
             document.getElementById('expenseUser').value = savedUser;
 
+            const savedBudget = localStorage.getItem('totalBudgetTWD') || 0; 
+            document.getElementById('totalBudgetTWD').value = savedBudget; 
+            document.getElementById('budget-twd-display').textContent = `NT$ ${parseFloat(savedBudget).toLocaleString()}`; 
+
             // 載入頁面時，立即讀取試算表資料
             fetchExpensesFromSheet();
         }
 
-        // 儲存設定（只保留匯率和使用者名稱）
+        // 儲存設定（匯率、使用者名稱和總預算）
         function saveSettings() {
             const rate = document.getElementById('exchangeRate').value;
             const user = document.getElementById('expenseUser').value.trim();
+            const budget = document.getElementById('totalBudgetTWD').value; 
+
             localStorage.setItem('exchangeRate', rate);
             localStorage.setItem('expenseUser', user);
-            fetchExpensesFromSheet(); // 更新匯率後重新計算總額
+            localStorage.setItem('totalBudgetTWD', budget); 
+            document.getElementById('budget-twd-display').textContent = `NT$ ${parseFloat(budget).toLocaleString()}`; 
+
+            fetchExpensesFromSheet(); // 更新匯率或預算後重新計算總額/剩餘
             alert('設定已儲存！');
         }
 
@@ -605,6 +636,7 @@
             // 顯示載入中訊息
             document.getElementById('total-spent-jpy').textContent = '載入中...';
             document.getElementById('total-spent-twd').textContent = '載入中...';
+            document.getElementById('remaining-twd').textContent = '載入中...'; 
             document.getElementById('expenseList').innerHTML = '<li>載入試算表資料中...</li>';
 
             fetch(SHEET_API_URL)
@@ -622,7 +654,6 @@
                             timestamp: row[0] || 'N/A', 
                             user: row[1] || '匿名',
                             desc: row[2] || 'N/A',
-                            // D欄是 Amount_JPY, E欄是 Amount_TWD (由表單自動計算)
                             amountJPY: parseFloat(row[3]) || 0, 
                             amountTWD: parseFloat(row[4]) || 0,
                         }));
@@ -639,7 +670,8 @@
                     console.error("Error fetching data from Google Sheets API:", error);
                     document.getElementById('total-spent-jpy').textContent = '讀取失敗';
                     document.getElementById('total-spent-twd').textContent = '讀取失敗';
-                    document.getElementById('expenseList').innerHTML = '<li><span style="color: red;">⚠️ 資料讀取失敗，請確認試算表已發佈。</span></li>';
+                    document.getElementById('remaining-twd').textContent = '讀取失敗';
+                    document.getElementById('expenseList').innerHTML = '<li><span style="color: red;">⚠️ 資料讀取失敗，請確認 API 密鑰與試算表已發佈。</span></li>';
                 });
         }
         
@@ -672,15 +704,27 @@
         function updateSummary(expenses) {
             let totalSpentJPY = 0;
             let totalSpentTWD = 0;
+            const totalBudget = parseFloat(localStorage.getItem('totalBudgetTWD') || 0);
 
             expenses.forEach(exp => {
                 totalSpentJPY += exp.amountJPY;
                 totalSpentTWD += exp.amountTWD;
             });
 
+            const remainingTWD = totalBudget - totalSpentTWD;
+            
             // 顯示結果
             document.getElementById('total-spent-jpy').textContent = `¥${totalSpentJPY.toLocaleString()}`;
             document.getElementById('total-spent-twd').textContent = `NT$ ${Math.round(totalSpentTWD).toLocaleString()}`;
+            document.getElementById('remaining-twd').textContent = `NT$ ${Math.round(remainingTWD).toLocaleString()}`;
+            
+            // 根據剩餘預算變更顏色 
+            const remainingEl = document.getElementById('remaining-twd');
+            if (remainingTWD < 0) {
+                remainingEl.style.color = '#D83A56'; // 超出預算用紅色
+            } else {
+                remainingEl.style.color = '#79A37B'; // 仍在預算內用綠色
+            }
         }
 
         // --- D. 寫入功能：提交資料到 Google 表單 (同步) ---
@@ -724,11 +768,10 @@
                 document.getElementById('expenseAmount').value = '';
                 
                 // 寫入成功後，重新讀取並更新頁面
-                // 延遲一秒確保 Google Sheet 有足夠時間處理寫入
-                setTimeout(fetchExpensesFromSheet, 1000); 
+                setTimeout(fetchExpensesFromSheet, 1000); // 延遲一秒確保 Google Sheet 有足夠時間處理寫入
             })
             .catch((error) => {
-                 // 即使發生錯誤，仍重新整理，因為表單提交是單向且通常會成功
+                 // Fallback on write error
                  alert(`支出已嘗試同步！請在試算表中確認。\n金額: ¥${amountJPY.toLocaleString()}`);
                  document.getElementById('expenseDesc').value = '';
                  document.getElementById('expenseAmount').value = '';
