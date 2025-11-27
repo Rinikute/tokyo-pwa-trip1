@@ -6,8 +6,10 @@
     <title>東京聖誕之旅 2025</title>
     <link rel="manifest" href="/manifest.json">
     
+    <script src="https://apis.google.com/js/api.js"></script>
+    
     <style>
-        /* 1. 基礎設置與奶油暖白配色 */
+        /* 1. 基礎設置 */
         body {
             font-family: 'Avenir Next', 'Hiragino Sans', 'Noto Sans TC', sans-serif;
             background-color: #FFFCF9; 
@@ -40,11 +42,11 @@
             transition: color 0.3s;
         }
         .tab-button.active {
-            color: #C48E44; /* 米黃色系強調色 */
+            color: #C48E44; 
             border-bottom: 3px solid #C48E44;
         }
 
-        /* 2. 佈局與卡片設計 */
+        /* 2. 佈局與卡片 */
         .content { padding: 10px 0; }
         
         /* Hero Header */
@@ -53,11 +55,10 @@
         .hero-header::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 35%; background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0)); z-index: 1; }
         .hero-content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 20px; box-sizing: border-box; z-index: 2; }
         
-        /* 日本時間時鐘 */
+        /* 日本時鐘 */
         .hero-time-group { position: absolute; top: 15px; left: 20px; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
         .hero-time-label { color: #EEE; font-size: 0.7em; font-weight: 600; letter-spacing: 1px; display: block; margin-bottom: -5px; }
         .hero-time-display { font-size: 2.8em; font-weight: 700; line-height: 1; color: white; display: inline-block;}
-        
         .hero-date-text { font-size: 0.9em; position: absolute; top: 70px; left: 20px; color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.5); letter-spacing: 1px; }
         .countdown-display { position: absolute; top: 20px; right: 20px; color: white; font-size: 0.9em; font-weight: 600; background: rgba(0, 0, 0, 0.4); padding: 5px 10px; border-radius: 5px; letter-spacing: 1px; text-shadow: none; }
         
@@ -81,9 +82,23 @@
         .flight-reminder { background: rgba(255, 255, 255, 0.2); color: white; padding: 5px 10px; border-radius: 6px; margin-top: 15px; display: inline-block; font-size: 0.9em; }
         .map-container { margin: 0 20px 20px 20px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
         .map-container iframe { width: 100%; height: 250px; border: none; display: block; }
-        .location-link { display: block; margin: 15px 0; text-decoration: none; font-weight: bold; color: #C48E44; font-size: 1.1em; padding: 10px 15px; background-color: #FFF8E0; border-radius: 8px; border: 1px solid #E8E8E8; text-align: center; transition: background-color 0.3s; }
         
-        /* 標籤 */
+        /* 地點連結按鈕 (已修復點擊) */
+        .location-link { 
+            display: block; 
+            margin: 15px 0; 
+            text-decoration: none;
+            font-weight: bold;
+            color: #C48E44; 
+            font-size: 1.1em;
+            padding: 10px 15px;
+            background-color: #FFF8E0;
+            border-radius: 8px;
+            border: 1px solid #E8E8E8;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        
         .tag { display: inline-block; padding: 4px 10px; margin: 3px 5px 3px 0; border-radius: 6px; font-size: 0.75em; font-weight: bold; }
         .tag-pass { background-color: #F4E8D4; color: #7B6858; } 
         .tag-must-do { background-color: #E6F3E6; color: #4CAF50; }
@@ -101,27 +116,12 @@
         .item-list li:last-child { border-bottom: none; }
         .item-list .time { font-weight: bold; color: #555; margin-right: 8px; }
         
-        /* 記帳樣式 */
         .budget-input-group { margin-bottom: 15px; }
         .budget-input-group input { padding: 10px; border-radius: 6px; border: 1px solid #E8E8E8; width: 100%; box-sizing: border-box; margin-top: 5px; }
         .budget-input-group .action-button { width: auto; display: inline-block; padding: 5px 10px; margin-top: 5px; }
         .budget-input-group input[type="number"]#exchangeRate { width: 80px; display: inline-block; }
         
-        /* 刪除按鈕 */
-        .delete-btn {
-            position: absolute;
-            right: 0;
-            top: 10px;
-            color: #D83A56;
-            cursor: pointer;
-            font-weight: bold;
-            padding: 0 10px;
-            background: #FFF0F0;
-            border-radius: 4px;
-            font-size: 0.8em;
-        }
-        
-        /* Checkbox */
+        .delete-btn { position: absolute; right: 0; top: 10px; color: #D83A56; cursor: pointer; font-weight: bold; padding: 0 10px; background: #FFF0F0; border-radius: 4px; font-size: 0.8em; }
         .task-list { list-style: none; padding: 0; margin: 0; }
         .task-list li { padding: 10px 0; border-bottom: 1px dashed #E5E5E5; display: flex; align-items: center; }
         .task-list input[type="checkbox"] { margin-right: 15px; min-width: 20px; min-height: 20px; accent-color: #7B6858; cursor: pointer; }
@@ -166,8 +166,8 @@
                 <iframe src="https://maps.google.com/maps?q=A-PIT+Autobacs+Shinonome&t=&z=13&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
             </div>
             <div class="card"><h3>✈️ 交通與住宿</h3><ul class="item-list"><li>搭乘 SKYLINER (12:42/13:02)</li><li>Check-in Comfort Hotel Tokyo Kanda (12/6 - 12/8)</li></ul></div>
-            <div class="card"><h3>🚗 下午活動</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東雲A-PIT+Super+Autobacs" target="_blank" class="location-link">📍 東雲 A-PIT Super Autobacs</a></div>
-            <div class="card"><h3>🍽️ 晚餐預約</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=肉屋橫丁+秋葉原" target="_blank" class="location-link">📍 肉屋橫丁 秋葉原</a><ul class="item-list"><li>20:00 預約 <span class="tag tag-reservation">重要</span></li></ul></div>
+            <div class="card"><h3>🚗 下午活動</h3><a href="https://www.google.com/maps/search/?api=1&query=A-PIT+Autobacs+Shinonome" target="_blank" class="location-link">📍 東雲 A pit</a></div>
+            <div class="card"><h3>🍽️ 晚餐預約</h3><a href="https://www.google.com/maps/search/?api=1&query=Nikuya+Yokocho+Akihabara" target="_blank" class="location-link">📍 肉屋橫丁 秋葉原</a><ul class="item-list"><li>20:00 預約 <span class="tag tag-reservation">重要</span></li></ul></div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
         </div>
         
@@ -179,14 +179,14 @@
             </div>
             <div class="card">
                 <h3>🎄 戶外活動</h3>
-                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京聖誕+Advent+in+上野公園" target="_blank" class="location-link">📍 上野聖誕市集</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Ueno+Park+Christmas+Market" target="_blank" class="location-link">📍 上野聖誕市集</a>
                 <ul class="item-list">
                     <li>川越半日遊</li>
                     <li><span class="tag tag-xmas">聖誕市集</span> 東京聖誕 Advent</li>
-                    <li>晴空塔聖誕市集</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Skytree+Christmas" target="_blank" style="text-decoration:none; color:#C48E44; font-weight:bold;">晴空塔聖誕市集</a></li>
                 </ul>
             </div>
-            <div class="card"><h3>🍽️ 晚餐預約</h3><a href="http://googleusercontent.com/maps.app.goo.gl/search?q=yakiniku+yattyattyan" target="_blank" class="location-link">📍 焼肉やっちゃん 神田店</a><ul class="item-list"><li>21:30 預約</li></ul></div>
+            <div class="card"><h3>🍽️ 晚餐預約</h3><a href="https://www.google.com/maps/search/?api=1&query=Yakiniku+Yacchan+Kanda" target="_blank" class="location-link">📍 焼肉やっちゃん 神田店</a><ul class="item-list"><li>21:30 預約</li></ul></div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
         </div>
         
@@ -198,9 +198,9 @@
             </div>
             <div class="card">
                 <h3>🏰 迪士尼樂園</h3>
-                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京迪士尼樂園" target="_blank" class="location-link">📍 東京迪士尼樂園</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+Disneyland" target="_blank" class="location-link">📍 東京迪士尼樂園</a>
                 <ul class="item-list">
-                    <li><span class="time">09:00</span> アリエス 新宿東南口店 <span class="tag tag-reservation">預約</span></li>
+                    <li><span class="time">09:00</span> <a href="https://www.google.com/maps/search/?api=1&query=Aries+Shinjuku+Southeast+Exit" target="_blank" style="text-decoration:none; color:#C48E44;">アリエス 新宿東南口店</a> <span class="tag tag-reservation">預約</span></li>
                     <li><span class="time">17:00</span> 美女與野獸 <span class="tag tag-reservation">DPA已買</span></li>
                 </ul>
             </div>
@@ -224,7 +224,7 @@
             </div>
             <div class="card">
                 <h3>🔱 迪士尼海洋 (夢幻泉鄉)</h3>
-                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=東京迪士尼海洋" target="_blank" class="location-link">📍 東京迪士尼海洋</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Tokyo+DisneySea" target="_blank" class="location-link">📍 東京迪士尼海洋</a>
                 <ul class="item-list">
                     <li><span class="time">08:20</span> 早餐預約</li>
                     <li>預約設施：<span class="time">10:00</span> Elsa、<span class="time">11:30</span> 樂佩、<span class="time">13:30</span> 彼得潘</li>
@@ -235,7 +235,7 @@
                 <ul class="item-list">
                     <li>必玩：<span class="tag tag-pass">玩具總動員</span>、<span class="tag tag-pass">驚魂古塔</span>、<span class="tag tag-pass">地心探險</span></li>
                     <li>表演：<span class="time">14:15</span> 聖誕迎賓會 / <span class="time">15:25</span> 達菲旅程</li>
-                    <li>住宿：Check-in REMM PLUS GINZA</li>
+                    <li>住宿：<a href="https://www.google.com/maps/search/?api=1&query=REMM+PLUS+GINZA" target="_blank" style="text-decoration:none; color:#C48E44;">Check-in REMM PLUS GINZA</a></li>
                 </ul>
             </div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-label_1="TOKYO" data-theme="original" >TOKYO WEATHER</a></div>
@@ -249,19 +249,19 @@
             </div>
             <div class="card">
                 <h3>🛍️ 購物與美食</h3>
-                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=吉伊卡哇樂園" target="_blank" class="location-link">📍 吉伊卡哇樂園</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Chiikawa+Park" target="_blank" class="location-link">📍 吉伊卡哇樂園 (Chiikawa Park)</a>
                 <ul class="item-list">
-                    <li><span class="time">午餐</span> ねぎし Negishi 池袋東口店 <span class="tag tag-food">牛舌</span></li>
+                    <li><span class="time">午餐</span> <a href="https://www.google.com/maps/search/?api=1&query=Negishi+Ikebukuro+East+Exit" target="_blank" style="text-decoration:none; color:#C48E44;">ねぎし Negish池袋東口店</a> <span class="tag tag-food">牛舌</span></li>
                     <li><span class="time">13:40</span> 吉伊卡哇樂園 (入場)</li>
                     <li><span class="time">下午</span> 原宿逛街</li>
                 </ul>
             </div>
             <div class="card">
                 <h3>🎄 聖誕夜景</h3>
-                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=明治神宮外苑聖誕市集" target="_blank" class="location-link">📍 明治神宮外苑</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Meiji+Jingu+Gaien" target="_blank" class="location-link">📍 明治神宮外苑</a>
                 <ul class="item-list">
                     <li><span class="tag tag-xmas">聖誕市集</span> 明治神宮外苑</li>
-                    <li><span class="tag tag-xmas">可選</span> 芝公園</li>
+                    <li><span class="tag tag-xmas">可選</span> <a href="https://www.google.com/maps/search/?api=1&query=Shiba+Park" target="_blank" style="text-decoration:none; color:#C48E44;">芝公園</a></li>
                 </ul>
             </div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-theme="original" >TOKYO WEATHER</a></div>
@@ -275,12 +275,12 @@
             </div>
             <div class="card">
                 <h3>🗼 市區活動</h3>
-                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=六本木新城" target="_blank" class="location-link">📍 六本木新城 & 麻布台Hills</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Roppongi+Hills" target="_blank" class="location-link">📍 六本木新城 & 麻布台hills</a>
                 <ul class="item-list">
-                    <li><span class="time">早餐</span> Tricolore coffee <span class="tag tag-food">咖啡</span></li>
-                    <li><span class="time">上午</span> BINGO SPORTS <span class="tag tag-buy">看車</span></li>
-                    <li><span class="time">中午</span> 六本木新城 & 麻布台Hills <span class="tag tag-xmas">聖誕</span></li>
-                    <li><span class="time">晚上</span> 丸之內 Street Park</li>
+                    <li><span class="time">早餐</span> <a href="https://www.google.com/maps/search/?api=1&query=Tricolore+coffee" target="_blank" style="text-decoration:none; color:#C48E44;">Tricolore coffee</a> <span class="tag tag-food">咖啡</span></li>
+                    <li><span class="time">上午</span> <a href="https://www.google.com/maps/search/?api=1&query=BINGO+SPORTS+Tokyo" target="_blank" style="text-decoration:none; color:#C48E44;">BINGO Sports</a> <span class="tag tag-buy">看車</span></li>
+                    <li><span class="time">中午</span> 六本木新城 & 麻布台hills <span class="tag tag-xmas">聖誕</span></li>
+                    <li><span class="time">晚上</span> <a href="https://www.google.com/maps/search/?api=1&query=Marunouchi+Street+Park" target="_blank" style="text-decoration:none; color:#C48E44;">丸之內street park</a></li>
                 </ul>
             </div>
             <div class="weather-info"><a class="weatherwidget-io" href="https://forecast7.com/zh-tw/35d69139d69/tokyo/" data-theme="original" >TOKYO WEATHER</a></div>
@@ -295,7 +295,7 @@
             </div>
             <div class="card">
                 <h3>✈️ 返程與購物</h3>
-                <a href="http://googleusercontent.com/maps.app.goo.gl/search?q=成田機場" target="_blank" class="location-link">📍 成田機場</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Narita+International+Airport" target="_blank" class="location-link">📍 成田機場</a>
                 <ul class="item-list">
                     <li><span class="time">上午</span> Check-out 飯店</li>
                     <li><span class="time">交通</span> SKYLINER (14:20/14:37)</li>
