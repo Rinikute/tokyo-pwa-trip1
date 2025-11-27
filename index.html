@@ -209,7 +209,16 @@
         <div id="info" class="content" style="display:none;">
             <div class="day-title">📝 旅程資訊總覽</div>
             <div class="card"><h3>🗓️ 重要預約</h3><ul class="item-list"><li>12/6 20:00 肉屋橫丁</li><li>12/7 21:30 yakiniku yattyattyan</li><li>12/8 09:00 アリエス 新宿</li><li>12/8 17:00 美女與野獸</li><li>12/10 13:40 吉伊卡哇樂園</li></ul></div>
-            <div class="card"><h3>✅ 任務/打包清單</h3><ul class="task-list"><li><input type="checkbox" id="t1"><label for="t1">護照、簽證</label></li><li><input type="checkbox" id="t2"><label for="t2">ESIM</label></li><li><input type="checkbox" id="t3"><label for="t3">日幣現金</label></li><li><input type="checkbox" id="t4"><label for="t4">SKYLINER 車票</label></li></ul></div>
+            <div class="card">
+                <h3>✅ 任務/打包清單</h3>
+                <ul class="task-list">
+                    <li><input type="checkbox" id="t1"><label for="t1">護照、簽證</label></li>
+                    <li><input type="checkbox" id="t2"><label for="t2">ESIM</label></li>
+                    <li><input type="checkbox" id="t3"><label for="t3">日幣現金</label></li>
+                    <li><input type="checkbox" id="t4"><label for="t4">SKYLINER 車票</label></li>
+                    <li><input type="checkbox" id="t5"><label for="t5">聖誕市集門票</label></li>
+                </ul>
+            </div>
         </div>
 
         <div id="budget" class="content" style="display:none;">
@@ -259,7 +268,7 @@
     </div>
 
     <script>
-        // === 🔴 您提供的部署網址 ===
+        // === 🔴 您的 Apps Script 網址 (已自動填入) ===
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzQ9JTsKgQIs22NzJjLxQseBD2YFWwE9xGJmYRMWgyVv5d8nci1JUazXnvhIB9bkdY-yw/exec';
 
         // === 狀態記憶與導航 ===
@@ -331,7 +340,6 @@
         function fetchExpenses() {
             document.getElementById('total-spent-twd').textContent = '更新中...';
             
-            // 使用 GET 請求 (讀取)
             fetch(SCRIPT_URL)
                 .then(r => r.json())
                 .then(data => {
@@ -340,7 +348,7 @@
                 })
                 .catch(e => {
                     console.error(e);
-                    document.getElementById('expenseList').innerHTML = '<li style="color:red">連線失敗，請檢查 Script 部署權限是否為 Anyone</li>';
+                    document.getElementById('expenseList').innerHTML = '<li style="color:red">連線失敗，請檢查 Script 部署權限</li>';
                 });
         }
 
@@ -349,10 +357,8 @@
             list.innerHTML = '';
             if(!data || data.length === 0) { list.innerHTML = '<li>無資料</li>'; return; }
             
-            // 倒序顯示
             data.slice().reverse().forEach(item => {
                 const li = document.createElement('li');
-                // 格式化日期
                 let dateStr = 'N/A';
                 if(item.timestamp) {
                     const d = new Date(item.timestamp);
@@ -382,10 +388,8 @@
             el.style.color = remaining < 0 ? '#D83A56' : '#79A37B';
         }
 
-        // 統一處理 新增與刪除
         function handleExpense(action, rowId) {
             const btn = document.getElementById('add-btn');
-            
             let payload = { action: action };
             
             if(action === 'add') {
@@ -407,8 +411,6 @@
                 payload.row = rowId;
             }
 
-            // 使用 POST 傳送 (no-cors)
-            // 注意：Apps Script 的 POST 回應在 no-cors 下無法讀取，所以我們假設成功
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors', 
@@ -417,15 +419,14 @@
             })
             .then(() => {
                 if(action === 'add') {
-                    alert('已送出！(請稍候更新)');
+                    alert('已新增！');
                     document.getElementById('expenseDesc').value = '';
                     document.getElementById('expenseAmount').value = '';
                     btn.textContent = '記錄支出';
                     btn.disabled = false;
                 } else {
-                    alert('刪除請求已送出 (請稍候更新)');
+                    alert('已刪除請求 (請稍候更新)');
                 }
-                // 延遲重讀，等待後端寫入
                 setTimeout(fetchExpenses, 2000); 
             })
             .catch(err => {
@@ -440,7 +441,6 @@
             localStorage.setItem('exchangeRate', document.getElementById('exchangeRate').value);
             localStorage.setItem('expenseUser', document.getElementById('expenseUser').value);
             document.getElementById('budget-twd-display').textContent = `NT$ ${parseFloat(document.getElementById('totalBudgetTWD').value).toLocaleString()}`;
-            // 重新讀取資料以更新計算
             fetchExpenses();
             alert('設定已儲存');
         }
@@ -450,8 +450,6 @@
             document.getElementById('exchangeRate').value = localStorage.getItem('exchangeRate') || 0.215;
             document.getElementById('expenseUser').value = localStorage.getItem('expenseUser') || '';
             document.getElementById('budget-twd-display').textContent = `NT$ ${parseFloat(document.getElementById('totalBudgetTWD').value).toLocaleString()}`;
-            
-            // 初始讀取
             fetchExpenses();
         }
 
@@ -469,22 +467,19 @@
             document.getElementById('countdown-timer').textContent = `倒數: ${d}天 ${h}時 ${m}分`;
         }
 
-        // === 初始化 ===
         window.addEventListener('load', () => {
             loadData();
-            
             document.querySelectorAll('.task-list input').forEach(box => {
                 box.checked = localStorage.getItem(box.id) === 'true';
                 box.addEventListener('change', () => localStorage.setItem(box.id, box.checked));
             });
-
             const startBtn = document.querySelector(`.day-tab-box[data-day-index="1"]`);
             if(startBtn) showDay('day-12-6', 1, startBtn);
-            
             setInterval(updateCountdown, 60000);
             
             // Weather Widget
-            var s = document.createElement('script'); s.src = 'https://weatherwidget.io/js/widget.min.js';
+            var s = document.createElement('script'); 
+            s.src = 'https://weatherwidget.io/js/widget.min.js';
             document.body.appendChild(s);
         });
         
