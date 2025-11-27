@@ -666,8 +666,8 @@
 
         // 讀取資料：Google Sheets API 參數
         const SPREADSHEET_ID = '1quyZDgEyX5FMDQmGAkVrQo7CJEFaEN16VHHTzgCrn5s';
-        const API_KEY = 'AIzaSyCl_ODTCAkNG-hJ9uAvc9bGPhD59_LLJC8'; 
-        // 關鍵修正：將工作表名稱改為 'Sheet1' (通用英文預設)
+        const API_KEY = 'AIzaSyBZPQ0KcoeG_UI0ygyZzFiESodoqmJiOFA'; // <--- 已更新為最新的無限制密鑰
+        // 關鍵修正：工作表名稱為 'Sheet1'
         const SHEET_API_URL = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/Sheet1!A2:E?key=${API_KEY}`;
 
 
@@ -881,8 +881,8 @@
                     document.getElementById('total-spent-jpy').textContent = '讀取失敗';
                     document.getElementById('total-spent-twd').textContent = '讀取失敗';
                     document.getElementById('remaining-twd').textContent = '讀取失敗';
-                    // 修正錯誤提示：可能是 Sheet1 名稱錯誤
-                    document.getElementById('expenseList').innerHTML = '<li><span style="color: red;">⚠️ 資料讀取失敗，請確認 API 密鑰與試算表名稱 (Sheet1)。</span></li>';
+                    // 修正錯誤提示：已確認 Sheet1 名稱
+                    document.getElementById('expenseList').innerHTML = '<li><span style="color: red;">⚠️ 資料讀取失敗，請確認試算表已發佈，且新 API 密鑰已啟用。</span></li>';
                 });
         }
         
